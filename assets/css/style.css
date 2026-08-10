@@ -1,0 +1,15 @@
+/* AJOUT POUR LE MODE DYS */
+body.dys-mode {
+    font-family: var(--font-dys) !important;
+    font-size: 1.3rem !important;
+    line-height: 2 !important;
+    letter-spacing: 0.1rem !important;
+}
+body.dys-mode p {
+    margin-bottom: 1.5rem;
+    padding: 10px;
+}
+body.dys-mode p:nth-child(even) {
+    background-color: rgba(67, 97, 238, 0.05); /* Surlignage léger */
+    border-radius: 8px;
+}

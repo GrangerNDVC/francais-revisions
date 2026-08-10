@@ -1,0 +1,217 @@
+{
+  "lesson_id": "present-indicatif",
+  "quiz_title": "Quiz : Le Présent de l'Indicatif",
+  "total_points": 100,
+  "time_limit": 600,
+  "passing_score": 60,
+  
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple_choice",
+      "difficulty": "facile",
+      "points": 5,
+      "question": "Quelle est la terminaison de 'je' pour les verbes du 1er groupe au présent ?",
+      "options": [
+        "e",
+        "es",
+        "ons",
+        "ez"
+      ],
+      "correct_answer": 0,
+      "explanation": "Pour les verbes du 1er groupe, la terminaison à la 1ère personne du singulier est toujours <strong>'e'</strong> (ex: je chant<strong>e</strong>, je dans<strong>e</strong>).",
+      "keywords": ["terminaisons", "1er groupe", "je"],
+      "hint": "Pensez au verbe 'chanter' : je chant..."
+    },
+    
+    {
+      "id": "q2",
+      "type": "fill_blank",
+      "difficulty": "moyen",
+      "points": 10,
+      "question": "Conjuguez le verbe 'finir' à la 3ème personne du pluriel : Ils _____",
+      "correct_answer": "finissent",
+      "alternative_answers": ["finissent"],
+      "explanation": "Les verbes du 2ème groupe prennent la terminaison <strong>'-issent'</strong> à la 3ème personne du pluriel.",
+      "keywords": ["2ème groupe", "pluriel", "terminaisons"],
+      "hint": "Terminaison en '-issent' pour le 2ème groupe"
+    },
+    
+    {
+      "id": "q3",
+      "type": "multiple_choice",
+      "difficulty": "moyen",
+      "points": 10,
+      "question": "Quel verbe est correctement conjugué au présent ?",
+      "options": [
+        "Nous travaillons",
+        "Nous travaillont",
+        "Nous travaillions",
+        "Nous travaillais"
+      ],
+      "correct_answer": 0,
+      "explanation": "Au présent, 'nous' prend la terminaison <strong>-ons</strong> pour tous les groupes (sauf être/avoir).",
+      "keywords": ["nous", "terminaisons", "présent"],
+      "hint": "Avec 'nous', pensez toujours à -ONS"
+    },
+    
+    {
+      "id": "q4",
+      "type": "true_false",
+      "difficulty": "facile",
+      "points": 5,
+      "question": "Le verbe 'aller' est un verbe régulier du 1er groupe.",
+      "correct_answer": false,
+      "explanation": "FAUX. 'Aller' est un verbe <strong>irrégulier</strong> du 3ème groupe, même s'il se termine en -er. (je vais, tu vas, il va, nous allons...)",
+      "keywords": ["aller", "irréguliers", "3ème groupe"]
+    },
+    
+    {
+      "id": "q5",
+      "type": "multiple_choice",
+      "difficulty": "difficile",
+      "points": 15,
+      "question": "Comment conjugue-t-on 'commencer' avec 'nous' au présent ?",
+      "options": [
+        "Nous commencons",
+        "Nous commençons",
+        "Nous commenssons",
+        "Nous commencons"
+      ],
+      "correct_answer": 1,
+      "explanation": "Les verbes en <strong>-CER</strong> prennent une cédille (ç) devant 'o' pour garder le son [s] : nous commen<strong>ç</strong>ons.",
+      "keywords": ["verbes en -cer", "cédille", "orthographe"],
+      "hint": "Pensez au son : on doit entendre [s]"
+    },
+    
+    {
+      "id": "q6",
+      "type": "fill_blank",
+      "difficulty": "moyen",
+      "points": 10,
+      "question": "Complétez : Tu (être) _____ mon meilleur ami.",
+      "correct_answer": "es",
+      "alternative_answers": ["es"],
+      "explanation": "Le verbe 'être' au présent avec TU : tu <strong>es</strong>. C'est un verbe irrégulier très fréquent à connaître par cœur.",
+      "keywords": ["être", "irréguliers"],
+      "hint": "C'est une forme très courte, 2 lettres seulement"
+    },
+    
+    {
+      "id": "q7",
+      "type": "multiple_choice",
+      "difficulty": "moyen",
+      "points": 10,
+      "question": "Quelle phrase utilise CORRECTEMENT le présent pour exprimer une habitude ?",
+      "options": [
+        "Je vais au cinéma maintenant.",
+        "Je vais au cinéma tous les samedis.",
+        "J'irai au cinéma demain.",
+        "Je suis allé au cinéma hier."
+      ],
+      "correct_answer": 1,
+      "explanation": "Le présent exprime une <strong>habitude</strong> avec des marqueurs de temps comme 'tous les jours', 'chaque samedi', 'souvent'...",
+      "keywords": ["habitude", "utilisation du présent"],
+      "hint": "Cherchez l'expression de répétition"
+    },
+    
+    {
+      "id": "q8",
+      "type": "fill_blank",
+      "difficulty": "difficile",
+      "points": 15,
+      "question": "Conjuguez 'manger' avec 'nous' : Nous _____ une pizza.",
+      "correct_answer": "mangeons",
+      "alternative_answers": ["mangeons"],
+      "explanation": "Les verbes en <strong>-GER</strong> prennent un 'e' après le 'g' devant 'o' pour garder le son [ʒ] : nous mange<strong>o</strong>ns.",
+      "keywords": ["verbes en -ger", "orthographe", "nous"],
+      "hint": "Il faut ajouter une lettre entre 'g' et 'ons'"
+    },
+    
+    {
+      "id": "q9",
+      "type": "multiple_choice",
+      "difficulty": "facile",
+      "points": 5,
+      "question": "Identifiez le groupe du verbe 'grandir'.",
+      "options": [
+        "1er groupe",
+        "2ème groupe",
+        "3ème groupe",
+        "Auxiliaire"
+      ],
+      "correct_answer": 1,
+      "explanation": "Le verbe 'grandir' appartient au <strong>2ème groupe</strong> car il fait 'nous grand<strong>issons</strong>' au présent.",
+      "keywords": ["groupes", "2ème groupe", "identification"],
+      "hint": "Testez avec 'nous' : nous grandissons"
+    },
+    
+    {
+      "id": "q10",
+      "type": "fill_blank",
+      "difficulty": "difficile",
+      "points": 15,
+      "question": "Conjuguez 'faire' à la 3ème personne du pluriel : Ils _____ leurs devoirs.",
+      "correct_answer": "font",
+      "alternative_answers": ["font"],
+      "explanation": "Le verbe 'faire' est <strong>irrégulier</strong> : ils <strong>font</strong>. Attention, ce n'est pas 'faisent' !",
+      "keywords": ["faire", "irréguliers", "3ème groupe"],
+      "hint": "C'est une forme courte et irrégulière"
+    }
+  ],
+  
+  "feedback": {
+    "excellent": {
+      "min_score": 80,
+      "message": "🏆 Excellent ! Tu maîtrises parfaitement le présent de l'indicatif.",
+      "advice": "Continue comme ça ! Tu peux maintenant passer aux temps composés."
+    },
+    "good": {
+      "min_score": 60,
+      "max_score": 79,
+      "message": "👍 Bien ! Tu as compris les bases du présent.",
+      "advice": "Revois les exceptions et les verbes irréguliers pour viser l'excellence."
+    },
+    "needs_work": {
+      "min_score": 40,
+      "max_score": 59,
+      "message": "📚 Continue tes efforts ! Le présent demande encore du travail.",
+      "advice": "Relis attentivement la leçon, notamment les tableaux de conjugaison."
+    },
+    "must_retry": {
+      "max_score": 39,
+      "message": "💪 Courage ! Reprends la leçon avant de retenter le quiz.",
+      "advice": "Concentre-toi sur les terminaisons de chaque groupe et apprends les verbes irréguliers par cœur."
+    }
+  },
+  
+  "recommendations": {
+    "weak_keywords": {
+      "terminaisons": {
+        "message": "Tu as des difficultés avec les terminaisons.",
+        "action": "Relis la section 'Conjugaison des 3 groupes' de la leçon.",
+        "resources": ["Tableau récapitulatif des terminaisons", "Exercices de drill"]
+      },
+      "irréguliers": {
+        "message": "Les verbes irréguliers te posent problème.",
+        "action": "Apprends par cœur les conjugaisons de être, avoir, aller, faire.",
+        "resources": ["Flashcards verbes irréguliers", "Quiz spécial irréguliers"]
+      },
+      "orthographe": {
+        "message": "Attention aux particularités orthographiques (ç, e...).",
+        "action": "Revois les règles des verbes en -CER et -GER.",
+        "resources": ["Fiche orthographe conjugaison"]
+      }
+    }
+  },
+  
+  "metadata": {
+    "created_at": "2024-01-15",
+    "updated_at": "2026-02-04",
+    "author": "Équipe pédagogique",
+    "version": "1.0",
+    "average_completion_time": 480,
+    "average_score": 72,
+    "total_attempts": 0
+  }
+}

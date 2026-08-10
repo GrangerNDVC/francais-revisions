@@ -1,0 +1,38 @@
+{
+  "categories": [
+    {
+      "id": "conjugaison",
+      "name": "Conjugaison",
+      "icon": "fas fa-book",
+      "color": "#4361ee",
+      "lessons": [
+        {
+          "id": "present-indicatif",
+          "title": "Le Présent de l'Indicatif",
+          "difficulty": "débutant",
+          "estimated_time": 30,
+          "sections": [
+            {
+              "type": "text",
+              "content": "Le présent de l'indicatif exprime un fait qui se déroule au moment où l'on parle."
+            },
+            {
+              "type": "table",
+              "title": "Conjugaison des 3 groupes",
+              "data": {
+                "headers": ["Groupe", "Je", "Tu", "Il/Elle"],
+                "rows": [
+                  ["1er groupe (verbes en -er)", "chant<strong>e</strong>", "chant<strong>es</strong>", "chant<strong>e</strong>"],
+                  ["2ème groupe (verbes en -ir)", "fin<strong>is</strong>", "fin<strong>is</strong>", "fin<strong>it</strong>"],
+                  ["3ème groupe (irréguliers)", "prend<strong>s</strong>", "prend<strong>s</strong>", "prend"]
+                ]
+              }
+            }
+          ],
+          "tips": ["Astuce: 'Je E, Tu ES, Il E, Nous ONS, Vous EZ, Ils ENT'"],
+          "keywords": ["présent", "indicatif", "conjugaison", "verbes"]
+        }
+      ]
+    }
+  ]
+}

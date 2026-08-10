@@ -1,0 +1,267 @@
+{
+  "id": "present-indicatif",
+  "title": "Le Présent de l'Indicatif",
+  "category": "conjugaison",
+  "difficulty": "débutant",
+  "estimated_time": 30,
+  "tags": ["temps simple", "indicatif", "conjugaison"],
+  "icon": "fas fa-clock",
+  "color": "#4361ee",
+  
+  "sections": [
+    {
+      "type": "text",
+      "title": "Définition",
+      "content": "Le présent de l'indicatif exprime un fait qui se déroule au moment où l'on parle, une vérité générale, ou une action habituelle."
+    },
+    {
+      "type": "text",
+      "title": "Utilisation",
+      "content": "On utilise le présent pour :<ul><li>Une action en cours : <em>Je <strong>mange</strong> une pomme</em></li><li>Une vérité générale : <em>La Terre <strong>tourne</strong> autour du Soleil</em></li><li>Une habitude : <em>Je <strong>vais</strong> à l'école tous les jours</em></li></ul>"
+    },
+    {
+      "type": "table",
+      "title": "Conjugaison des 3 groupes",
+      "data": {
+        "headers": ["Groupe", "Je", "Tu", "Il/Elle", "Nous", "Vous", "Ils/Elles"],
+        "rows": [
+          [
+            "1er groupe (verbes en -er)",
+            "chant<strong>e</strong>",
+            "chant<strong>es</strong>",
+            "chant<strong>e</strong>",
+            "chant<strong>ons</strong>",
+            "chant<strong>ez</strong>",
+            "chant<strong>ent</strong>"
+          ],
+          [
+            "2ème groupe (verbes en -ir)",
+            "fin<strong>is</strong>",
+            "fin<strong>is</strong>",
+            "fin<strong>it</strong>",
+            "fin<strong>issons</strong>",
+            "fin<strong>issez</strong>",
+            "fin<strong>issent</strong>"
+          ],
+          [
+            "3ème groupe (irréguliers)",
+            "prend<strong>s</strong>",
+            "prend<strong>s</strong>",
+            "prend",
+            "pren<strong>ons</strong>",
+            "pren<strong>ez</strong>",
+            "prenn<strong>ent</strong>"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "exemple",
+      "title": "Exemples contextualisés",
+      "content": [
+        {
+          "verb": "Parler (1er groupe)",
+          "example": "Je <strong>parle</strong> français tous les jours.",
+          "note": "Verbe régulier du 1er groupe"
+        },
+        {
+          "verb": "Réussir (2ème groupe)",
+          "example": "Tu <strong>réussis</strong> ton examen.",
+          "note": "Attention au double 's' avec nous/vous/ils"
+        },
+        {
+          "verb": "Faire (3ème groupe)",
+          "example": "Il <strong>fait</strong> ses devoirs.",
+          "note": "Verbe irrégulier - attention aux formes"
+        }
+      ]
+    }
+  ],
+  
+  "tips": [
+    {
+      "title": "Astuce des terminaisons du 1er groupe",
+      "content": "Pour ne jamais oublier : <strong>E - ES - E - ONS - EZ - ENT</strong>",
+      "icon": "fas fa-lightbulb",
+      "color": "#ffb703"
+    },
+    {
+      "title": "Reconnaître le 2ème groupe",
+      "content": "Si le verbe fait <em>-issons</em> avec NOUS, c'est du 2ème groupe ! Ex: nous fin<strong>issons</strong>, nous grand<strong>issons</strong>",
+      "icon": "fas fa-search",
+      "color": "#4cc9f0"
+    },
+    {
+      "title": "Mémorisation rapide",
+      "content": "Les verbes du 3ème groupe ont souvent des formes spéciales. Il faut les apprendre par cœur (aller, être, avoir, faire, dire...)",
+      "icon": "fas fa-brain",
+      "color": "#f72585"
+    }
+  ],
+  
+  "examples": [
+    "Tous les matins, je <strong>me réveille</strong> à 7 heures.",
+    "Nous <strong>habitons</strong> en France depuis 5 ans.",
+    "Les élèves <strong>travaillent</strong> dur pour le brevet.",
+    "Tu <strong>choisis</strong> ton avenir dès maintenant.",
+    "Elle <strong>va</strong> à l'école à pied."
+  ],
+  
+  "exceptions": [
+    {
+      "title": "Verbes irréguliers fréquents",
+      "icon": "fas fa-exclamation-triangle",
+      "description": "Ces verbes ne suivent PAS les règles classiques et doivent être appris par cœur.",
+      "examples": [
+        {
+          "verb": "Être",
+          "conjugation": "je suis, tu es, il est, nous sommes, vous êtes, ils sont"
+        },
+        {
+          "verb": "Avoir",
+          "conjugation": "j'ai, tu as, il a, nous avons, vous avez, ils ont"
+        },
+        {
+          "verb": "Aller",
+          "conjugation": "je vais, tu vas, il va, nous allons, vous allez, ils vont"
+        },
+        {
+          "verb": "Faire",
+          "conjugation": "je fais, tu fais, il fait, nous faisons, vous faites, ils font"
+        }
+      ]
+    },
+    {
+      "title": "Pièges courants",
+      "icon": "fas fa-bomb",
+      "description": "Attention aux erreurs fréquentes !",
+      "examples": [
+        {
+          "error": "❌ Je <em>travails</em>",
+          "correct": "✅ Je <strong>travaille</strong>",
+          "explanation": "Les verbes en -ailler, -eiller gardent le 'i' même au présent"
+        },
+        {
+          "error": "❌ Nous <em>finons</em>",
+          "correct": "✅ Nous <strong>finissons</strong>",
+          "explanation": "2ème groupe : ne pas oublier -issons"
+        },
+        {
+          "error": "❌ Ils <em>prends</em>",
+          "correct": "✅ Ils <strong>prennent</strong>",
+          "explanation": "3ème personne du pluriel : double consonne + -ent"
+        }
+      ]
+    },
+    {
+      "title": "Cas particuliers - Verbes en -CER et -GER",
+      "icon": "fas fa-star",
+      "description": "Ces verbes changent légèrement pour garder leur son.",
+      "examples": [
+        {
+          "verb": "Commencer",
+          "note": "Nous commen<strong>ç</strong>ons (cédille pour garder le son [s])"
+        },
+        {
+          "verb": "Manger",
+          "note": "Nous mange<strong>o</strong>ns (e ajouté pour garder le son [ʒ])"
+        }
+      ]
+    }
+  ],
+  
+  "exercises": [
+    {
+      "type": "completion",
+      "instruction": "Conjuguez les verbes entre parenthèses au présent de l'indicatif :",
+      "questions": [
+        "Je (parler) _____ avec mon ami.",
+        "Tu (finir) _____ tes devoirs.",
+        "Nous (aller) _____ au cinéma.",
+        "Vous (être) _____ intelligents.",
+        "Ils (avoir) _____ un chien."
+      ],
+      "answers": ["parle", "finis", "allons", "êtes", "ont"]
+    },
+    {
+      "type": "identification",
+      "instruction": "Identifiez le groupe de chaque verbe :",
+      "questions": [
+        "chanter",
+        "grandir",
+        "prendre",
+        "danser",
+        "vouloir"
+      ],
+      "answers": ["1er", "2ème", "3ème", "1er", "3ème"]
+    }
+  ],
+  
+  "resources": [
+    {
+      "type": "video",
+      "title": "Leçon vidéo sur le présent",
+      "platform": "YouTube",
+      "duration": "8:30",
+      "url": "https://www.youtube.com/watch?v=example",
+      "description": "Explication complète avec exemples"
+    },
+    {
+      "type": "exercices_interactifs",
+      "title": "Exercices en ligne",
+      "url": "https://www.francaisfacile.com",
+      "description": "Pratiquez avec des exercices corrigés"
+    },
+    {
+      "type": "fiche",
+      "title": "Fiche de synthèse PDF",
+      "url": "assets/pdf/present-indicatif.pdf",
+      "description": "Résumé imprimable de la leçon"
+    }
+  ],
+  
+  "mindmap": {
+    "image": "assets/img/cartes-mentales/conjugaison/present-indicatif.png",
+    "description": "Carte mentale visuelle du présent de l'indicatif",
+    "elements": [
+      {
+        "title": "3 Groupes",
+        "branches": ["1er: -er", "2ème: -ir/-issons", "3ème: irréguliers"]
+      },
+      {
+        "title": "Utilisations",
+        "branches": ["Action en cours", "Vérité générale", "Habitude"]
+      },
+      {
+        "title": "Exceptions",
+        "branches": ["être", "avoir", "aller", "faire"]
+      }
+    ]
+  },
+  
+  "customization_options": [
+    "cours-simplifie",
+    "cours-complet",
+    "tableaux-conjugaison",
+    "exceptions-principales",
+    "astuces-mnemo",
+    "pieges-courants",
+    "carte-mentale",
+    "exemples-pratiques",
+    "exercices-application",
+    "corriges-exercices",
+    "quiz-revision",
+    "resume-final",
+    "espace-notes"
+  ],
+  
+  "metadata": {
+    "created_at": "2024-01-15",
+    "updated_at": "2026-02-04",
+    "author": "Équipe pédagogique",
+    "version": "2.0",
+    "nb_students_completed": 0,
+    "average_score": 0,
+    "average_time": 25
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "category": "conjugaison",
+  "name": "Conjugaison",
+  "icon": "fas fa-book",
+  "color": "#4361ee",
+  "description": "Maîtrise tous les temps et modes de la conjugaison française",
+  
+  "lessons": [
+    {
+      "id": "present-indicatif",
+      "title": "Le Présent de l'Indicatif",
+      "difficulty": "débutant",
+      "estimated_time": 30,
+      "order": 1,
+      "available": true,
+      "file": "present-indicatif.json"
+    },
+    {
+      "id": "imparfait",
+      "title": "L'Imparfait",
+      "difficulty": "débutant",
+      "estimated_time": 25,
+      "order": 2,
+      "available": true,
+      "file": "imparfait.json"
+    },
+    {
+      "id": "passe-simple",
+      "title": "Le Passé Simple",
+      "difficulty": "intermédiaire",
+      "estimated_time": 35,
+      "order": 3,
+      "available": true,
+      "file": "passe-simple.json"
+    },
+    {
+      "id": "futur",
+      "title": "Le Futur Simple",
+      "difficulty": "débutant",
+      "estimated_time": 25,
+      "order": 4,
+      "available": true,
+      "file": "futur.json"
+    },
+    {
+      "id": "passe-compose",
+      "title": "Le Passé Composé",
+      "difficulty": "intermédiaire",
+      "estimated_time": 40,
+      "order": 5,
+      "available": true,
+      "file": "passe-compose.json"
+    },
+    {
+      "id": "plus-que-parfait",
+      "title": "Le Plus-que-parfait",
+      "difficulty": "intermédiaire",
+      "estimated_time": 30,
+      "order": 6,
+      "available": true,
+      "file": "plus-que-parfait.json"
+    },
+    {
+      "id": "conditionnel",
+      "title": "Le Conditionnel",
+      "difficulty": "intermédiaire",
+      "estimated_time": 30,
+      "order": 7,
+      "available": true,
+      "file": "conditionnel.json"
+    },
+    {
+      "id": "subjonctif",
+      "title": "Le Subjonctif Présent",
+      "difficulty": "avancé",
+      "estimated_time": 45,
+      "order": 8,
+      "available": true,
+      "file": "subjonctif.json"
+    },
+    {
+      "id": "imperatif",
+      "title": "L'Impératif",
+      "difficulty": "débutant",
+      "estimated_time": 20,
+      "order": 9,
+      "available": true,
+      "file": "imperatif.json"
+    },
+    {
+      "id": "participes",
+      "title": "Participe Présent et Passé",
+      "difficulty": "intermédiaire",
+      "estimated_time": 35,
+      "order": 10,
+      "available": true,
+      "file": "participes.json"
+    }
+  ],
+  
+  "progression_path": [
+    "present-indicatif",
+    "imparfait",
+    "futur",
+    "passe-compose",
+    "imperatif",
+    "passe-simple",
+    "plus-que-parfait",
+    "conditionnel",
+    "participes",
+    "subjonctif"
+  ],
+  
+  "statistics": {
+    "total_lessons": 10,
+    "estimated_total_time": 305,
+    "difficulty_distribution": {
+      "débutant": 4,
+      "intermédiaire": 5,
+      "avancé": 1
+    }
+  }
+}

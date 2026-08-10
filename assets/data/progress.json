@@ -1,0 +1,31 @@
+{
+  "user_progress": [
+    {
+      "user_id": 1,
+      "lesson_id": "present-indicatif",
+      "status": "completed", // "not_started", "in_progress", "completed", "mastered"
+      "score": 85,
+      "last_accessed": "2024-01-20T10:30:00",
+      "time_spent": 1200, // en secondes
+      "quiz_results": [
+        {
+          "quiz_id": "q1",
+          "score": 10,
+          "attempts": 1,
+          "last_attempt": "2024-01-20T10:25:00"
+        }
+      ],
+      "weak_points": ["exceptions", "verbes-irreguliers"],
+      "mastery_level": 0.85 // 0 à 1
+    }
+  ],
+  "achievements": [
+    {
+      "id": "first_lesson",
+      "name": "Première leçon",
+      "description": "A complété sa première leçon",
+      "icon": "fas fa-star",
+      "users_unlocked": [1]
+    }
+  ]
+}

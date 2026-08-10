@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "eleve1",
+      "password": "motdepasse123",
+      "email": "eleve1@example.com",
+      "class": "3èmeA",
+      "created_at": "2024-01-15",
+      "dys_mode": false,
+      "preferences": {
+        "notifications": true,
+        "auto_audio": false,
+        "color_blind": false
+      }
+    }
+  ],
+  "sessions": []
+}

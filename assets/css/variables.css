@@ -1,0 +1,135 @@
+/**
+ * VARIABLES CSS - Configuration globale des couleurs, polices, et espacements
+ */
+
+:root {
+    /* === COULEURS PRINCIPALES === */
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --primary-dark: #3f37c9;
+    --secondary: #3f37c9;
+    --accent: #f72585;
+    --accent-light: #ff4d94;
+    
+    /* === COULEURS FONCTIONNELLES === */
+    --success: #4cc9f0;
+    --warning: #ffb703;
+    --danger: #ef476f;
+    --info: #4cc9f0;
+    
+    /* === COULEURS NEUTRES === */
+    --light: #f8f9fa;
+    --light-gray: #e9ecef;
+    --medium-gray: #adb5bd;
+    --dark-gray: #495057;
+    --dark: #212529;
+    --white: #ffffff;
+    
+    /* === COULEURS DE TEXTE === */
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-light: #ffffff;
+    
+    /* === POLICES === */
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+    --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', 'OpenDyslexic', sans-serif;
+    --font-mono: 'Courier New', monospace;
+    
+    /* === TAILLES DE POLICE === */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-2xl: 1.5rem;    /* 24px */
+    --font-size-3xl: 1.875rem;  /* 30px */
+    --font-size-4xl: 2.25rem;   /* 36px */
+    
+    /* === ESPACEMENTS === */
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 1rem;      /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 2rem;      /* 32px */
+    --spacing-2xl: 3rem;     /* 48px */
+    --spacing-3xl: 4rem;     /* 64px */
+    
+    /* === BORDURES === */
+    --border-radius-sm: 6px;
+    --border-radius: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+    --border-radius-full: 9999px;
+    
+    --border-width: 1px;
+    --border-width-thick: 2px;
+    
+    /* === OMBRES === */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+    
+    /* === TRANSITIONS === */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* === LARGEURS === */
+    --sidebar-width: 280px;
+    --sidebar-width-collapsed: 80px;
+    --container-max-width: 1200px;
+    
+    /* === Z-INDEX === */
+    --z-dropdown: 1000;
+    --z-sticky: 1020;
+    --z-fixed: 1030;
+    --z-modal-backdrop: 1040;
+    --z-modal: 1050;
+    --z-popover: 1060;
+    --z-tooltip: 1070;
+    
+    /* === BADGES DE DIFFICULTÉ === */
+    --badge-debutant: #4cc9f0;
+    --badge-intermediaire: #ffb703;
+    --badge-avance: #f72585;
+    
+    /* === COULEURS PAR CATÉGORIE === */
+    --color-conjugaison: #4361ee;
+    --color-grammaire: #7209b7;
+    --color-orthographe: #f72585;
+    --color-analyse: #4cc9f0;
+    --color-redaction: #ffb703;
+}
+
+/* === MODE DYS === */
+body.dys-mode {
+    --font-main: var(--font-dys) !important;
+    --font-size-base: 1.3rem !important;
+    --line-height: 2 !important;
+    letter-spacing: 0.1rem !important;
+}
+
+/* === MODE SOMBRE (optionnel) === */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light: #1a1a1a;
+        --light-gray: #2d2d2d;
+        --dark: #f8f9fa;
+        --text-primary: #f8f9fa;
+        --text-secondary: #adb5bd;
+    }
+}
+
+/* === BREAKPOINTS (pour référence JavaScript) === */
+:root {
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
+}

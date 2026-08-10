@@ -1,0 +1,29 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "lesson_id": "present-indicatif",
+      "category": "conjugaison",
+      "type": "multiple_choice",
+      "difficulty": "facile",
+      "question": "Quelle est la terminaison de 'je' pour les verbes du 1er groupe au présent ?",
+      "options": ["e", "es", "ons", "ez"],
+      "correct_answer": 0,
+      "explanation": "Pour les verbes du 1er groupe, la terminaison à la 1ère personne du singulier est toujours 'e' (ex: je chant<strong>e</strong>).",
+      "points": 10,
+      "time_limit": 30
+    },
+    {
+      "id": "q2",
+      "lesson_id": "present-indicatif",
+      "category": "conjugaison",
+      "type": "fill_blank",
+      "difficulty": "moyen",
+      "question": "Conjuguez le verbe 'finir' à la 3ème personne du pluriel : Ils _____",
+      "correct_answer": "finissent",
+      "explanation": "Les verbes du 2ème groupe prennent la terminaison '-issent' à la 3ème personne du pluriel.",
+      "points": 15,
+      "hint": "Terminaison en '-issent'"
+    }
+  ]
+}
