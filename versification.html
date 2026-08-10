@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La versification - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - COULEUR BLEU-VERT POÉSIE === */
+        :root {
+            --primary: #0e7490;
+            --primary-light: #0891b2;
+            --secondary: #155e75;
+            --accent: #06b6d4;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar h2 i { color: var(--warning); }
+        .sidebar p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 30px; }
+        .sidebar ul { list-style: none; }
+        .sidebar > ul > li { margin-bottom: 25px; }
+
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            padding: 12px 15px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar li strong:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+
+        .sidebar li strong i { transition: transform 0.3s ease; }
+        .sidebar li.active strong i { transform: rotate(90deg); }
+
+        .submenu {
+            padding-left: 20px;
+            margin-top: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .sidebar li.active .submenu { max-height: 300px; }
+        .submenu li { list-style: none; margin: 8px 0; }
+
+        .submenu li a {
+            display: block;
+            padding: 8px 15px;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1400px;
+            position: relative;
+        }
+
+        /* ===== HEADER ===== */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: var(--secondary); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .btn-secondary { background-color: var(--light-gray); color: var(--dark); }
+        .btn-secondary:hover { background-color: #d8d8d8; transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .btn-accent { background-color: var(--accent); color: white; }
+        .btn-accent:hover { background-color: #0284a3; transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .btn-success { background-color: #4cc9f0; color: white; }
+        .btn-success:hover { background-color: #3ab4d9; transform: translateY(-3px); }
+
+        /* ===== ONGLETS ===== */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .tab:hover { color: var(--primary); }
+        .tab.active { color: var(--primary); }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* ===== SECTIONS ===== */
+        .content-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 35px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            animation: fadeIn 0.5s ease;
+            display: none;
+        }
+
+        .content-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h1 {
+            font-family: var(--font-heading);
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .content-section h1 i { color: var(--accent); }
+
+        .content-section h2 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        /* ===== BOÎTES ===== */
+        .info-box {
+            background-color: #e0f7fa;
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background-color: #fff8e1;
+            border-left: 5px solid var(--warning);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===== ACCORDÉONS ===== */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .expandable-card {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .expandable-card-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #e0f7fa;
+            transition: background 0.2s;
+        }
+
+        .expandable-card-header:hover { background-color: #b2ebf2; }
+
+        .expandable-card-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .expandable-card-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 3000px;
+            padding: 20px;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+
+        .expandable-card.expanded .expand-icon { transform: rotate(180deg); }
+
+        /* ===== EXEMPLE BOX ===== */
+        .example-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 5px solid var(--accent);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+        }
+
+        .example-box p { margin: 6px 0; }
+
+        /* ===== VERS POÉTIQUES ===== */
+        .vers-poetique {
+            font-style: italic;
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 0.95rem;
+            color: #166534;
+        }
+
+        .vers-poetique .auteur {
+            font-style: normal;
+            font-size: 0.8rem;
+            color: #4b5563;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* ===== GRILLE STROPHES ===== */
+        .strophes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .strophe-card {
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            border-top: 4px solid var(--primary);
+        }
+
+        .strophe-card .nombre {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .strophe-card .nom {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 4px 0;
+        }
+
+        .strophe-card .desc {
+            font-size: 0.8rem;
+            color: #555;
+        }
+
+        /* ===== GRILLE VERS ===== */
+        .vers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .vers-card {
+            background: white;
+            border-radius: 10px;
+            padding: 14px;
+            border-left: 5px solid var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .vers-card .syllabe {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .vers-card .nom { font-weight: 700; color: var(--primary); }
+        .vers-card .exemple { font-size: 0.85rem; color: #555; font-style: italic; }
+
+        /* ===== RIMES DISPOSITION ===== */
+        .rimes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 15px 0;
+        }
+
+        .rime-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .rime-schema {
+            font-family: monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 6px;
+            margin: 6px 0;
+        }
+
+        /* ===== TABLEAU ===== */
+        .tableau-versif {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+
+        .tableau-versif th {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .tableau-versif td {
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--light-gray);
+            vertical-align: top;
+        }
+
+        .tableau-versif tr:hover { background: #f0f9ff; }
+
+        /* ===== EXCEPTIONS / PIÈGES ===== */
+        .exceptions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .exception-card {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .exception-card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #fff9f9;
+            border-left: 5px solid var(--danger);
+        }
+
+        .exception-card-header:hover { background: #ffe9e9; }
+
+        .exception-card-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            color: var(--danger);
+            font-size: 1.05rem;
+        }
+
+        .exception-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .exception-card.expanded .exception-card-content {
+            max-height: 2000px;
+            padding: 15px;
+        }
+
+        /* ===== CARTES MENTALES ===== */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .mindmap-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mindmap-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            border: 2px solid var(--light-gray);
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .image-container::after {
+            content: '\f00e';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.45);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        .image-container:hover { border-color: var(--primary); }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover img { transform: scale(1.05); }
+
+        /* ===== FICHE ===== */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-simple input {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .fiche-compacte {
+            background: white;
+            padding: 20px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            max-width: 210mm;
+            margin: 20px auto;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+        }
+
+        .fiche-compacte h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .fiche-compacte h3 {
+            color: var(--secondary);
+            font-size: 1rem;
+            margin: 15px 0 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .fiche-compacte p { margin: 3px 0; }
+        .fiche-compacte ul { margin: 4px 0 10px 20px; }
+
+        .fiche-compacte .section {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f0f9ff;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .fiche-compacte .warning {
+            border-left-color: var(--danger);
+            background-color: #fff9f9;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 4px;
+            font-weight: 700;
+        }
+
+        /* ===== RESSOURCES ===== */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .ressource-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 6px 14px;
+            background-color: #e0f7fa;
+            border-radius: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.3s ease;
+            border: 1px solid #b2ebf2;
+        }
+
+        .ressource-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateX(3px);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover { transform: scale(1.2); color: var(--danger); }
+
+        .modal-download {
+            position: absolute;
+            bottom: -40px;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-download:hover { background: var(--secondary); transform: translateY(-2px); }
+
+        /* ===== IMPRESSION ===== */
+        @media print {
+            .sidebar, .lesson-tabs, .btn-group, .customize-section, .modal-overlay, .header-controls { display: none !important; }
+            .main-content { margin-left: 0; padding: 0; }
+            .fiche-compacte { display: block !important; box-shadow: none; padding: 15mm; margin: 0; }
+            .content-section { box-shadow: none; padding: 0; }
+            .mindmap-grid { display: none; }
+        }
+
+        /* ===== MODE DYS ===== */
+        .dys-mode { font-family: var(--font-dys) !important; font-size: 1.2rem !important; background-color: #fef7e0 !important; }
+        .dys-mode .content-section { background-color: #fef9e8 !important; border: 2px solid #ffecb3 !important; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .lesson-tabs { flex-direction: column; }
+            .tab { min-width: 100%; }
+            .exceptions-grid { grid-template-columns: 1fr; }
+            .mindmap-grid { grid-template-columns: 1fr; }
+            .header-controls { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <h1 style="color:var(--primary); margin-bottom:10px;">
+            <i class="fas fa-feather-alt"></i> La versification
+        </h1>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" data-target="lecon"><i class="fas fa-book-open"></i> Leçon</button>
+            <button class="tab" data-target="pieges"><i class="fas fa-exclamation-triangle"></i> Pièges</button>
+            <button class="tab" data-target="carte"><i class="fas fa-project-diagram"></i> Carte mentale</button>
+            <button class="tab" data-target="fiche"><i class="fas fa-file-alt"></i> Fiche de révision</button>
+            <button class="tab" data-target="ressources"><i class="fas fa-external-link-alt"></i> Aller plus loin</button>
+        </div>
+
+        <!-- ===================== LEÇON ===================== -->
+        <section id="lecon" class="content-section active">
+
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Définition</h4>
+                <p>La <strong>versification</strong> est l'ensemble des techniques utilisées pour écrire un poème. La reconnaître, c'est se donner des outils pour <strong>interpréter un texte poétique</strong>. Elle repose sur trois piliers : <strong>les vers</strong> (lignes du poème), <strong>les strophes</strong> (groupes de vers) et <strong>les rimes</strong> (sons répétés en fin de vers).</p>
+            </div>
+
+            <!-- 1. LES VERS -->
+            <div class="expandable-cards">
+
+                <div class="expandable-card expanded" id="card-vers">
+                    <div class="expandable-card-header" onclick="toggleExpandableCard('card-vers')">
+                        <h3><i class="fas fa-minus"></i> 1. Les vers — lignes du poème</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <p>Un <strong>vers</strong> est une ligne d'un poème qui commence <strong>par une majuscule</strong>. On mesure sa longueur en comptant le <strong>nombre de syllabes</strong>.</p>
+
+                        <div class="vers-grid" style="margin-top:16px;">
+                            <div class="vers-card">
+                                <div class="syllabe">8</div>
+                                <div class="nom">Octosyllabe</div>
+                                <div class="exemple">8 syllabes — vers pairs</div>
+                            </div>
+                            <div class="vers-card">
+                                <div class="syllabe">10</div>
+                                <div class="nom">Décasyllabe</div>
+                                <div class="exemple">10 syllabes — vers pairs</div>
+                            </div>
+                            <div class="vers-card" style="border-left-color:var(--primary);">
+                                <div class="syllabe" style="color:var(--primary);">12</div>
+                                <div class="nom">Alexandrin</div>
+                                <div class="exemple">12 syllabes — le plus noble</div>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top:20px; color:var(--secondary);"><i class="fas fa-calculator"></i> Compter les syllabes : les règles du « e muet »</h3>
+
+                        <div class="example-box">
+                            <p><strong>Règle 1 — e muet entre deux consonnes :</strong> le « e » se prononce.</p>
+                            <div class="vers-poetique">
+                                Im / men / <strong>se</strong>s mots dits dou / ce / ment. <span class="auteur">— Paul Éluard (le « e » de <em>Immenses</em> et de <em>doucement</em> se prononcent)</span>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <p><strong>Règle 2 — e muet devant une voyelle :</strong> le « e » ne se prononce pas (élision).</p>
+                            <div class="vers-poetique">
+                                Com / m(e) un(e) eau bleu(e) en / tour(e) exac / te / ment un(e) île. <span class="auteur">— Francis Jammes (les « e » devant une voyelle sont muets)</span>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <p><strong>Règle 3 — e muet en fin de vers :</strong> ne se prononce jamais. C'est la <strong>rime féminine</strong>.</p>
+                            <div class="vers-poetique">
+                                Où sont nos amour<strong>eus(es)</strong><br>
+                                Elles sont au tomb<strong>eau</strong>. <span class="auteur">— Gérard de Nerval</span>
+                            </div>
+                        </div>
+
+                        <h3 style="margin-top:20px; color:var(--secondary);"><i class="fas fa-music"></i> Diérèse et synérèse</h3>
+                        <div class="example-box">
+                            <p><strong>Diérèse :</strong> deux voyelles consécutives comptent pour <strong>2 syllabes</strong> (au lieu d'une seule à l'oral).</p>
+                            <div class="vers-poetique">
+                                L'in / fle / xi / on / des / voi / es / chè / res / qui / se / sont / tu / es. <span class="auteur">— Paul Verlaine (« voies » = 2 syllabes : voi-es)</span>
+                            </div>
+                            <p style="margin-top:8px;"><strong>Synérèse :</strong> deux voyelles comptent pour <strong>1 seule syllabe</strong>.</p>
+                            <div class="vers-poetique">
+                                Nous sem / bliont / s entre les maisons. <span class="auteur">— Apollinaire (« blion » = 1 syllabe)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. STROPHES -->
+                <div class="expandable-card" id="card-strophes">
+                    <div class="expandable-card-header" onclick="toggleExpandableCard('card-strophes')">
+                        <h3><i class="fas fa-layer-group"></i> 2. Les strophes — groupes de vers</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <p>Les strophes sont des <strong>groupes de vers séparés par un espace blanc</strong>. Chaque strophe forme une unité de sens.</p>
+
+                        <div class="strophes-grid" style="margin-top:16px;">
+                            <div class="strophe-card">
+                                <div class="nombre">2</div>
+                                <div class="nom">Distique</div>
+                                <div class="desc">groupe de 2 vers</div>
+                            </div>
+                            <div class="strophe-card">
+                                <div class="nombre">3</div>
+                                <div class="nom">Tercet</div>
+                                <div class="desc">groupe de 3 vers</div>
+                            </div>
+                            <div class="strophe-card" style="border-top-color:var(--primary);">
+                                <div class="nombre">4</div>
+                                <div class="nom">Quatrain</div>
+                                <div class="desc">groupe de 4 vers — le + courant</div>
+                            </div>
+                            <div class="strophe-card">
+                                <div class="nombre">5</div>
+                                <div class="nom">Quintil</div>
+                                <div class="desc">groupe de 5 vers</div>
+                            </div>
+                            <div class="strophe-card">
+                                <div class="nombre">10</div>
+                                <div class="nom">Dizain</div>
+                                <div class="desc">groupe de 10 vers</div>
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top:20px;">
+                            <h4><i class="fas fa-star"></i> Le Sonnet — une forme fixe</h4>
+                            <p>Le sonnet est une forme poétique fixe d'<strong>origine italienne</strong>, très prisée au XVIe siècle et reprise au XIXe. Il est composé de :</p>
+                            <ul style="margin:10px 0 0 20px;">
+                                <li><strong>2 quatrains</strong> (exposition, développement)</li>
+                                <li><strong>2 tercets</strong> (chute, conclusion)</li>
+                                <li>Généralement en alexandrins</li>
+                            </ul>
+                            <div class="vers-poetique" style="margin-top:10px;">
+                                Ex. : <em>Les Regrets</em> (Du Bellay), <em>Les Fleurs du Mal</em> (Baudelaire).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. RIMES -->
+                <div class="expandable-card" id="card-rimes">
+                    <div class="expandable-card-header" onclick="toggleExpandableCard('card-rimes')">
+                        <h3><i class="fas fa-link"></i> 3. Les rimes — sons en fin de vers</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <p>La <strong>rime</strong> est la répétition d'un même son vocalique à la fin de deux vers ou plus.</p>
+
+                        <h3 style="color:var(--secondary); margin-top:15px;"><i class="fas fa-arrows-alt-h"></i> Disposition des rimes</h3>
+                        <div class="rimes-grid">
+                            <div class="rime-card">
+                                <div class="rime-schema" style="color:#c0392b;">A A B B</div>
+                                <p><strong>Rimes plates</strong> (ou suivies)</p>
+                                <div class="vers-poetique">
+                                    Ces obliques rayons, ces flammes éclatant<strong>es</strong> (A)<br>
+                                    Ces larges traces d'or qu'il laisse dans les ai<strong>rs</strong> (B)<br>
+                                    Lorsqu'en un lit de sable il se couche aux déser<strong>ts</strong>. (B) <span class="auteur">— Alfred de Vigny</span>
+                                </div>
+                            </div>
+                            <div class="rime-card">
+                                <div class="rime-schema" style="color:#2d6a4f;">A B A B</div>
+                                <p><strong>Rimes croisées</strong></p>
+                                <div class="vers-poetique">
+                                    Puisque j'ai mis ma lèvre à ta coupe encore plei<strong>ne</strong> (A)<br>
+                                    Puisque j'ai dans tes mains posé mon front pâ<strong>li</strong> (B)<br>
+                                    Puisque j'ai respiré parfois la douce halei<strong>ne</strong> (A)<br>
+                                    De ton âme, parfum dans l'ombre enseve<strong>li</strong>. (B) <span class="auteur">— Victor Hugo</span>
+                                </div>
+                            </div>
+                            <div class="rime-card">
+                                <div class="rime-schema" style="color:#3d5bb5;">A B B A</div>
+                                <p><strong>Rimes embrassées</strong></p>
+                                <div class="vers-poetique">
+                                    Comme un vol de gerfauts hors du chantier nata<strong>l</strong> (A)<br>
+                                    Fatigués de porter leurs misères hautai<strong>nes</strong> (B)<br>
+                                    De Palos de Moguer, routiers et capitai<strong>nes</strong> (B)<br>
+                                    Partaient, ivres d'un rêve héroïque et bruta<strong>l</strong>. (A) <span class="auteur">— Heredia</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="color:var(--secondary); margin-top:20px;"><i class="fas fa-gem"></i> Valeur des rimes</h3>
+                        <table class="tableau-versif">
+                            <tr>
+                                <th>Valeur</th>
+                                <th>Définition</th>
+                                <th>Exemple</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Rime pauvre</strong></td>
+                                <td>1 son commun</td>
+                                <td><em>mou</em> / <em>fou</em> → /ou/</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rime suffisante</strong></td>
+                                <td>2 sons communs</td>
+                                <td><em>tombeau</em> / <em>flambeau</em> → /b-eau/</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rime riche</strong></td>
+                                <td>3 sons communs ou +</td>
+                                <td><em>dernière</em> / <em>lumière</em> → /i-è-re/</td>
+                            </tr>
+                        </table>
+
+                        <h3 style="color:var(--secondary); margin-top:20px;"><i class="fas fa-venus-mars"></i> Genre des rimes</h3>
+                        <div class="example-box">
+                            <p><strong>Rime féminine :</strong> le mot final se termine par un « e » muet (e, es, ent).</p>
+                            <p><strong>Rime masculine :</strong> toutes les autres terminaisons.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. SONORITÉS ET RYTHME -->
+                <div class="expandable-card" id="card-sonorites">
+                    <div class="expandable-card-header" onclick="toggleExpandableCard('card-sonorites')">
+                        <h3><i class="fas fa-music"></i> 4. Les sonorités et le rythme</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+
+                        <h3 style="color:var(--secondary);"><i class="fas fa-wave-square"></i> Les sonorités dans le vers</h3>
+                        <div class="example-box">
+                            <p><strong>Assonance :</strong> répétition d'une même <strong>voyelle</strong> à l'intérieur d'un vers ou d'une strophe.</p>
+                            <div class="vers-poetique">
+                                L'élixir de ta b<strong>ou</strong>che où l'am<strong>ou</strong>r se pav<strong>a</strong>ne. <span class="auteur">— Baudelaire (assonances en /ou/ et /a/)</span>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <p><strong>Allitération :</strong> répétition d'une même <strong>consonne</strong> à l'intérieur d'un vers ou d'une strophe.</p>
+                            <div class="vers-poetique">
+                                Pour qui <strong>s</strong>ont ce<strong>s s</strong>erpent<strong>s</strong> qui <strong>s</strong>ifflent <strong>s</strong>ur vo<strong>s</strong> têtes. <span class="auteur">— Racine (allitération en /s/ : imite le sifflement)</span>
+                            </div>
+                        </div>
+
+                        <h3 style="color:var(--secondary); margin-top:20px;"><i class="fas fa-ruler-horizontal"></i> Le rythme du vers</h3>
+
+                        <div class="example-box">
+                            <p><strong>La césure :</strong> coupe qui sépare un vers en 2 hémistiches (demi-vers).</p>
+                            <div class="vers-poetique">
+                                Je n'écris point d'amour, / n'étant point amoureux. <span class="auteur">— Joachim du Bellay (la barre / marque la césure après la 6e syllabe)</span>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <p><strong>L'enjambement :</strong> le sens d'un vers se prolonge sur le vers suivant.</p>
+                            <div class="vers-poetique">
+                                Ainsi le vent jetait l'écume de tes ondes<br>
+                                Sur tes pieds adorés. <span class="auteur">— Lamartine (la phrase continue sur le vers 2)</span>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <p><strong>Le rejet :</strong> le sens se termine au <strong>début</strong> du vers suivant (petit groupe de mots).</p>
+                            <div class="vers-poetique">
+                                Il dort dans le soleil, la main sur sa poitrine<br>
+                                <strong>Tranquille.</strong> Il a deux trous rouges au côté droit. <span class="auteur">— Rimbaud (« Tranquille » est rejeté au début du v.2)</span>
+                            </div>
+                        </div>
+
+                        <div class="example-box">
+                            <p><strong>Le contre-rejet :</strong> le sens <strong>commence à la fin</strong> du vers précédent.</p>
+                            <div class="vers-poetique">
+                                Et pour sa voix, lointaine, et calme, et grave, <strong>elle a</strong><br>
+                                L'inflexion des voix chères qui se sont tues. <span class="auteur">— Verlaine (« elle a » annonce la suite au v.2)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- fin expandable-cards -->
+        </section>
+
+        <!-- ===================== PIÈGES ===================== -->
+        <section id="pieges" class="content-section">
+            <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-lightbulb"></i> La méthode pour analyser un poème sans se tromper</h4>
+                <p><strong>Étape 1 — Les vers :</strong> combien de syllabes ? (octosyllabe, décasyllabe, alexandrin ?)</p>
+                <p><strong>Étape 2 — Les strophes :</strong> combien de vers par groupe ? (distique, tercet, quatrain… ?)</p>
+                <p><strong>Étape 3 — Les rimes :</strong> quel schéma ? (AABB, ABAB, ABBA ?) Quelle valeur ? (pauvre, suffisante, riche ?)</p>
+                <p><strong>Étape 4 — Les sonorités et le rythme :</strong> assonances, allitérations, césure, enjambements ?</p>
+            </div>
+
+            <div class="exceptions-grid">
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Oublier le « e » muet</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p>C'est l'erreur la plus fréquente ! Le « e » muet <strong>se prononce</strong> entre deux consonnes dans un vers, même si on ne le dit pas dans la conversation.</p>
+                        <div class="example-box">
+                            <p>❌ « vot(re) ami » → on ne compte que 3 syllabes à l'oral</p>
+                            <p>✅ « vot / re / a / mi » → dans un vers, le « e » de « votre » devant une voyelle <em>disparaît</em> (élision), mais devant une consonne il <em>compte</em>.</p>
+                            <p style="margin-top:6px;"><strong>Règle simple :</strong> e + consonne = prononcé / e + voyelle = muet / e en fin de vers = toujours muet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Confondre rime féminine et rime riche</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p>Ce sont deux critères <strong>indépendants</strong> !</p>
+                        <ul style="margin:8px 0 0 18px;">
+                            <li><strong>Genre</strong> = féminine (e muet final) ou masculine (autre terminaison)</li>
+                            <li><strong>Valeur</strong> = pauvre (1 son), suffisante (2 sons), riche (3 sons +)</li>
+                        </ul>
+                        <div class="example-box" style="margin-top:8px;">
+                            <p><em>lumière / dernière</em> = rime <strong>féminine</strong> (se termine par « e ») ET <strong>riche</strong> (3 sons : i-è-re)</p>
+                            <p><em>mou / fou</em> = rime <strong>masculine</strong> ET <strong>pauvre</strong> (1 son : ou)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Confondre assonance et allitération</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Assonance</strong> = répétition d'une <em>voyelle</em> → sons ouverts, musicaux.</p>
+                        <p><strong>Allitération</strong> = répétition d'une <em>consonne</em> → effet plus dur, mimétique.</p>
+                        <div class="example-box" style="margin-top:8px;">
+                            <p>« Pour qui sont ces <strong>s</strong>erpents qui <strong>s</strong>ifflent… » → allitération en <strong>/s/</strong> (consonne)</p>
+                            <p>« l'<strong>a</strong>mour se p<strong>a</strong>v<strong>a</strong>ne » → assonance en <strong>/a/</strong> (voyelle)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Confondre enjambement, rejet et contre-rejet</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p>Ces trois notions concernent toutes le débordement du sens d'un vers sur un autre, mais la nuance porte sur <strong>où se situe le groupe de mots qui déborde</strong>.</p>
+                        <ul style="margin:8px 0 0 18px;">
+                            <li><strong>Enjambement :</strong> sens qui continue naturellement sur le vers suivant (sans coupe forte).</li>
+                            <li><strong>Rejet :</strong> un petit groupe de mots est repoussé au <em>début</em> du vers suivant.</li>
+                            <li><strong>Contre-rejet :</strong> un petit groupe de mots annonce la suite, placé à la <em>fin</em> du vers précédent.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Diérèse ≠ Synérèse</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Diérèse :</strong> on <em>sépare</em> deux voyelles → le mot compte plus de syllabes que d'habitude. L'auteur le fait pour compléter le nombre de syllabes du vers.</p>
+                        <p style="margin-top:6px;"><strong>Synérèse :</strong> on <em>fusionne</em> deux voyelles → le mot compte moins de syllabes. L'auteur le fait pour ne pas dépasser le nombre voulu.</p>
+                        <div class="example-box" style="margin-top:8px;">
+                            <p>« vi-o-lon » = 3 syllabes (diérèse) vs « vion » = 2 syllabes (synérèse)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Confondre strophe et paragraphe</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p>Une <strong>strophe</strong> n'est pas un simple paragraphe ! Elle doit être composée de <strong>vers</strong> (lignes commençant par une majuscule), séparés des autres strophes par un espace blanc.</p>
+                        <p style="margin-top:6px;">Dans un <strong>poème en prose</strong>, il n'y a pas de vers ni de strophes au sens strict : les lignes ne suivent pas un nombre fixe de syllabes.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================== CARTES MENTALES ===================== -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            <p style="margin-bottom:25px;">Cliquez sur une carte pour l'agrandir. Vous pouvez la télécharger pour l'imprimer ou la réviser hors connexion.</p>
+
+            <div class="mindmap-grid">
+
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-feather-alt"></i> La poésie régulière et non régulière</h3>
+                    <div class="image-container" onclick="openModal('assets/img/poésie.PNG')">
+                        <img src="assets/img/poésie.PNG" alt="Carte mentale : la poésie régulière">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="downloadImage('assets/img/poésie.PNG', 'poesie-reguliere.png')">
+                            <i class="fas fa-download"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-music"></i> La versification — l'art d'écrire un poème</h3>
+                    <div class="image-container" onclick="openModal('assets/img/versification.png')">
+                        <img src="assets/img/versification.png" alt="Carte mentale : la versification">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="downloadImage('assets/img/versification.png', 'versification.png')">
+                            <i class="fas fa-download"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-link"></i> Vers, rimes et strophes</h3>
+                    <div class="image-container" onclick="openModal('assets/img/vers-rimes-strophes.png')">
+                        <img src="assets/img/vers-rimes-strophes.png" alt="Carte mentale : vers, rimes et strophes">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="downloadImage('assets/img/vers-rimes-strophes.png', 'vers-rimes-strophes.png')">
+                            <i class="fas fa-download"></i> Télécharger
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================== FICHE DE RÉVISION ===================== -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Fiche de révision</h1>
+
+            <div class="customize-section">
+                <h3 style="margin-bottom:15px; color:var(--primary);">
+                    <i class="fas fa-sliders-h"></i> Choisis les éléments à inclure :
+                </h3>
+                <div class="customize-grid">
+
+                    <div class="customize-option">
+                        <h3><i class="fas fa-minus"></i> Les vers</h3>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-octo" checked> Octosyllabe (8 syllabes)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-deca" checked> Décasyllabe (10 syllabes)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-alex" checked> Alexandrin (12 syllabes)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-emuet" checked> Règle du e muet</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-dier" checked> Diérèse / Synérèse</label>
+                    </div>
+
+                    <div class="customize-option">
+                        <h3><i class="fas fa-layer-group"></i> Les strophes</h3>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-distique" checked> Distique (2 vers)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-tercet" checked> Tercet (3 vers)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-quatrain" checked> Quatrain (4 vers)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-quintil" checked> Quintil / Dizain</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-sonnet" checked> Le Sonnet (forme fixe)</label>
+                    </div>
+
+                    <div class="customize-option">
+                        <h3><i class="fas fa-link"></i> Les rimes</h3>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-plates" checked> Plates (AABB)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-croisees" checked> Croisées (ABAB)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-embrassees" checked> Embrassées (ABBA)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-valeur" checked> Valeur (pauvre/suff./riche)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-genre" checked> Genre (féminine/masculine)</label>
+                    </div>
+
+                    <div class="customize-option">
+                        <h3><i class="fas fa-music"></i> Sonorités et rythme</h3>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-assonance" checked> Assonance (voyelle)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-allit" checked> Allitération (consonne)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-cesure" checked> Césure</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-enjamb" checked> Enjambement</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-rejet" checked> Rejet / Contre-rejet</label>
+                    </div>
+
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i> Pièges</h3>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-p1" checked> E muet (règles)</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-p2" checked> Rime féminine ≠ rime riche</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-p3" checked> Assonance ≠ allitération</label>
+                        <label class="checkbox-simple"><input type="checkbox" id="f-p4" checked> Rejet / contre-rejet / enjamb.</label>
+                    </div>
+
+                </div>
+
+                <div style="margin-top:20px; text-align:center;">
+                    <button class="btn btn-primary" onclick="generateCompactFiche()">
+                        <i class="fas fa-eye"></i> Prévisualiser
+                    </button>
+                    <button class="btn btn-success" onclick="exportFichePDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+
+            <div id="ficheCompacte" class="fiche-compacte" style="display:none;"></div>
+        </section>
+
+        <!-- ===================== RESSOURCES ===================== -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+
+            <div class="ressources-grid">
+
+                <div class="ressource-card">
+                    <h3><i class="fab fa-youtube" style="color:#ff0000;"></i> Vidéos</h3>
+                    <a href="https://www.youtube.com/watch?v=analyser-poesie" class="ressource-link" target="_blank">Analyser une poésie : avec le bon vocabulaire !</a>
+                    <a href="https://www.youtube.com/watch?v=versification" class="ressource-link" target="_blank">La versification — résumé complet</a>
+                    <a href="https://www.youtube.com/watch?v=analyser-poeme-quiz" class="ressource-link" target="_blank">ANALYSEZ UN POÈME — quiz vocabulaire poétique</a>
+                </div>
+
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Exercices en ligne</h3>
+                    <a href="https://www.espacefrancais.com/exercices/versification/" class="ressource-link" target="_blank">EspaceFrancais — La versification française</a>
+                    <a href="https://www.babelio.com/quiz/versification" class="ressource-link" target="_blank">Babelio — Quiz la versification</a>
+                    <a href="https://www.lumni.fr/quiz/versification" class="ressource-link" target="_blank">Lumni — Notions de versification (collège)</a>
+                </div>
+
+                <div class="ressource-card">
+                    <h3><i class="fas fa-gamepad"></i> Quiz interactifs</h3>
+                    <a href="https://quizlet.com/versification-francais" class="ressource-link" target="_blank">Quizlet — Versification française</a>
+                    <a href="https://www.kartable.fr/versification" class="ressource-link" target="_blank">Kartable — Exercices de versification</a>
+                </div>
+
+                <div class="ressource-card">
+                    <h3><i class="fas fa-file-pdf" style="color:#c0392b;"></i> Document de cours</h3>
+                    <a href="assets/docs/Séance_4_-_La_versification_d_un_poème.pdf" class="ressource-link" target="_blank">
+                        <i class="fas fa-download"></i> Séance 4 — La versification d'un poème (PDF)
+                    </a>
+                    <p style="font-size:0.85rem; color:#666; margin-top:8px;">Cours complet avec exercices sur <em>À une passante</em> de Victor Hugo.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+            <a id="modalDownloadLink" href="#" download class="modal-download">
+                <i class="fas fa-download"></i> Télécharger
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // ===== ONGLETS =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const ids = ['lecon','pieges','carte','fiche','ressources'];
+            const sections = {};
+            ids.forEach(id => { sections[id] = document.getElementById(id); });
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    Object.values(sections).forEach(s => { if (s) s.classList.remove('active'); });
+                    this.classList.add('active');
+                    const t = this.getAttribute('data-target');
+                    if (sections[t]) sections[t].classList.add('active');
+                });
+            });
+
+            if (sections.lecon) sections.lecon.classList.add('active');
+        });
+
+        // ===== ACCORDÉONS =====
+        function toggleExpandableCard(id) {
+            const c = document.getElementById(id);
+            if (c) c.classList.toggle('expanded');
+        }
+
+        // ===== MODE DYS =====
+        let dysActive = false;
+        document.getElementById('dysToggle').addEventListener('click', function(e) {
+            e.preventDefault();
+            dysActive = !dysActive;
+            document.body.classList.toggle('dys-mode', dysActive);
+            this.innerHTML = dysActive ?
+                '<i class="fas fa-eye-slash"></i> Mode Standard' :
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // ===== AUDIO =====
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                return;
+            }
+            const section = document.querySelector('.content-section.active');
+            let text = section ? (section.querySelector('h1')?.textContent || '') + '. ' : '';
+            section?.querySelectorAll('p, li').forEach(el => { text += el.textContent + '. '; });
+            text = text.substring(0, 3000);
+
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'fr-FR'; u.rate = 0.9;
+            u.onend = () => { audioPlaying = false; document.getElementById('audioIcon').className = 'fas fa-volume-up'; };
+            u.onerror = () => { audioPlaying = false; document.getElementById('audioIcon').className = 'fas fa-volume-up'; };
+            window.speechSynthesis.speak(u);
+            audioPlaying = true;
+            document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+        }
+
+        // ===== MODAL =====
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            const dl = document.getElementById('modalDownloadLink');
+            dl.href = src; dl.download = src.split('/').pop();
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') document.getElementById('imageModal').classList.remove('active');
+        });
+
+        function downloadImage(src, filename) {
+            const a = document.createElement('a');
+            a.href = src; a.download = filename;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+
+        // ===== FICHE COMPACTE =====
+        function generateCompactFiche() {
+            let html = '<h2>🎵 La versification</h2>';
+
+            // VERS
+            const vers = [];
+            if (document.getElementById('f-octo')?.checked)  vers.push('<span class="badge">8</span> <strong>Octosyllabe</strong> — 8 syllabes');
+            if (document.getElementById('f-deca')?.checked)  vers.push('<span class="badge">10</span> <strong>Décasyllabe</strong> — 10 syllabes');
+            if (document.getElementById('f-alex')?.checked)  vers.push('<span class="badge">12</span> <strong>Alexandrin</strong> — 12 syllabes, le plus noble');
+            if (document.getElementById('f-emuet')?.checked) vers.push('<span class="badge">e</span> E muet : prononcé entre deux consonnes / muet devant voyelle ou en fin de vers');
+            if (document.getElementById('f-dier')?.checked)  vers.push('<span class="badge">÷</span> Diérèse : 2 voyelles = 2 syllabes | Synérèse : 2 voyelles = 1 syllabe');
+            if (vers.length) {
+                html += '<div class="section"><h3><i class="fas fa-minus"></i> LES VERS</h3>';
+                vers.forEach(v => { html += '<p>' + v + '</p>'; });
+                html += '</div>';
+            }
+
+            // STROPHES
+            const str = [];
+            if (document.getElementById('f-distique')?.checked)  str.push('<strong>Distique</strong> = 2 vers');
+            if (document.getElementById('f-tercet')?.checked)    str.push('<strong>Tercet</strong> = 3 vers');
+            if (document.getElementById('f-quatrain')?.checked)  str.push('<strong>Quatrain</strong> = 4 vers (le plus courant)');
+            if (document.getElementById('f-quintil')?.checked)   str.push('<strong>Quintil</strong> = 5 vers | <strong>Dizain</strong> = 10 vers');
+            if (document.getElementById('f-sonnet')?.checked)    str.push('<strong>Sonnet</strong> = 2 quatrains + 2 tercets (forme fixe, origine italienne)');
+            if (str.length) {
+                html += '<div class="section"><h3><i class="fas fa-layer-group"></i> LES STROPHES</h3>';
+                str.forEach(s => { html += '<p>' + s + '</p>'; });
+                html += '</div>';
+            }
+
+            // RIMES
+            const rim = [];
+            if (document.getElementById('f-plates')?.checked)     rim.push('<span class="badge">AABB</span> Rimes plates (suivies)');
+            if (document.getElementById('f-croisees')?.checked)   rim.push('<span class="badge">ABAB</span> Rimes croisées');
+            if (document.getElementById('f-embrassees')?.checked) rim.push('<span class="badge">ABBA</span> Rimes embrassées');
+            if (document.getElementById('f-valeur')?.checked)     rim.push('Valeur : <strong>pauvre</strong> (1 son) | <strong>suffisante</strong> (2 sons) | <strong>riche</strong> (3 sons+)');
+            if (document.getElementById('f-genre')?.checked)      rim.push('Genre : <strong>féminine</strong> (e muet final) | <strong>masculine</strong> (autre terminaison)');
+            if (rim.length) {
+                html += '<div class="section"><h3><i class="fas fa-link"></i> LES RIMES</h3>';
+                rim.forEach(r => { html += '<p>' + r + '</p>'; });
+                html += '</div>';
+            }
+
+            // SONORITÉS
+            const son = [];
+            if (document.getElementById('f-assonance')?.checked) son.push('<strong>Assonance</strong> = répétition d\'une voyelle dans un vers');
+            if (document.getElementById('f-allit')?.checked)     son.push('<strong>Allitération</strong> = répétition d\'une consonne dans un vers');
+            if (document.getElementById('f-cesure')?.checked)    son.push('<strong>Césure</strong> = coupe séparant un vers en 2 hémistiches');
+            if (document.getElementById('f-enjamb')?.checked)    son.push('<strong>Enjambement</strong> = sens du vers qui continue au suivant');
+            if (document.getElementById('f-rejet')?.checked)     son.push('<strong>Rejet</strong> = petit groupe en début du vers suivant | <strong>Contre-rejet</strong> = à la fin du vers précédent');
+            if (son.length) {
+                html += '<div class="section"><h3><i class="fas fa-music"></i> SONORITÉS ET RYTHME</h3>';
+                son.forEach(s => { html += '<p>' + s + '</p>'; });
+                html += '</div>';
+            }
+
+            // PIÈGES
+            const pie = [];
+            if (document.getElementById('f-p1')?.checked) pie.push('E muet : prononcé entre deux consonnes, muet devant voyelle, toujours muet en fin de vers');
+            if (document.getElementById('f-p2')?.checked) pie.push('Rime féminine ≠ rime riche : le genre et la valeur sont deux critères distincts');
+            if (document.getElementById('f-p3')?.checked) pie.push('Assonance (voyelle) ≠ Allitération (consonne)');
+            if (document.getElementById('f-p4')?.checked) pie.push('Rejet (fin de vers → début du suivant) ≠ contre-rejet (fin du précédent → annonce) ≠ enjambement (continuité)');
+            if (pie.length) {
+                html += '<div class="section warning"><h3><i class="fas fa-exclamation-triangle"></i> PIÈGES</h3>';
+                pie.forEach(p => { html += '<p><span class="badge" style="background:var(--danger);">⚠️</span> ' + p + '</p>'; });
+                html += '</div>';
+            }
+
+            const container = document.getElementById('ficheCompacte');
+            container.innerHTML = html;
+            container.style.display = 'block';
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function exportFichePDF() {
+            if (!document.getElementById('ficheCompacte').innerHTML) generateCompactFiche();
+            setTimeout(() => window.print(), 100);
+        }
+
+        // ===== SIDEBAR =====
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(r => r.text())
+                .then(data => {
+                    document.querySelector('.sidebar').innerHTML = data;
+                    document.querySelectorAll('.sidebar li strong').forEach(s => {
+                        s.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            this.parentElement.classList.toggle('active');
+                        });
+                    });
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === 'versification.html') {
+                            link.classList.add('active');
+                            const p = link.closest('li')?.closest('li');
+                            if (p) p.classList.add('active');
+                        }
+                    });
+                })
+                .catch(() => {
+                    document.querySelector('.sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français — 3ème</p>
+                        <ul><li><a href="menu.html" style="color:white;">← Retour au menu</a></li></ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>

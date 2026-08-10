@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le présent de l'indicatif - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE (INTÉGRÉE) ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar h2 i {
+            color: var(--warning);
+        }
+        
+        .sidebar p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 15px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar li strong i {
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar li.active strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 20px;
+            margin-top: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 500px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 8px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+            background-color: var(--accent);
+        }
+        
+        .back-link {
+            margin-top: 30px;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            display: block;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+    </style>
+</head>
+<body>
+    <!-- BARRE LATÉRALE (INTÉGRÉE DIRECTEMENT) -->
+    <aside class="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+
+        <ul>
+            <!-- GRAMMAIRE -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-language"></i> Grammaire</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="formation-mots.html">Formation des mots</a></li>
+                    <li><a href="classes-grammaticales.html">Classes grammaticales</a></li>
+                    <li><a href="fonctions.html">Fonctions grammaticales</a></li>
+                    <li><a href="Type_forme_et_voix_de_la_phrase.html">Types, formes et voix</a></li>
+                    <li><a href="phrases-complexes.html">Phrases complexes</a></li>
+                    <li><a href="Parole_rapportee.html">Paroles rapportées</a></li>
+                </ul>
+            </li>
+            
+            <!-- INDICATIF -->
+            <li class="active">
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-book"></i> Indicatif</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="indicatif-present.html" class="active">Présent</a></li>
+                    <li><a href="indicatif-passe-compose.html">Passé composé</a></li>
+                    <li><a href="indicatif-imparfait.html">Imparfait</a></li>
+                    <li><a href="indicatif-passe-simple.html">Passé simple</a></li>
+                    <li><a href="indicatif-plus-que-parfait.html">Plus-que-parfait</a></li>
+                    <li><a href="indicatif-passe-anterieur.html">Passé antérieur</a></li>
+                    <li><a href="indicatif-futur-simple.html">Futur simple</a></li>
+                    <li><a href="indicatif-futur-anterieur.html">Futur antérieur</a></li>
+                </ul>
+            </li>
+            
+            <!-- CONDITIONNEL -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-book"></i> Conditionnel</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="conditionnel-present.html">Présent</a></li>
+                    <li><a href="conditionnel-passe.html">Passé (1re forme)</a></li>
+                    <li><a href="conditionnel-passe-2e.html">Passé (2e forme)</a></li>
+                </ul>
+            </li>
+            
+            <!-- SUBJONCTIF -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-book"></i> Subjonctif</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="subjonctif-present.html">Présent</a></li>
+                    <li><a href="subjonctif-passe.html">Passé</a></li>
+                    <li><a href="subjonctif-imparfait.html">Imparfait</a></li>
+                    <li><a href="subjonctif-plus-que-parfait.html">Plus-que-parfait</a></li>
+                </ul>
+            </li>
+            
+            <!-- IMPÉRATIF -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-book"></i> Impératif</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="imperatif-present.html">Présent</a></li>
+                    <li><a href="imperatif-passe.html">Passé</a></li>
+                </ul>
+            </li>
+            
+            <!-- INFINITIF -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-book"></i> Infinitif</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="infinitif-present.html">Présent</a></li>
+                    <li><a href="infinitif-passe.html">Passé</a></li>
+                </ul>
+            </li>
+            
+            <!-- PARTICIPE -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-book"></i> Participe</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="participe-present.html">Présent</a></li>
+                    <li><a href="participe-passe.html">Passé</a></li>
+                </ul>
+            </li>
+            
+            <!-- ORTHOGRAPHE -->
+            <li>
+                <strong onclick="toggleSubmenu(this)">
+                    <span><i class="fas fa-spell-check"></i> Orthographe</span>
+                    <i class="fas fa-chevron-right"></i>
+                </strong>
+                <ul class="submenu">
+                    <li><a href="#" onclick="alert('Leçon en construction'); return false;">Accords</a></li>
+                    <li><a href="#" onclick="alert('Leçon en construction'); return false;">Homophones</a></li>
+                    <li><a href="#" onclick="alert('Leçon en construction'); return false;">Pluriels</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <a href="menu.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Retour au menu
+        </a>
+    </aside>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('lecon')">Leçon</button>
+            <button class="tab" onclick="switchTab('exceptions')">Exceptions</button>
+            <button class="tab" onclick="switchTab('carte')">Carte mentale</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche de révision</button>
+            <button class="tab" onclick="switchTab('ressources')">Aller plus loin</button>
+        </div>
+
+        <!-- SECTIONS (À COMPLÉTER) -->
+        <section id="lecon" class="content-section active">
+            <h1>Le présent de l'indicatif</h1>
+            <p>Le présent de l'indicatif est un temps simple qui exprime un fait qui se déroule au moment où l'on parle.</p>
+            
+            <h2>Conjugaison</h2>
+            <ul>
+                <li><strong>1er groupe (‑er) :</strong> je chant<u>e</u>, tu chant<u>es</u>, il chant<u>e</u>, nous chant<u>ons</u>, vous chant<u>ez</u>, ils chant<u>ent</u></li>
+                <li><strong>2ème groupe (‑ir) :</strong> je fin<u>is</u>, tu fin<u>is</u>, il fin<u>it</u>, nous fin<u>issons</u>, vous fin<u>issez</u>, ils fin<u>issent</u></li>
+                <li><strong>3ème groupe :</strong> je prend<u>s</u>, tu prend<u>s</u>, il prend, nous pren<u>ons</u>, vous pren<u>ez</u>, ils prenn<u>ent</u></li>
+            </ul>
+        </section>
+        
+        <section id="exceptions" class="content-section">
+            <h1>Exceptions</h1>
+            <p>Verbes en -eler, -eter : j'appelle, je jette</p>
+            <p>Verbes en -oyer, -uyer : je nettoie, j'essaie</p>
+        </section>
+        
+        <section id="carte" class="content-section">
+            <h1>Carte mentale</h1>
+            <p>Image à insérer</p>
+        </section>
+        
+        <section id="fiche" class="content-section">
+            <h1>Fiche de révision</h1>
+            <p>À personnaliser</p>
+        </section>
+        
+        <section id="ressources" class="content-section">
+            <h1>Ressources</h1>
+            <ul>
+                <li><a href="#">Vidéos</a></li>
+                <li><a href="#">Exercices</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = "Leçon sur le présent de l'indicatif. " + 
+                          document.querySelector('.content-section.active')?.innerText || "";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Sous-menus de la sidebar
+        function toggleSubmenu(element) {
+            element.parentElement.classList.toggle('active');
+        }
+
+        // Surligner la page active au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = 'indicatif-present.html';
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                    // Ouvrir le menu parent
+                    const parentLi = link.closest('li');
+                    if (parentLi) {
+                        const parentMenu = parentLi.closest('li');
+                        if (parentMenu) {
+                            parentMenu.classList.add('active');
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

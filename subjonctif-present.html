@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le subjonctif présent - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - BLEU POUR LA CONJUGAISON === */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .sidebar p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar li strong i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar li.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 15px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 600px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        
+        .mode-link {
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .mode-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .mode-container {
+            margin: 3px 0;
+        }
+        
+        .mode-container strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .mode-container strong:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .mode-container.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .temps-list {
+            padding-left: 12px;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        
+        .mode-container.active .temps-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .temps-list li a {
+            display: block;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        
+        .temps-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .temps-list li a.active {
+            background-color: #f72585;
+            color: white;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableaux */
+        .conjugation-table {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 5px solid var(--success);
+            margin: 15px 0;
+        }
+        
+        .verb-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .verb-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pronoun {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 80px;
+        }
+        
+        .verb-form {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary);
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        /* Cartes dépliables */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .expandable-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .expandable-card-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e9ecef;
+        }
+        
+        .expandable-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expandable-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+        
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 800px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+        
+        .expandable-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Grille valeurs */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Grille exceptions */
+        .exceptions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .exceptions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .exception-card {
+            background: #fff9f9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .exception-card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #fff9f9;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .exception-card-header h3 {
+            margin: 0;
+            color: var(--danger);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exception-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .exception-card.expanded .exception-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        /* Cartes mentales */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .mindmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mindmap-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .mindmap-card img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Ressources */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .ressources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .ressource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 5px 12px;
+            background-color: #f8f0f5;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ressource-link:hover {
+            background-color: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        /* Fiche de révision */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-simple input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .fiche-preview {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary-light);
+            display: none;
+        }
+        
+        .fiche-preview.active {
+            display: block;
+        }
+        
+        .fiche-preview h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .fiche-preview .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+        
+        body.dys-mode .conjugation-table {
+            background: #f5f5f5 !important;
+        }
+        
+        body.dys-mode p {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('lecon')">Leçon</button>
+            <button class="tab" onclick="switchTab('valeurs')">Valeurs</button>
+            <button class="tab" onclick="switchTab('pieges')">Pièges</button>
+            <button class="tab" onclick="switchTab('carte')">Carte mentale</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche de révision</button>
+            <button class="tab" onclick="switchTab('ressources')">Aller plus loin</button>
+        </div>
+
+        <!-- SECTION LEÇON -->
+        <section id="lecon" class="content-section active">
+            <h1><i class="fas fa-question-circle"></i> Le subjonctif présent</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> À retenir</h4>
+                <p>Le <strong>subjonctif</strong> est le mode de l'incertitude, du doute, du souhait, de l'émotion. Il s'oppose à l'indicatif, qui est le mode de la réalité, de la certitude.</p>
+                <p><strong>Pour le reconnaître :</strong> on le trouve souvent après "il faut que", "bien que", "pour que", "je souhaite que"...</p>
+                <p><strong>Construction :</strong> radical de la 3e personne du pluriel de l'indicatif présent (ils) + terminaisons <strong>-e, -es, -e, -ions, -iez, -ent</strong></p>
+            </div>
+
+            <!-- ===== TABLEAUX DE CONJUGAISON (DÉPLIANTS) ===== -->
+            <h2 style="margin-top: 30px;"><i class="fas fa-arrow-right"></i> Conjugaison complète</h2>
+
+            <!-- 1er groupe -->
+            <div class="expandable-card" id="groupe1">
+                <div class="expandable-card-header" onclick="toggleCard('groupe1')">
+                    <h3><i class="fas fa-chevron-right"></i> 1er groupe (verbes en -ER)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>CHANTER</h4>
+                        <p><em>Radical : ils chant<strong>ent</strong> → chant-</em></p>
+                        <div class="verb-row"><span class="pronoun">que je</span> <span class="verb-form">chant<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que tu</span> <span class="verb-form">chant<strong>es</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'il/elle/on</span> <span class="verb-form">chant<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que nous</span> <span class="verb-form">chant<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que vous</span> <span class="verb-form">chant<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'ils/elles</span> <span class="verb-form">chant<strong>ent</strong></span></div>
+                    </div>
+                    <p><strong>Exemple :</strong> Il faut que je <u>chante</u> ce soir.</p>
+                </div>
+            </div>
+
+            <!-- 2e groupe -->
+            <div class="expandable-card" id="groupe2">
+                <div class="expandable-card-header" onclick="toggleCard('groupe2')">
+                    <h3><i class="fas fa-chevron-right"></i> 2ème groupe (verbes en -IR)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>FINIR</h4>
+                        <p><em>Radical : ils fin<strong>issent</strong> → finiss-</em></p>
+                        <div class="verb-row"><span class="pronoun">que je</span> <span class="verb-form">finiss<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que tu</span> <span class="verb-form">finiss<strong>es</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'il/elle/on</span> <span class="verb-form">finiss<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que nous</span> <span class="verb-form">finiss<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que vous</span> <span class="verb-form">finiss<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'ils/elles</span> <span class="verb-form">finiss<strong>ent</strong></span></div>
+                    </div>
+                    <p><strong>Exemple :</strong> Je souhaite que tu <u>finisses</u> ton travail.</p>
+                </div>
+            </div>
+
+            <!-- 3e groupe -->
+            <div class="expandable-card" id="groupe3">
+                <div class="expandable-card-header" onclick="toggleCard('groupe3')">
+                    <h3><i class="fas fa-chevron-right"></i> 3ème groupe (verbes réguliers)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>PRENDRE</h4>
+                        <p><em>Radical : ils prenn<strong>ent</strong> → prenn-</em></p>
+                        <div class="verb-row"><span class="pronoun">que je</span> <span class="verb-form">prenn<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que tu</span> <span class="verb-form">prenn<strong>es</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'il/elle/on</span> <span class="verb-form">prenn<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que nous</span> <span class="verb-form">pre<strong>nions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que vous</span> <span class="verb-form">pre<strong>niez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'ils/elles</span> <span class="verb-form">prenn<strong>ent</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>DESCENDRE</h4>
+                        <p><em>Radical : ils descend<strong>ent</strong> → descend-</em></p>
+                        <div class="verb-row"><span class="pronoun">que je</span> <span class="verb-form">descend<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que tu</span> <span class="verb-form">descend<strong>es</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'il/elle/on</span> <span class="verb-form">descend<strong>e</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que nous</span> <span class="verb-form">descend<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">que vous</span> <span class="verb-form">descend<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">qu'ils/elles</span> <span class="verb-form">descend<strong>ent</strong></span></div>
+                    </div>
+                    <p><strong>Exemple :</strong> Il faut que nous <u>prenions</u> une décision.</p>
+                </div>
+            </div>
+
+            <!-- Les 9 verbes irréguliers -->
+            <div class="expandable-card" id="irreguliers">
+                <div class="expandable-card-header" onclick="toggleCard('irreguliers')">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Les 9 verbes irréguliers à connaître par cœur</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 2px solid var(--primary);">
+                            <th style="text-align: left; padding: 8px;">Verbe</th>
+                            <th style="text-align: left; padding: 8px;">Conjugaison (que je...)</th>
+                        </tr>
+                        <tr><td><strong>être</strong></td><td>que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient</td></tr>
+                        <tr><td><strong>avoir</strong></td><td>que j'aie, que tu aies, qu'il ait, que nous ayons, que vous ayez, qu'ils aient</td></tr>
+                        <tr><td><strong>aller</strong></td><td>que j'aille, que tu ailles, qu'il aille, que nous allions, que vous alliez, qu'ils aillent</td></tr>
+                        <tr><td><strong>faire</strong></td><td>que je fasse, que tu fasses, qu'il fasse, que nous fassions, que vous fassiez, qu'ils fassent</td></tr>
+                        <tr><td><strong>pouvoir</strong></td><td>que je puisse, que tu puisses, qu'il puisse, que nous puissions, que vous puissiez, qu'ils puissent</td></tr>
+                        <tr><td><strong>vouloir</strong></td><td>que je veuille, que tu veuilles, qu'il veuille, que nous voulions, que vous vouliez, qu'ils veuillent</td></tr>
+                        <tr><td><strong>savoir</strong></td><td>que je sache, que tu saches, qu'il sache, que nous sachions, que vous sachiez, qu'ils sachent</td></tr>
+                        <tr><td><strong>falloir</strong></td><td>qu'il faille (impersonnel)</td></tr>
+                        <tr><td><strong>valoir</strong></td><td>que je vaille, que tu vailles, qu'il vaille, que nous valions, que vous valiez, qu'ils vaillent</td></tr>
+                    </table>
+                    <p><strong>Exemple :</strong> Il faut que tu <u>saches</u> la vérité.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VALEURS -->
+        <section id="valeurs" class="content-section">
+            <h1><i class="fas fa-clock"></i> Les valeurs du subjonctif présent</h1>
+            
+            <div class="info-box" style="background-color: #f0f8ff; border-left-color: var(--primary);">
+                <h4><i class="fas fa-info-circle"></i> L'idée générale : le monde des idées</h4>
+                <p>Le subjonctif est le mode de <strong>tout ce qui n'est pas certain, pas réel, pas objectif</strong>. Contrairement à l'indicatif qui décrit les faits réels (ce qui est vrai, ce qui se passe vraiment), le subjonctif exprime <strong>ce qui se passe dans notre tête</strong> : nos souhaits, nos craintes, nos doutes, nos émotions, ce qu'on imagine ou ce qu'on espère.</p>
+                <p><strong>Indicatif = le monde réel</strong> (ce qui est sûr, objectif)</p>
+                <p><strong>Subjonctif = le monde des idées</strong> (ce qui est subjectif, incertain, imaginé, désiré)</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3><i class="fas fa-heart"></i> Le souhait, le désir</h3>
+                    <p>On exprime ce qu'on aimerait voir se réaliser.</p>
+                    <div class="example-box">
+                        <p>Je souhaite que tu <span class="highlight">viennes</span> à ma fête.</p>
+                        <p>Pourvu qu'il <span class="highlight">fasse</span> beau demain !</p>
+                        <p>J'aimerais que nous <span class="highlight">partions</span> ensemble.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-gavel"></i> L'obligation, la nécessité</h3>
+                    <p>On exprime ce qui doit être fait (souvent après "il faut que").</p>
+                    <div class="example-box">
+                        <p>Il faut que tu <span class="highlight">finisses</span> tes devoirs.</p>
+                        <p>Il est nécessaire que vous <span class="highlight">soyez</span> à l'heure.</p>
+                        <p>J'exige qu'il <span class="highlight">parte</span> immédiatement.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-question-circle"></i> Le doute, l'incertitude</h3>
+                    <p>On exprime ce qui n'est pas sûr, ce qu'on met en doute.</p>
+                    <div class="example-box">
+                        <p>Je doute qu'il <span class="highlight">vienne</span> ce soir.</p>
+                        <p>Il est peu probable que nous <span class="highlight">ayons</span> le temps.</p>
+                        <p>Je ne crois pas que ce <span class="highlight">soit</span> vrai.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-smile"></i> Le sentiment, l'émotion</h3>
+                    <p>On exprime une réaction émotionnelle face à quelque chose.</p>
+                    <div class="example-box">
+                        <p>Je suis content que tu <span class="highlight">sois</span> là.</p>
+                        <p>Je regrette que vous <span class="highlight">partiez</span> si tôt.</p>
+                        <p>J'ai peur qu'il <span class="highlight">ait</span> un accident.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-cloud-sun"></i> La possibilité, l'hypothèse</h3>
+                    <p>On exprime ce qui est possible, mais pas certain.</p>
+                    <div class="example-box">
+                        <p>Il est possible qu'il <span class="highlight">pleuve</span> demain.</p>
+                        <p>Il se peut que nous <span class="highlight">arrivions</span> en retard.</p>
+                        <p>Peut-être qu'il <span class="highlight">fasse</span> froid ce soir.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-link"></i> Après certaines conjonctions</h3>
+                    <p>Certains mots imposent le subjonctif, même si le sens est proche du réel.</p>
+                    <div class="example-box">
+                        <p><strong>Bien qu'</strong>il <span class="highlight">soit</span> tard, je reste.</p>
+                        <p>Je t'aide <strong>pour que</strong> tu <span class="highlight">finisses</span> plus vite.</p>
+                        <p><strong>Avant que</strong> tu <span class="highlight">partes</span>, dis-moi au revoir.</p>
+                        <p><strong>Jusqu'à ce que</strong> tu <span class="highlight">comprennes</span>, je répéterai.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <h4><i class="fas fa-lightbulb"></i> Résumé simple</h4>
+                <p><strong>Indicatif = la réalité, les faits</strong> (je sais que c'est vrai)</p>
+                <p><strong>Subjonctif = les idées, les sentiments, les possibilités</strong> (ce qui est dans ma tête)</p>
+            </div>
+        </section>
+
+        <!-- SECTION PIÈGES -->
+        <section id="pieges" class="content-section">
+            <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+            
+            <div class="exceptions-grid">
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> PIÈGE N°1 : "que" + indicatif ou subjonctif ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>La confusion la plus fréquente !</strong></p>
+                        <p>✅ <strong>Après ces verbes → SUBJONCTIF</strong> (doute, souhait, émotion) :</p>
+                        <p>il faut que, je souhaite que, je veux que, je doute que, je regrette que, j'ai peur que, pour que, bien que, avant que...</p>
+                        <p>❌ <strong>Après ces verbes → INDICATIF</strong> (certitude, réalité) :</p>
+                        <p>je pense que, je crois que, il est sûr que, je sais que, il me semble que, parce que, puisque...</p>
+                        <p><strong>Exemples :</strong></p>
+                        <p>✅ Il faut que tu <u>viennes</u> (subjonctif).</p>
+                        <p>❌ Je pense que tu <u>viens</u> (indicatif).</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> PIÈGE N°2 : les verbes du 1er groupe</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Pour les verbes du 1er groupe, le subjonctif présent ressemble beaucoup à l'indicatif présent !</strong></p>
+                        <p><strong>Indicatif présent :</strong> je chante, tu chantes, il chante, nous chantons, vous chantez, ils chantent</p>
+                        <p><strong>Subjonctif présent :</strong> que je chante, que tu chantes, qu'il chante, que nous chant<u>ions</u>, que vous chant<u>iez</u>, qu'ils chantent</p>
+                        <p><em>Attention : la seule différence est à "nous" et "vous" !</em></p>
+                        <p>✅ <u>Nous chantons</u> (indicatif) ≠ <u>que nous chantions</u> (subjonctif)</p>
+                        <p>✅ <u>vous chantez</u> (indicatif) ≠ <u>que vous chantiez</u> (subjonctif)</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Les 9 irréguliers à connaître par cœur</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>À apprendre absolument !</strong></p>
+                        <p><strong>être :</strong> que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient</p>
+                        <p><strong>avoir :</strong> que j'aie, que tu aies, qu'il ait, que nous ayons, que vous ayez, qu'ils aient</p>
+                        <p><strong>aller :</strong> que j'aille, que tu ailles, qu'il aille, que nous allions, que vous alliez, qu'ils aillent</p>
+                        <p><strong>faire :</strong> que je fasse, que tu fasses, qu'il fasse, que nous fassions, que vous fassiez, qu'ils fassent</p>
+                        <p><strong>pouvoir :</strong> que je puisse, que tu puisses, qu'il puisse, que nous puissions, que vous puissiez, qu'ils puissent</p>
+                        <p><strong>vouloir :</strong> que je veuille, que tu veuilles, qu'il veuille, que nous voulions, que vous vouliez, qu'ils veuillent</p>
+                        <p><strong>savoir :</strong> que je sache, que tu saches, qu'il sache, que nous sachions, que vous sachiez, qu'ils sachent</p>
+                        <p><strong>falloir :</strong> qu'il faille</p>
+                        <p><strong>valoir :</strong> que je vaille, que tu vailles, qu'il vaille, que nous valions, que vous valiez, qu'ils vaillent</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Conjonctions qui exigent le subjonctif</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Liste à retenir :</strong></p>
+                        <p><strong>Bien que / Quoique</strong> : Bien qu'il <u>soit</u> tard...</p>
+                        <p><strong>Pour que / Afin que</strong> : Je parle fort pour que tu <u>entendes</u>.</p>
+                        <p><strong>Avant que</strong> : Avant que tu <u>partes</u>...</p>
+                        <p><strong>Jusqu'à ce que</strong> : J'attendrai jusqu'à ce que tu <u>viennes</u>.</p>
+                        <p><strong>Sans que</strong> : Il est parti sans que je le <u>sache</u>.</p>
+                        <p><strong>À condition que</strong> : Je viendrai à condition que tu <u>sois</u> là.</p>
+                        <p><strong>Pourvu que</strong> : Pourvu qu'il <u>fasse</u> beau !</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE MENTALE -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            
+            <div class="mindmap-grid">
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 1 - Présent du subjonctif</h3>
+                    <img src="assets/img/Carte-mentale-Present-du-subjonctif.jpg" alt="Carte mentale présent du subjonctif" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Carte-mentale-Present-du-subjonctif.jpg', 'subjonctif-present-carte1.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 2 - Le subjonctif (général)</h3>
+                    <img src="assets/img/Carte-mentale-Subjonctif.jpg" alt="Carte mentale subjonctif" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Carte-mentale-Subjonctif.jpg', 'subjonctif-carte2.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 3 - Présent du subjonctif</h3>
+                    <img src="assets/img/Carte-mentale-Le-subjonctif-present-1024x573.png" alt="Carte mentale subjonctif présent" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Carte-mentale-Le-subjonctif-present-1024x573.png', 'subjonctif-present-carte3.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 4 - Subjonctif présent</h3>
+                    <img src="assets/img/subjonctif_présent.webp" alt="Carte mentale subjonctif présent webp" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/subjonctif_présent.webp', 'subjonctif-present-carte4.webp')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FICHE DE RÉVISION -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+            
+            <div class="customize-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-sliders-h"></i> Personnalise ta fiche
+                </h2>
+                
+                <div class="customize-grid">
+                    <div class="customize-option">
+                        <h3><i class="fas fa-puzzle-piece"></i> Construction</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-regle" checked>
+                            <span>Règle générale (ils + terminaisons)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-groupe1" checked>
+                            <span>1er groupe (chanter)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-groupe2" checked>
+                            <span>2ème groupe (finir)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-groupe3" checked>
+                            <span>3ème groupe régulier (prendre)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-irreguliers" checked>
+                            <span>Les 9 verbes irréguliers</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-rainbow"></i> L'idée générale</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-monde-idees" checked>
+                            <span>Subjonctif = monde des idées (vs indicatif = réel)</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-clock"></i> Valeurs</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-souhait" checked>
+                            <span>Souhait / Désir</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-obligation" checked>
+                            <span>Obligation / Nécessité</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-doute" checked>
+                            <span>Doute / Incertitude</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-emotion" checked>
+                            <span>Sentiment / Émotion</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-possibilite" checked>
+                            <span>Possibilité / Hypothèse</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-conjonctions" checked>
+                            <span>Conjonctions (bien que, pour que...)</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Pièges</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege1" checked>
+                            <span>"que" + indicatif ou subjonctif ?</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege2" checked>
+                            <span>Verbes du 1er groupe (nous/vous)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege3" checked>
+                            <span>Les 9 irréguliers</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege4" checked>
+                            <span>Conjonctions à retenir</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-accent" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div id="fichePreview" class="fiche-preview">
+                <h2>📝 Le subjonctif présent - Fiche de révision</h2>
+                <div id="preview-content"></div>
+            </div>
+        </section>
+
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+            
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-video"></i> Vidéos</h3>
+                    <a href="https://www.dailymotion.com/video/x82sg62" class="ressource-link" target="_blank">Le subjonctif présent (Dailymotion)</a>
+                    <a href="https://www.bescherelle.com/video/quand-faut-il-utiliser-le-subjonctif-present/" class="ressource-link" target="_blank">Bescherelle - Utilisation</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Cours et exercices</h3>
+                    <a href="https://francais.lingolia.com/fr/grammaire/les-verbes/subjonctif/exercices" class="ressource-link" target="_blank">Lingolia</a>
+                    <a href="https://www.podcastfrancaisfacile.com/conjugaison/conjugaison-exercice-subjonctif-present.html" class="ressource-link" target="_blank">Podcast Français Facile</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-4514.php" class="ressource-link" target="_blank">Français Facile - Subjonctif présent</a>
+                    <a href="https://www.ortholud.com/exercices_au_present_du_subjonctif.html" class="ressource-link" target="_blank">Ortholud</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-98954.php" class="ressource-link" target="_blank">Présent ou subjonctif présent ?</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-8443.php" class="ressource-link" target="_blank">Subjonctif ou Indicatif présent ?</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-42480.php" class="ressource-link" target="_blank">Emplois du subjonctif</a>
+                    <a href="https://chezmonsieurpaul.org/carte-mentale-le-subjonctif/" class="ressource-link" target="_blank">Chez Monsieur Paul - Carte mentale</a>
+                    <a href="https://www.numero1-scolarite.com/ressources-pedagogiques-francais/exercices-et-lecons-de-francais/exercices-et-lecons-francais-4eme-gratuits-a-telecharger/le-present-du-subjonctiflecon-et-exercices-4eme/" class="ressource-link" target="_blank">Numéro 1 Scolarité</a>
+                    <a href="https://francaisvachementsympa.wordpress.com/2019/03/10/le-present-du-subjonctif/" class="ressource-link" target="_blank">Le blog de MGC</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-gamepad"></i> Jeux et quiz</h3>
+                    <a href="https://www.jeuxpedago.com/jeux-francais-6eme-2nd-le-subjonctif-present-_pageid1208.html" class="ressource-link" target="_blank">JeuxPedago</a>
+                    <a href="https://wordwall.net/resource/238641/french/le-subjonctif" class="ressource-link" target="_blank">Wordwall - Le Subjonctif</a>
+                    <a href="https://www.lumni.fr/quiz/le-subjonctif-present" class="ressource-link" target="_blank">Lumni - Quiz</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = document.querySelector('.content-section.active')?.innerText || "Leçon sur le subjonctif présent.";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Cartes dépliables
+        function toggleCard(cardId) {
+            document.getElementById(cardId).classList.toggle('expanded');
+        }
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        // Télécharger image
+        function downloadImage(src, filename) {
+            const link = document.createElement('a');
+            link.href = src;
+            link.download = filename;
+            link.click();
+        }
+
+        // Générer l'aperçu de la fiche
+        function generatePreview() {
+            const preview = document.getElementById('fichePreview');
+            const content = document.getElementById('preview-content');
+            let html = '';
+
+            if (document.getElementById('check-regle')?.checked) {
+                html += `<div class="section"><h3>Règle générale</h3>
+                <p>Radical de "ils" au présent + terminaisons : -e, -es, -e, -ions, -iez, -ent</p>
+                <p>Ex: ils chantent → que je chante, que nous chantions...</p></div>`;
+            }
+
+            if (document.getElementById('check-groupe1')?.checked) {
+                html += `<div class="section"><h3>1er groupe (chanter)</h3>
+                <p>que je chante, que tu chantes, qu'il chante, que nous chantions, que vous chantiez, qu'ils chantent</p>
+                <p>⚠️ Attention : nous chantons (indicatif) ≠ que nous chantions (subjonctif)</p></div>`;
+            }
+
+            if (document.getElementById('check-groupe2')?.checked) {
+                html += `<div class="section"><h3>2ème groupe (finir)</h3>
+                <p>que je finisse, que tu finisses, qu'il finisse, que nous finissions, que vous finissiez, qu'ils finissent</p></div>`;
+            }
+
+            if (document.getElementById('check-groupe3')?.checked) {
+                html += `<div class="section"><h3>3ème groupe régulier (prendre)</h3>
+                <p>que je prenne, que tu prennes, qu'il prenne, que nous prenions, que vous preniez, qu'ils prennent</p></div>`;
+            }
+
+            if (document.getElementById('check-irreguliers')?.checked) {
+                html += `<div class="section"><h3>Les 9 verbes irréguliers</h3>
+                <p><strong>être :</strong> que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient</p>
+                <p><strong>avoir :</strong> que j'aie, que tu aies, qu'il ait, que nous ayons, que vous ayez, qu'ils aient</p>
+                <p><strong>aller :</strong> que j'aille, que tu ailles, qu'il aille, que nous allions, que vous alliez, qu'ils aillent</p>
+                <p><strong>faire :</strong> que je fasse, que tu fasses, qu'il fasse, que nous fassions, que vous fassiez, qu'ils fassent</p>
+                <p><strong>pouvoir :</strong> que je puisse, que tu puisses, qu'il puisse, que nous puissions, que vous puissiez, qu'ils puissent</p>
+                <p><strong>vouloir :</strong> que je veuille, que tu veuilles, qu'il veuille, que nous voulions, que vous vouliez, qu'ils veuillent</p>
+                <p><strong>savoir :</strong> que je sache, que tu saches, qu'il sache, que nous sachions, que vous sachiez, qu'ils sachent</p>
+                <p><strong>falloir :</strong> qu'il faille - <strong>valoir :</strong> que je vaille...</p></div>`;
+            }
+
+            if (document.getElementById('check-monde-idees')?.checked) {
+                html += `<div class="section"><h3>L'idée générale</h3>
+                <p><strong>Indicatif = monde réel</strong> (certitude, faits objectifs)</p>
+                <p><strong>Subjonctif = monde des idées</strong> (souhaits, doutes, émotions, possibilités, subjectivité)</p></div>`;
+            }
+
+            if (document.getElementById('check-souhait')?.checked || document.getElementById('check-obligation')?.checked || document.getElementById('check-doute')?.checked || document.getElementById('check-emotion')?.checked || document.getElementById('check-possibilite')?.checked || document.getElementById('check-conjonctions')?.checked) {
+                html += `<div class="section"><h3>Valeurs</h3>`;
+                if (document.getElementById('check-souhait')?.checked) html += `<p><strong>Souhait :</strong> Je souhaite que tu viennes.</p>`;
+                if (document.getElementById('check-obligation')?.checked) html += `<p><strong>Obligation :</strong> Il faut que tu finisses.</p>`;
+                if (document.getElementById('check-doute')?.checked) html += `<p><strong>Doute :</strong> Je doute qu'il vienne.</p>`;
+                if (document.getElementById('check-emotion')?.checked) html += `<p><strong>Émotion :</strong> Je suis content que tu sois là.</p>`;
+                if (document.getElementById('check-possibilite')?.checked) html += `<p><strong>Possibilité :</strong> Il est possible qu'il pleuve.</p>`;
+                if (document.getElementById('check-conjonctions')?.checked) html += `<p><strong>Conjonctions :</strong> bien que, pour que, avant que, jusqu'à ce que...</p>`;
+                html += `</div>`;
+            }
+
+            if (document.getElementById('check-piege1')?.checked || document.getElementById('check-piege2')?.checked || document.getElementById('check-piege3')?.checked || document.getElementById('check-piege4')?.checked) {
+                html += `<div class="section" style="border-left-color: var(--danger);"><h3>Pièges</h3>`;
+                if (document.getElementById('check-piege1')?.checked) html += `<p><strong>"que" + indicatif ou subjonctif ?</strong> Subjonctif après : il faut que, je souhaite que, bien que... Indicatif après : je pense que, je crois que...</p>`;
+                if (document.getElementById('check-piege2')?.checked) html += `<p><strong>Verbes du 1er groupe :</strong> nous chantons (indicatif) ≠ que nous chantions (subjonctif)</p>`;
+                if (document.getElementById('check-piege3')?.checked) html += `<p><strong>Les 9 irréguliers :</strong> être, avoir, aller, faire, pouvoir, vouloir, savoir, falloir, valoir</p>`;
+                if (document.getElementById('check-piege4')?.checked) html += `<p><strong>Conjonctions :</strong> bien que, pour que, avant que, jusqu'à ce que, sans que, à condition que, pourvu que</p>`;
+                html += `</div>`;
+            }
+
+            content.innerHTML = html || '<p style="text-align: center;">Sélectionne des éléments</p>';
+            preview.classList.add('active');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exporter PDF
+        function exportPDF() {
+            generatePreview();
+            setTimeout(() => window.print(), 500);
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    const currentPage = 'subjonctif-present.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                            let parent = link.closest('li');
+                            if (parent) parent.closest('li')?.classList.add('active');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français - 3ème</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>

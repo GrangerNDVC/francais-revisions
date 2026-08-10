@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Élèves - Prof</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #4361ee;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        th {
+            background: #4361ee;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge.classe-3A { background: #e7f3ff; color: #4361ee; }
+        .badge.classe-3B { background: #f3e7ff; color: #7209b7; }
+        .badge.classe-3C { background: #ffe7f3; color: #f72585; }
+        .badge.classe-3D { background: #e7fff9; color: #4cc9f0; }
+        .badge.classe-3E { background: #fff3e7; color: #ffb703; }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #3f37c9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #ef476f;
+        }
+        
+        .btn-danger:hover {
+            background: #d62828;
+        }
+        
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+        }
+        
+        .actions {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-users"></i> Liste des Élèves Connectés</h1>
+        <p>Accès réservé au professeur</p>
+    </div>
+    
+    <div class="container">
+        <div class="info-box">
+            <strong><i class="fas fa-info-circle"></i> Information :</strong> 
+            Cette page liste tous les élèves qui se sont connectés au moins une fois. 
+            Les identifiants sont : <strong>Prénom + Classe</strong>
+        </div>
+        
+        <div class="actions">
+            <button class="btn" onclick="exporterCSV()">
+                <i class="fas fa-download"></i> Exporter en CSV
+            </button>
+            <button class="btn" onclick="rafraichir()">
+                <i class="fas fa-sync"></i> Actualiser
+            </button>
+            <button class="btn btn-danger" onclick="reinitialiser()">
+                <i class="fas fa-trash"></i> Tout effacer
+            </button>
+        </div>
+        
+        <div id="liste-eleves">
+            <!-- La liste sera générée ici -->
+        </div>
+    </div>
+    
+    <script>
+        function afficherEleves() {
+            const eleves = JSON.parse(localStorage.getItem('listeEleves') || '[]');
+            const container = document.getElementById('liste-eleves');
+            
+            if (eleves.length === 0) {
+                container.innerHTML = `
+                    <div class="empty">
+                        <i class="fas fa-user-slash" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                        <p>Aucun élève connecté pour le moment.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">
+                            Les élèves apparaîtront ici dès leur première connexion.
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Trier par classe puis par nom
+            eleves.sort((a, b) => {
+                if (a.classe === b.classe) {
+                    return a.nom.localeCompare(b.nom);
+                }
+                return a.classe.localeCompare(b.classe);
+            });
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Identifiant (Login)</th>
+                            <th>Mot de passe</th>
+                            <th>Première connexion</th>
+                            <th>Dernière connexion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            eleves.forEach(eleve => {
+                const login = eleve.nom.toLowerCase().replace(/\s+/g, '');
+                const password = eleve.classe.toLowerCase();
+                const premiere = new Date(eleve.premiereConnexion).toLocaleString('fr-FR');
+                const derniere = new Date(eleve.derniereConnexion).toLocaleString('fr-FR');
+                
+                html += `
+                    <tr>
+                        <td><strong>${eleve.nom}</strong></td>
+                        <td><span class="badge classe-${eleve.classe}">${eleve.classe}</span></td>
+                        <td><code>${login}</code></td>
+                        <td><code>${password}</code></td>
+                        <td>${premiere}</td>
+                        <td>${derniere}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+                <p style="margin-top: 20px; color: #6c757d; font-size: 0.9rem;">
+                    <strong>Total :</strong> ${eleves.length} élève(s) enregistré(s)
+                </p>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function rafraichir() {
+            afficherEleves();
+            alert('✅ Liste actualisée !');
+        }
+        
+        function exporterCSV() {
+            const eleves = JSON.parse(localStorage.getItem('listeEleves') || '[]');
+            
+            if (eleves.length === 0) {
+                alert('❌ Aucun élève à exporter.');
+                return;
+            }
+            
+            let csv = 'Prénom,Classe,Login,Mot de passe,Première connexion,Dernière connexion\n';
+            
+            eleves.forEach(eleve => {
+                const login = eleve.nom.toLowerCase().replace(/\s+/g, '');
+                const password = eleve.classe.toLowerCase();
+                const premiere = new Date(eleve.premiereConnexion).toLocaleString('fr-FR');
+                const derniere = new Date(eleve.derniereConnexion).toLocaleString('fr-FR');
+                
+                csv += `${eleve.nom},${eleve.classe},${login},${password},"${premiere}","${derniere}"\n`;
+            });
+            
+            // Télécharger le fichier
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `eleves_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('✅ Export CSV téléchargé !');
+        }
+        
+        function reinitialiser() {
+            if (confirm('⚠️ ATTENTION : Cela va supprimer TOUS les élèves enregistrés.\n\nÊtes-vous vraiment sûr ?')) {
+                if (confirm('⚠️ DERNIÈRE CONFIRMATION : Toutes les données seront perdues !')) {
+                    localStorage.removeItem('listeEleves');
+                    afficherEleves();
+                    alert('✅ Toutes les données ont été effacées.');
+                }
+            }
+        }
+        
+        // Afficher la liste au chargement
+        afficherEleves();
+    </script>
+</body>
+</html>
