@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le présent de l'indicatif - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* === VARIABLES - COULEURS === */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar h2 i {
+            color: var(--warning);
+        }
+        
+        .sidebar p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 25px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .sidebar li strong i {
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar li.active strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 20px;
+            margin-top: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 300px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 8px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+            background-color: var(--accent);
+        }
+        
+        .back-link {
+            margin-top: 30px;
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            display: block;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3ab4d9;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableaux de conjugaison */
+        .conjugation-tables {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .conjugation-tables {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .conjugation-table {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 5px solid var(--success);
+        }
+        
+        .conjugation-table h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .verb-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .verb-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pronoun {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 70px;
+        }
+        
+        .verb-form {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .verb-ending {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* Info box */
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid var(--warning);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        /* Cartes dépliables */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .expandable-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .expandable-card-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e9ecef;
+        }
+        
+        .expandable-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expandable-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+        
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+        
+        .expandable-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Grille valeurs */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .value-card.discours {
+            border-top-color: var(--success);
+            background-color: #f0f9ff;
+        }
+        
+        .value-card.recit {
+            border-top-color: var(--accent);
+            background-color: #fff0f5;
+        }
+        
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .value-card.discours h3 {
+            color: var(--success);
+        }
+        
+        .value-card.recit h3 {
+            color: var(--accent);
+        }
+        
+        .example-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary);
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        /* Grille exceptions */
+        .exceptions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .exceptions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .exception-card {
+            background: #fff9f9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .exception-card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #fff9f9;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .exception-card-header h3 {
+            margin: 0;
+            color: var(--danger);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exception-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .exception-card.expanded .exception-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        /* Cartes mentales */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .mindmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mindmap-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .mindmap-card img {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Ressources */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .ressources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .ressource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 5px 12px;
+            background-color: #f8f0f5;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ressource-link:hover {
+            background-color: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        /* Fiche de révision */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-simple input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .fiche-preview {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary-light);
+            display: none;
+        }
+        
+        .fiche-preview.active {
+            display: block;
+        }
+        
+        .fiche-preview h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .fiche-preview .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+        
+        body.dys-mode .conjugation-table {
+            background: #f5f5f5 !important;
+        }
+        
+        body.dys-mode p {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('lecon')">Leçon</button>
+            <button class="tab" onclick="switchTab('valeurs')">Valeurs</button>
+            <button class="tab" onclick="switchTab('exceptions')">Exceptions</button>
+            <button class="tab" onclick="switchTab('carte')">Carte mentale</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche de révision</button>
+            <button class="tab" onclick="switchTab('ressources')">Aller plus loin</button>
+        </div>
+
+        <!-- SECTION LEÇON -->
+        <section id="lecon" class="content-section active">
+            <h1><i class="fas fa-play-circle"></i> Le présent de l'indicatif</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> À retenir</h4>
+                <p>Le <strong>présent de l'indicatif</strong> est un temps simple. Il exprime des faits qui se déroulent au moment où l'on parle, mais pas seulement ! Il a de très nombreuses valeurs que nous allons découvrir.</p>
+            </div>
+
+            <h2><i class="fas fa-arrow-right"></i> La conjugaison</h2>
+            
+            <div class="conjugation-tables">
+                <div class="conjugation-table">
+                    <h3><i class="fas fa-chevron-right"></i> 1er groupe (verbes en -er)</h3>
+                    <div class="verb-row"><span class="pronoun">Je</span> <span class="verb-form">chant<strong>e</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Tu</span> <span class="verb-form">chant<strong>es</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Il/Elle/On</span> <span class="verb-form">chant<strong>e</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Nous</span> <span class="verb-form">chant<strong>ons</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Vous</span> <span class="verb-form">chant<strong>ez</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Ils/Elles</span> <span class="verb-form">chant<strong>ent</strong></span></div>
+                </div>
+                
+                <div class="conjugation-table">
+                    <h3><i class="fas fa-chevron-right"></i> 2ème groupe (verbes en -ir)</h3>
+                    <div class="verb-row"><span class="pronoun">Je</span> <span class="verb-form">fin<strong>is</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Tu</span> <span class="verb-form">fin<strong>is</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Il/Elle/On</span> <span class="verb-form">fin<strong>it</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Nous</span> <span class="verb-form">fin<strong>issons</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Vous</span> <span class="verb-form">fin<strong>issez</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Ils/Elles</span> <span class="verb-form">fin<strong>issent</strong></span></div>
+                </div>
+                
+                <div class="conjugation-table">
+                    <h3><i class="fas fa-chevron-right"></i> 3ème groupe (verbes irréguliers)</h3>
+                    <div class="verb-row"><span class="pronoun">Je</span> <span class="verb-form">prend<strong>s</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Tu</span> <span class="verb-form">prend<strong>s</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Il/Elle/On</span> <span class="verb-form">prend</span></div>
+                    <div class="verb-row"><span class="pronoun">Nous</span> <span class="verb-form">pren<strong>ons</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Vous</span> <span class="verb-form">pren<strong>ez</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Ils/Elles</span> <span class="verb-form">prenn<strong>ent</strong></span></div>
+                </div>
+            </div>
+
+            <h2><i class="fas fa-arrow-right"></i> Les verbes irréguliers à connaître</h2>
+            
+            <div class="conjugation-tables">
+                <div class="conjugation-table">
+                    <h3><i class="fas fa-heart"></i> ÊTRE</h3>
+                    <div class="verb-row"><span class="pronoun">Je</span> <span class="verb-form"><strong>suis</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Tu</span> <span class="verb-form"><strong>es</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Il/Elle/On</span> <span class="verb-form"><strong>est</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Nous</span> <span class="verb-form"><strong>sommes</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Vous</span> <span class="verb-form"><strong>êtes</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Ils/Elles</span> <span class="verb-form"><strong>sont</strong></span></div>
+                </div>
+                
+                <div class="conjugation-table">
+                    <h3><i class="fas fa-box"></i> AVOIR</h3>
+                    <div class="verb-row"><span class="pronoun">J'</span> <span class="verb-form"><strong>ai</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Tu</span> <span class="verb-form"><strong>as</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Il/Elle/On</span> <span class="verb-form"><strong>a</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Nous</span> <span class="verb-form"><strong>avons</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Vous</span> <span class="verb-form"><strong>avez</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Ils/Elles</span> <span class="verb-form"><strong>ont</strong></span></div>
+                </div>
+                
+                <div class="conjugation-table">
+                    <h3><i class="fas fa-road"></i> ALLER</h3>
+                    <div class="verb-row"><span class="pronoun">Je</span> <span class="verb-form"><strong>vais</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Tu</span> <span class="verb-form"><strong>vas</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Il/Elle/On</span> <span class="verb-form"><strong>va</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Nous</span> <span class="verb-form"><strong>allons</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Vous</span> <span class="verb-form"><strong>allez</strong></span></div>
+                    <div class="verb-row"><span class="pronoun">Ils/Elles</span> <span class="verb-form"><strong>vont</strong></span></div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-info-circle"></i> Pour aller plus loin</h4>
+                <p>Le présent a de nombreuses valeurs selon le contexte. Rendez-vous dans l'onglet <strong>"Valeurs"</strong> pour les découvrir en détail !</p>
+            </div>
+        </section>
+
+        <!-- SECTION VALEURS -->
+        <section id="valeurs" class="content-section">
+            <h1><i class="fas fa-clock"></i> Les valeurs du présent</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Comprendre les valeurs</h4>
+                <p>Le présent ne sert pas seulement à parler de ce qui se passe maintenant ! Selon le contexte, il peut exprimer des choses très différentes. On distingue deux grandes catégories :</p>
+                <p><strong style="color: var(--success);">🔵 LES VALEURS DANS LE DISCOURS</strong> (quand on parle, on écrit une lettre, un dialogue...)</p>
+                <p><strong style="color: var(--accent);">🟡 LES VALEURS DANS LE RÉCIT</strong> (dans un roman, un conte, un fait divers...)</p>
+            </div>
+
+            <h2 style="color: var(--success);"><i class="fas fa-comment-dots"></i> Dans le DISCOURS</h2>
+            
+            <div class="values-grid">
+                <div class="value-card discours">
+                    <h3><i class="fas fa-clock"></i> Présent d'énonciation</h3>
+                    <p>L'action se déroule au moment où l'on parle. C'est la valeur la plus simple !</p>
+                    <div class="example-box">
+                        <p>En ce moment, je <span class="highlight">mange</span> une pomme.</p>
+                        <p>Tu <span class="highlight">écoutes</span> de la musique ?</p>
+                        <p>Nous <span class="highlight">sommes</span> en train de réviser.</p>
+                    </div>
+                </div>
+
+                <div class="value-card discours">
+                    <h3><i class="fas fa-globe"></i> Présent de vérité générale</h3>
+                    <p>Il exprime des faits toujours vrais, des lois scientifiques, des proverbes.</p>
+                    <div class="example-box">
+                        <p>La Terre <span class="highlight">tourne</span> autour du Soleil.</p>
+                        <p>L'eau <span class="highlight">bout</span> à 100 degrés.</p>
+                        <p>Qui <span class="highlight">veut</span> voyager loin ménage sa monture.</p>
+                    </div>
+                </div>
+
+                <div class="value-card discours">
+                    <h3><i class="fas fa-redo-alt"></i> Présent d'habitude</h3>
+                    <p>Il décrit des actions qui se répètent régulièrement.</p>
+                    <div class="example-box">
+                        <p>Je <span class="highlight">vais</span> au collège tous les jours.</p>
+                        <p>Nous <span class="highlight">dînons</span> à 19h30 en semaine.</p>
+                        <p>Le dimanche, ils <span class="highlight">vont</span> à la pêche.</p>
+                    </div>
+                </div>
+
+                <div class="value-card discours">
+                    <h3><i class="fas fa-hourglass-end"></i> Futur proche</h3>
+                    <p>Avec un indicateur de temps, le présent peut exprimer une action future qui va se réaliser très bientôt.</p>
+                    <div class="example-box">
+                        <p>Demain, je <span class="highlight">pars</span> en vacances.</p>
+                        <p>Ce soir, nous <span class="highlight">allons</span> au cinéma.</p>
+                        <p>J'<span class="highlight">arrive</span> tout de suite !</p>
+                    </div>
+                </div>
+
+                <div class="value-card discours">
+                    <h3><i class="fas fa-hourglass-start"></i> Passé récent</h3>
+                    <p>Avec "venir de", le présent exprime une action qui vient de se produire.</p>
+                    <div class="example-box">
+                        <p>Le boulanger <span class="highlight">sort</span> à l'instant.</p>
+                        <p>J'<span class="highlight">apprends</span> la nouvelle à l'instant.</p>
+                        <p>Il <span class="highlight">arrive</span> juste.</p>
+                    </div>
+                </div>
+
+                <div class="value-card discours">
+                    <h3><i class="fas fa-question-circle"></i> Présent de supposition</h3>
+                    <p>Dans des questions, le présent peut exprimer une hypothèse.</p>
+                    <div class="example-box">
+                        <p>Si je <span class="highlight">comprends</span> bien, tu ne viens pas ?</p>
+                        <p>Tu <span class="highlight">veux</span> dire qu'il est parti ?</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="color: var(--accent); margin-top: 30px;"><i class="fas fa-book"></i> Dans le RÉCIT</h2>
+            
+            <div class="values-grid">
+                <div class="value-card recit">
+                    <h3><i class="fas fa-history"></i> Présent de narration (ou présent historique)</h3>
+                    <p>On utilise le présent pour raconter des événements passés, ce qui les rend plus vivants. C'est très courant dans les récits historiques.</p>
+                    <div class="example-box">
+                        <p>En 1789, le peuple <span class="highlight">prend</span> la Bastille.</p>
+                        <p>Christophe Colomb <span class="highlight">découvre</span> l'Amérique en 1492.</p>
+                        <p>Louis XIV <span class="highlight">fait</span> construire Versailles.</p>
+                    </div>
+                </div>
+
+                <div class="value-card recit">
+                    <h3><i class="fas fa-paint-brush"></i> Présent de description</h3>
+                    <p>Dans un récit au passé, on peut utiliser le présent pour décrire un personnage, un lieu, comme si on y était.</p>
+                    <div class="example-box">
+                        <p>Il <span class="highlight">était</span> une fois une princesse qui <span class="highlight">vivait</span> dans un château. Autour d'elle, tout <span class="highlight">est</span> beau, tout <span class="highlight">brille</span>...</p>
+                        <p>Je <span class="highlight">voyais</span> la mer au loin, elle <span class="highlight">est</span> calme, elle <span class="highlight">reflète</span> le ciel.</p>
+                    </div>
+                </div>
+
+                <div class="value-card recit">
+                    <h3><i class="fas fa-bolt"></i> Présent pour une action passée soudaine</h3>
+                    <p>Dans un récit, on peut passer du passé au présent pour marquer une action soudaine et la rendre plus frappante.</p>
+                    <div class="example-box">
+                        <p>Il <span class="highlight">marchait</span> tranquillement quand soudain un chien <span class="highlight">bondit</span> devant lui.</p>
+                        <p>J'<span class="highlight">étais</span> en train de lire quand la porte <span class="highlight">s'ouvre</span> brutalement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-lightbulb"></i> À retenir</h4>
+                <p><strong>Le présent est un temps caméléon !</strong> Il peut parler du présent, du passé ou du futur selon le contexte. La clé pour l'identifier est de regarder les indicateurs de temps (aujourd'hui, demain, en 1789, tous les jours...) et le type de texte (discours ou récit).</p>
+            </div>
+        </section>
+
+        <!-- SECTION EXCEPTIONS -->
+        <section id="exceptions" class="content-section">
+            <h1><i class="fas fa-exclamation-triangle"></i> Exceptions et pièges</h1>
+            
+            <p>Certains verbes ne suivent pas les règles standards de conjugaison au présent. Voici les principales exceptions :</p>
+            
+            <div class="exceptions-grid">
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-radiation"></i> Verbes en -oyer, -uyer, -ayer</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Règle :</strong> Ils changent le <strong>y</strong> en <strong>i</strong> devant un <strong>e</strong> muet.</p>
+                        <p>• nettoyer → je <u>nettoie</u>, tu nettoies, il nettoie, nous nettoyons, vous nettoyez, ils nettoient</p>
+                        <p>• essayer → j'<u>essaie</u> (ou j'essaye), tu essaies, il essaie, nous essayons, vous essayez, ils essaient</p>
+                        <p>• ennuyer → j'<u>ennuie</u>, tu ennuies, il ennuie, nous ennuyons, vous ennuyez, ils ennuient</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-bolt"></i> Verbes en -eler, -eter</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>La plupart :</strong> doublement de la consonne <strong>l</strong> ou <strong>t</strong>.</p>
+                        <p>• appeler → j'<u>appelle</u>, tu appelles, il appelle, nous appelons, vous appelez, ils appellent</p>
+                        <p>• jeter → je <u>jette</u>, tu jettes, il jette, nous jetons, vous jetez, ils jettent</p>
+                        <p><strong>Exceptions (accent grave) :</strong> acheter, geler, haleter, harceler, peler...</p>
+                        <p>• acheter → j'<u>achète</u>, tu achètes, il achète, nous achetons, vous achetez, ils achètent</p>
+                        <p>• geler → je <u>gèle</u>, tu gèles, il gèle, nous gelons, vous gelez, ils gèlent</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-cogs"></i> Verbes en -cer, -ger</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Verbes en -cer :</strong> prennent une cédille devant a et o.</p>
+                        <p>• lancer → je lance, tu lances, il lance, nous lan<u>çons</u>, vous lancez, ils lancent</p>
+                        <p><strong>Verbes en -ger :</strong> gardent le e après g devant a et o.</p>
+                        <p>• manger → je mange, tu manges, il mange, nous man<u>geons</u>, vous mangez, ils mangent</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-exclamation-circle"></i> Verbes du 3ème groupe</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Ils sont très irréguliers ! Voici les plus courants :</strong></p>
+                        <p>• aller → je vais, tu vas, il va, nous allons, vous allez, ils vont</p>
+                        <p>• venir → je viens, tu viens, il vient, nous venons, vous venez, ils viennent</p>
+                        <p>• pouvoir → je peux, tu peux, il peut, nous pouvons, vous pouvez, ils peuvent</p>
+                        <p>• vouloir → je veux, tu veux, il veut, nous voulons, vous voulez, ils veulent</p>
+                        <p>• voir → je vois, tu vois, il voit, nous voyons, vous voyez, ils voient</p>
+                        <p>• dire → je dis, tu dis, il dit, nous disons, vous dites, ils disent</p>
+                        <p>• faire → je fais, tu fais, il fait, nous faisons, vous faites, ils font</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE MENTALE -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            
+            <div class="mindmap-grid">
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Conjugaison du présent</h3>
+                    <img src="assets/img/carte_mentale_du_présent.png" alt="Carte mentale conjugaison" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/carte_mentale_du_présent.png', 'present-conjugaison.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Valeurs du présent</h3>
+                    <img src="assets/img/Les-valeurs-du-présent-de-lindicatif.png" alt="Carte mentale valeurs" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Les-valeurs-du-présent-de-lindicatif.png', 'present-valeurs.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FICHE DE RÉVISION -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+            
+            <div class="customize-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-sliders-h"></i> Personnalise ta fiche
+                </h2>
+                
+                <div class="customize-grid">
+                    <div class="customize-option">
+                        <h3><i class="fas fa-puzzle-piece"></i> Conjugaison</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-1er" checked>
+                            <span>1er groupe</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-2eme" checked>
+                            <span>2ème groupe</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-3eme" checked>
+                            <span>3ème groupe</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-etre-avoir" checked>
+                            <span>Être et avoir</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-aller" checked>
+                            <span>Aller</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-clock"></i> Valeurs dans le discours</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-enonciation" checked>
+                            <span>Présent d'énonciation</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-verite" checked>
+                            <span>Vérité générale</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-habitude" checked>
+                            <span>Habitude</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-futur-proche" checked>
+                            <span>Futur proche</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-passe-recent" checked>
+                            <span>Passé récent</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-history"></i> Valeurs dans le récit</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-narration" checked>
+                            <span>Présent de narration</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-description" checked>
+                            <span>Présent de description</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-soudain" checked>
+                            <span>Action soudaine</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Exceptions</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-oyer" checked>
+                            <span>Verbes en -oyer, -uyer, -ayer</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-eler" checked>
+                            <span>Verbes en -eler, -eter</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-cer-ger" checked>
+                            <span>Verbes en -cer, -ger</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-3groupe" checked>
+                            <span>Irréguliers du 3ème groupe</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-accent" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div id="fichePreview" class="fiche-preview">
+                <h2>📝 Le présent de l'indicatif - Fiche de révision</h2>
+                <div id="preview-content"></div>
+            </div>
+        </section>
+
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+            
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fab fa-youtube"></i> Vidéos</h3>
+                    <a href="https://www.dailymotion.com/video/x82rgzv" class="ressource-link" target="_blank">Le présent (Dailymotion)</a>
+                    <a href="https://www.youtube.com/watch?v=FAbDbOoP_2w" class="ressource-link" target="_blank">Cours complet (YouTube)</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Exercices</h3>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-10695.php" class="ressource-link" target="_blank">Français Facile</a>
+                    <a href="https://www.ortholud.com/present-de-lindicatif.html" class="ressource-link" target="_blank">Ortholud</a>
+                    <a href="https://la-conjugaison.nouvelobs.com/exercice/3eme-present-de-l-indicatif-10-5.php" class="ressource-link" target="_blank">Le Nouvel Obs</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = document.querySelector('.content-section.active')?.innerText || "Leçon sur le présent de l'indicatif.";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        // Télécharger image
+        function downloadImage(src, filename) {
+            const link = document.createElement('a');
+            link.href = src;
+            link.download = filename;
+            link.click();
+        }
+
+        // Générer l'aperçu de la fiche
+        function generatePreview() {
+            const preview = document.getElementById('fichePreview');
+            const content = document.getElementById('preview-content');
+            let html = '';
+
+            // Conjugaison
+            if (document.getElementById('check-1er')?.checked || document.getElementById('check-2eme')?.checked || document.getElementById('check-3eme')?.checked || document.getElementById('check-etre-avoir')?.checked || document.getElementById('check-aller')?.checked) {
+                html += `<div class="section"><h3>Conjugaison</h3>`;
+                if (document.getElementById('check-1er')?.checked) html += `<p><strong>1er groupe :</strong> je chante, tu chantes, il chante, nous chantons, vous chantez, ils chantent</p>`;
+                if (document.getElementById('check-2eme')?.checked) html += `<p><strong>2ème groupe :</strong> je finis, tu finis, il finit, nous finissons, vous finissez, ils finissent</p>`;
+                if (document.getElementById('check-3eme')?.checked) html += `<p><strong>3ème groupe :</strong> je prends, tu prends, il prend, nous prenons, vous prenez, ils prennent</p>`;
+                if (document.getElementById('check-etre-avoir')?.checked) html += `<p><strong>Être :</strong> je suis, tu es, il est, nous sommes, vous êtes, ils sont</p><p><strong>Avoir :</strong> j'ai, tu as, il a, nous avons, vous avez, ils ont</p>`;
+                if (document.getElementById('check-aller')?.checked) html += `<p><strong>Aller :</strong> je vais, tu vas, il va, nous allons, vous allez, ils vont</p>`;
+                html += `</div>`;
+            }
+
+            // Valeurs discours
+            if (document.getElementById('check-enonciation')?.checked || document.getElementById('check-verite')?.checked || document.getElementById('check-habitude')?.checked || document.getElementById('check-futur-proche')?.checked || document.getElementById('check-passe-recent')?.checked) {
+                html += `<div class="section"><h3>Valeurs dans le discours</h3>`;
+                if (document.getElementById('check-enonciation')?.checked) html += `<p><strong>Présent d'énonciation :</strong> action au moment où l'on parle (Je mange.)</p>`;
+                if (document.getElementById('check-verite')?.checked) html += `<p><strong>Vérité générale :</strong> toujours vrai (La Terre tourne.)</p>`;
+                if (document.getElementById('check-habitude')?.checked) html += `<p><strong>Habitude :</strong> action répétée (Je vais au collège tous les jours.)</p>`;
+                if (document.getElementById('check-futur-proche')?.checked) html += `<p><strong>Futur proche :</strong> avec indicateur de temps (Demain, je pars.)</p>`;
+                if (document.getElementById('check-passe-recent')?.checked) html += `<p><strong>Passé récent :</strong> avec "venir de" (Je sors à l'instant.)</p>`;
+                html += `</div>`;
+            }
+
+            // Valeurs récit
+            if (document.getElementById('check-narration')?.checked || document.getElementById('check-description')?.checked || document.getElementById('check-soudain')?.checked) {
+                html += `<div class="section"><h3>Valeurs dans le récit</h3>`;
+                if (document.getElementById('check-narration')?.checked) html += `<p><strong>Présent de narration :</strong> pour rendre vivant un événement passé (En 1789, le peuple prend la Bastille.)</p>`;
+                if (document.getElementById('check-description')?.checked) html += `<p><strong>Présent de description :</strong> pour décrire dans un récit au passé (Autour d'elle, tout est beau.)</p>`;
+                if (document.getElementById('check-soudain')?.checked) html += `<p><strong>Action soudaine :</strong> pour marquer une rupture (Soudain, la porte s'ouvre.)</p>`;
+                html += `</div>`;
+            }
+
+            // Exceptions
+            if (document.getElementById('check-oyer')?.checked || document.getElementById('check-eler')?.checked || document.getElementById('check-cer-ger')?.checked || document.getElementById('check-3groupe')?.checked) {
+                html += `<div class="section"><h3>Exceptions</h3>`;
+                if (document.getElementById('check-oyer')?.checked) html += `<p><strong>-oyer/-uyer/-ayer :</strong> y → i (je nettoie, tu essaies)</p>`;
+                if (document.getElementById('check-eler')?.checked) html += `<p><strong>-eler/-eter :</strong> doublement ou accent (j'appelle, j'achète)</p>`;
+                if (document.getElementById('check-cer-ger')?.checked) html += `<p><strong>-cer/-ger :</strong> nous lançons, nous mangeons</p>`;
+                if (document.getElementById('check-3groupe')?.checked) html += `<p><strong>Irréguliers :</strong> aller, venir, pouvoir, vouloir, voir, dire, faire</p>`;
+                html += `</div>`;
+            }
+
+            content.innerHTML = html || '<p style="text-align: center;">Sélectionne des éléments</p>';
+            preview.classList.add('active');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exporter PDF
+        function exportPDF() {
+            generatePreview();
+            setTimeout(() => window.print(), 500);
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    const currentPage = 'indicatif-present.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                            let parent = link.closest('li');
+                            if (parent) parent.closest('li')?.classList.add('active');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français - 3ème</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>

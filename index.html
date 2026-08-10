@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions Brevet - Accueil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - COULEURS === */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .sidebar p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar li strong i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar li.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 15px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 600px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        
+        .mode-link {
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .mode-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .mode-container {
+            margin: 3px 0;
+        }
+        
+        .mode-container strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .mode-container strong:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .mode-container.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .temps-list {
+            padding-left: 12px;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        
+        .mode-container.active .temps-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .temps-list li a {
+            display: block;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        
+        .temps-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .temps-list li a.active {
+            background-color: #f72585;
+            color: white;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: var(--border-radius);
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        /* Sections grid */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 5px solid transparent;
+            cursor: pointer;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .section-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-card p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+        
+        .section-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .section-card li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2d3748;
+        }
+        
+        .section-card i {
+            color: var(--accent);
+            width: 24px;
+        }
+        
+        .section-card.conjugaison {
+            border-top-color: #4361ee;
+        }
+        .section-card.conjugaison i {
+            color: #4361ee;
+        }
+        
+        .section-card.grammaire {
+            border-top-color: #8b5cf6;
+        }
+        .section-card.grammaire i {
+            color: #8b5cf6;
+        }
+        
+        .section-card.analyse {
+            border-top-color: #f59e0b;
+        }
+        .section-card.analyse i {
+            color: #f59e0b;
+        }
+        
+        .section-card.redaction {
+            border-top-color: #10b981;
+        }
+        .section-card.redaction i {
+            color: #10b981;
+        }
+        
+        /* Fonctionnalités */
+        .features {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .features h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .feature-card p {
+            color: var(--dark);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        /* Comment utiliser */
+        .howto {
+            background-color: var(--light-gray);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .howto h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .step {
+            text-align: center;
+            background-color: white;
+            padding: 25px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .step h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .step p {
+            font-size: 0.95rem;
+            color: #4a5568;
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d3748 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer .heart {
+            color: #f72585;
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .sidebar {
+            background: linear-gradient(180deg, #7c3aed 0%, #5b21b6 100%);
+        }
+        
+        body.dys-mode .hero {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+        }
+        
+        body.dys-mode .section-card,
+        body.dys-mode .features,
+        body.dys-mode .howto,
+        body.dys-mode .footer {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+            color: #2c3e50;
+        }
+        
+        body.dys-mode .feature-card {
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode p,
+        body.dys-mode li {
+            line-height: 1.8;
+            letter-spacing: 0.07rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero section -->
+        <section class="hero">
+            <h1><i class="fas fa-graduation-cap"></i> Révisions Brevet</h1>
+            <p>Un manuel interactif pour maîtriser la conjugaison, la grammaire, l'analyse et la rédaction en français</p>
+        </section>
+
+        <!-- Grandes sections -->
+        <section class="sections-grid">
+            <div class="section-card conjugaison" onclick="window.location.href='modes-aspects-voix.html'">
+                <h3><i class="fas fa-clock"></i> Conjugaison</h3>
+                <p>Tous les modes et temps expliqués simplement :</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Indicatif (présent, passé composé, imparfait, passé simple, plus-que-parfait, passé antérieur, futur simple, futur antérieur)</li>
+                    <li><i class="fas fa-check-circle"></i> Conditionnel, Subjonctif, Impératif</li>
+                    <li><i class="fas fa-check-circle"></i> Modes impersonnels (infinitif, participe, gérondif)</li>
+                    <li><i class="fas fa-check-circle"></i> Tableaux complets et pièges expliqués</li>
+                </ul>
+            </div>
+            <div class="section-card grammaire" onclick="window.location.href='formation-mots.html'">
+                <h3><i class="fas fa-book"></i> Grammaire</h3>
+                <p>Les règles essentielles de la langue :</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Formation des mots, classes grammaticales</li>
+                    <li><i class="fas fa-check-circle"></i> Fonctions dans la phrase</li>
+                    <li><i class="fas fa-check-circle"></i> Types et formes de phrases</li>
+                    <li><i class="fas fa-check-circle"></i> Phrases complexes et discours rapporté</li>
+                </ul>
+            </div>
+            <div class="section-card analyse" onclick="window.location.href='#'">
+                <h3><i class="fas fa-search"></i> Analyse de texte</h3>
+                <p>Comprendre et interpréter un texte :</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Genre, registre, tonalité</li>
+                    <li><i class="fas fa-check-circle"></i> Procédés d'écriture et figures de style</li>
+                    <li><i class="fas fa-check-circle"></i> Intentions de l'auteur</li>
+                    <li><i class="fas fa-check-circle"></i> Méthodologie du commentaire</li>
+                </ul>
+            </div>
+            <div class="section-card redaction" onclick="window.location.href='#'">
+                <h3><i class="fas fa-pencil-alt"></i> Rédaction</h3>
+                <p>Techniques d'écriture et expression :</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Structure du texte et argumentation</li>
+                    <li><i class="fas fa-check-circle"></i> Sujets types et méthodes</li>
+                    <li><i class="fas fa-check-circle"></i> Conseils pour améliorer son style</li>
+                    <li><i class="fas fa-check-circle"></i> Orthographe et expression écrite</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Fonctionnalités -->
+        <section class="features">
+            <h2>Fonctionnalités du manuel interactif</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Mode Dys</h3>
+                    <p>Police adaptée et couleurs contrastées pour faciliter la lecture</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-volume-up"></i>
+                    <h3>Audio</h3>
+                    <p>Écoute les leçons à voix haute pour réviser autrement</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3>Cartes mentales</h3>
+                    <p>Télécharge des cartes claires pour mémoriser les notions</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-pencil-alt"></i>
+                    <h3>Exercices interactifs</h3>
+                    <p>Liens vers des exercices en ligne variés</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Fiches personnalisables</h3>
+                    <p>Crée ta propre fiche de révision en sélectionnant les éléments</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-table"></i>
+                    <h3>Tableaux complets</h3>
+                    <p>Des tableaux clairs et exhaustifs pour tous les temps</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comment utiliser -->
+        <section class="howto">
+            <h2>Comment utiliser ce manuel ?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choisis un chapitre</h3>
+                    <p>Dans la barre latérale à gauche, sélectionne la matière que tu veux étudier : conjugaison, grammaire, analyse ou rédaction.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Explore les sections</h3>
+                    <p>Chaque chapitre est organisé en plusieurs onglets : Leçon, Exercices, Carte mentale, Fiche de révision.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Personnalise ta fiche</h3>
+                    <p>Dans l'onglet "Fiche de révision", sélectionne les éléments à retenir et télécharge ton document personnalisé.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Entraîne-toi</h3>
+                    <p>Dans "Aller plus loin", trouve des exercices et des jeux pour vérifier tes connaissances.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><i class="fas fa-graduation-cap"></i> <strong>Révisions Brevet</strong> - Manuel interactif de français</p>
+            <p>Conçu comme un outil libre et gratuit pour tous les élèves</p>
+            <p>Toutes les leçons sont conformes au programme officiel</p>
+            <p style="margin-top: 20px;">Fait avec <i class="fas fa-heart heart"></i> pour les révisions</p>
+            <p>© 2026 - Libre d'utilisation</p>
+        </footer>
+    </main>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = "Bienvenue dans Révisions Brevet, un manuel interactif de français. " +
+                          "Quatre grandes parties : conjugaison, grammaire, analyse de texte et rédaction. " +
+                          "Utilise la barre latérale pour naviguer entre les chapitres.";
+                let utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    // Surligner la page active (accueil)
+                    const currentPage = 'index.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Accéder au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>

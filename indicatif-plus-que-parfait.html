@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le plus-que-parfait de l'indicatif - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - BLEU POUR LA CONJUGAISON === */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .sidebar p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar li strong i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar li.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 15px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 600px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        
+        .mode-link {
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .mode-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .mode-container {
+            margin: 3px 0;
+        }
+        
+        .mode-container strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .mode-container strong:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .mode-container.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .temps-list {
+            padding-left: 12px;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        
+        .mode-container.active .temps-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .temps-list li a {
+            display: block;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        
+        .temps-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .temps-list li a.active {
+            background-color: #f72585;
+            color: white;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableaux */
+        .conjugation-table {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 5px solid var(--success);
+            margin: 15px 0;
+        }
+        
+        .verb-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .verb-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pronoun {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 80px;
+        }
+        
+        .verb-form {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary);
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        /* Cartes dépliables */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .expandable-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .expandable-card-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e9ecef;
+        }
+        
+        .expandable-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expandable-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+        
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 800px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+        
+        .expandable-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Grille valeurs */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Grille exceptions */
+        .exceptions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .exceptions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .exception-card {
+            background: #fff9f9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .exception-card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #fff9f9;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .exception-card-header h3 {
+            margin: 0;
+            color: var(--danger);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exception-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .exception-card.expanded .exception-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        /* Tableau verbes irréguliers */
+        .irregular-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .irregular-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .irregular-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .irregular-table tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* Cartes mentales */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .mindmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mindmap-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .mindmap-card img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Ressources */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .ressources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .ressource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 5px 12px;
+            background-color: #f8f0f5;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ressource-link:hover {
+            background-color: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        /* Fiche de révision */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-simple input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .fiche-preview {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary-light);
+            display: none;
+        }
+        
+        .fiche-preview.active {
+            display: block;
+        }
+        
+        .fiche-preview h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .fiche-preview .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+        
+        body.dys-mode .conjugation-table {
+            background: #f5f5f5 !important;
+        }
+        
+        body.dys-mode p {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('lecon')">Leçon</button>
+            <button class="tab" onclick="switchTab('pieges')">Pièges</button>
+            <button class="tab" onclick="switchTab('carte')">Carte mentale</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche de révision</button>
+            <button class="tab" onclick="switchTab('ressources')">Aller plus loin</button>
+        </div>
+
+        <!-- SECTION LEÇON -->
+        <section id="lecon" class="content-section active">
+            <h1><i class="fas fa-hourglass-end"></i> Le plus-que-parfait de l'indicatif</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> À retenir</h4>
+                <p>Le <strong>plus-que-parfait</strong> est un <strong>temps composé du passé</strong>. Il exprime une action terminée qui a eu lieu avant une autre action passée. Il est formé de l'<strong>auxiliaire être ou avoir à l'imparfait</strong> suivi du <strong>participe passé</strong> du verbe.</p>
+            </div>
+
+            <!-- ===== 1. LA CONJUGAISON ===== -->
+            <h2><i class="fas fa-arrow-right"></i> 1. La conjugaison du plus-que-parfait</h2>
+
+            <h3>Les auxiliaires à l'imparfait (à connaître par cœur)</h3>
+            <div class="conjugation-table">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h4>AVOIR</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">avais</span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">avais</span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">avait</span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">avions</span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">aviez</span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">avaient</span></div>
+                    </div>
+                    <div>
+                        <h4>ÊTRE</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">étais</span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">étais</span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">était</span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">étions</span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">étiez</span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">étaient</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableaux avec AVOIR (dépliant) -->
+            <div class="expandable-card" id="avec-avoir">
+                <div class="expandable-card-header" onclick="toggleCard('avec-avoir')">
+                    <h3><i class="fas fa-box"></i> Verbes conjugués avec AVOIR (tous groupes)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>1er groupe : CHANTER</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">avais <strong>chanté</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">avais <strong>chanté</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">avait <strong>chanté</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">avions <strong>chanté</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">aviez <strong>chanté</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">avaient <strong>chanté</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>2ème groupe : FINIR</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">avais <strong>fini</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">avais <strong>fini</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">avait <strong>fini</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">avions <strong>fini</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">aviez <strong>fini</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">avaient <strong>fini</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>3ème groupe : PRENDRE</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">avais <strong>pris</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">avais <strong>pris</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">avait <strong>pris</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">avions <strong>pris</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">aviez <strong>pris</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">avaient <strong>pris</strong></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableaux avec ÊTRE (dépliant) -->
+            <div class="expandable-card" id="avec-etre">
+                <div class="expandable-card-header" onclick="toggleCard('avec-etre')">
+                    <h3><i class="fas fa-heart"></i> Verbes conjugués avec ÊTRE (avec accord)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>ALLER (verbe de déplacement)</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">étais <strong>allé(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">étais <strong>allé(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il</span> <span class="verb-form">était <strong>allé</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elle</span> <span class="verb-form">était <strong>allée</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">étions <strong>allé(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">étiez <strong>allé(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils</span> <span class="verb-form">étaient <strong>allés</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elles</span> <span class="verb-form">étaient <strong>allées</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>VENIR (verbe de déplacement)</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">étais <strong>venu(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">étais <strong>venu(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il</span> <span class="verb-form">était <strong>venu</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elle</span> <span class="verb-form">était <strong>venue</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">étions <strong>venu(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">étiez <strong>venu(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils</span> <span class="verb-form">étaient <strong>venus</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elles</span> <span class="verb-form">étaient <strong>venues</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>ARRIVER</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">étais <strong>arrivé(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">étais <strong>arrivé(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il</span> <span class="verb-form">était <strong>arrivé</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elle</span> <span class="verb-form">était <strong>arrivée</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">étions <strong>arrivé(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">étiez <strong>arrivé(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils</span> <span class="verb-form">étaient <strong>arrivés</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elles</span> <span class="verb-form">étaient <strong>arrivées</strong></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verbes pronominaux (dépliant) -->
+            <div class="expandable-card" id="pronominaux">
+                <div class="expandable-card-header" onclick="toggleCard('pronominaux')">
+                    <h3><i class="fas fa-user-tag"></i> Verbes pronominaux (toujours avec ÊTRE)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>SE LEVER</h4>
+                        <div class="verb-row"><span class="pronoun">je</span> <span class="verb-form">m'<strong>étais levé(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">t'<strong>étais levé(e)</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il</span> <span class="verb-form">s'<strong>était levé</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elle</span> <span class="verb-form">s'<strong>était levée</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">nous <strong>étions levé(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">vous <strong>étiez levé(e)s</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils</span> <span class="verb-form">s'<strong>étaient levés</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">elles</span> <span class="verb-form">s'<strong>étaient levées</strong></span></div>
+                    </div>
+                    <p><strong>Exemple :</strong> Quand je suis arrivé, ils <u>s'étaient déjà levés</u>.</p>
+                </div>
+            </div>
+
+            <!-- Tableau des verbes irréguliers fréquents (dépliant) -->
+            <div class="expandable-card" id="irreguliers">
+                <div class="expandable-card-header" onclick="toggleCard('irreguliers')">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Verbes irréguliers fréquents</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table class="irregular-table">
+                        <tr>
+                            <th>Verbe</th>
+                            <th>Participe passé</th>
+                            <th>Exemple au plus-que-parfait</th>
+                        </tr>
+                        <tr><td><strong>Aller</strong></td><td>allé(e)(s)</td><td>j'étais allé(e)</td></tr>
+                        <tr><td><strong>Faire</strong></td><td>fait</td><td>j'avais fait</td></tr>
+                        <tr><td><strong>Dire</strong></td><td>dit</td><td>j'avais dit</td></tr>
+                        <tr><td><strong>Venir</strong></td><td>venu(e)(s)</td><td>j'étais venu(e)</td></tr>
+                        <tr><td><strong>Prendre</strong></td><td>pris</td><td>j'avais pris</td></tr>
+                        <tr><td><strong>Voir</strong></td><td>vu</td><td>j'avais vu</td></tr>
+                        <tr><td><strong>Pouvoir</strong></td><td>pu</td><td>j'avais pu</td></tr>
+                        <tr><td><strong>Vouloir</strong></td><td>voulu</td><td>j'avais voulu</td></tr>
+                        <tr><td><strong>Savoir</strong></td><td>su</td><td>j'avais su</td></tr>
+                        <tr><td><strong>Devoir</strong></td><td>dû</td><td>j'avais dû</td></tr>
+                        <tr><td><strong>Recevoir</strong></td><td>reçu</td><td>j'avais reçu</td></tr>
+                        <tr><td><strong>Ouvrir</strong></td><td>ouvert</td><td>j'avais ouvert</td></tr>
+                        <tr><td><strong>Mettre</strong></td><td>mis</td><td>j'avais mis</td></tr>
+                        <tr><td><strong>Conduire</strong></td><td>conduit</td><td>j'avais conduit</td></tr>
+                        <tr><td><strong>Craindre</strong></td><td>craint</td><td>j'avais craint</td></tr>
+                        <tr><td><strong>Naître</strong></td><td>né(e)(s)</td><td>j'étais né(e)</td></tr>
+                        <tr><td><strong>Mourir</strong></td><td>mort(e)(s)</td><td>j'étais mort(e)</td></tr>
+                        <tr><td><strong>Sortir</strong></td><td>sorti(e)(s)</td><td>j'étais sorti(e)</td></tr>
+                        <tr><td><strong>Partir</strong></td><td>parti(e)(s)</td><td>j'étais parti(e)</td></tr>
+                        <tr><td><strong>Entrer</strong></td><td>entré(e)(s)</td><td>j'étais entré(e)</td></tr>
+                    </table>
+                    <p><em>Astuce : les verbes avec être (déplacement, naître, mourir, etc.) ont un participe qui s'accorde.</em></p>
+                </div>
+            </div>
+
+            <!-- ===== 2. LES VALEURS DU PLUS-QUE-PARFAIT ===== -->
+            <h2 style="margin-top: 30px;"><i class="fas fa-arrow-right"></i> 2. Les valeurs du plus-que-parfait</h2>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3><i class="fas fa-clock"></i> Action antérieure à une autre action passée</h3>
+                    <p>Le plus-que-parfait exprime une action qui a eu lieu <strong>avant une autre action passée</strong> (cette autre action est souvent à l'imparfait, au passé simple ou au passé composé).</p>
+                    <div class="example-box">
+                        <p>Quand j'<span class="highlight">avais fini</span> mes devoirs, je suis sorti jouer.</p>
+                        <p>Il <span class="highlight">avait déjà mangé</span> lorsque je suis arrivé.</p>
+                        <p>Elle <span class="highlight">était partie</span> avant que son frère ne se réveille.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-check-circle"></i> Action terminée dans le passé</h3>
+                    <p>Le plus-que-parfait indique qu'une action est <strong>achevée</strong> avant un moment donné du passé.</p>
+                    <div class="example-box">
+                        <p>Il <span class="highlight">avait oublié</span> ses clés.</p>
+                        <p>Nous <span class="highlight">avions déjà vu</span> ce film.</p>
+                        <p>Les spectateurs <span class="highlight">avaient décidé</span> de partir avant la fin du spectacle.</p>
+                    </div>
+                </div>
+                <div class="value-card">
+                    <h3><i class="fas fa-code-branch"></i> Après un "si" conditionnel</h3>
+                    <p>Dans une phrase hypothétique, le plus-que-parfait peut être utilisé après "si" pour exprimer une condition non réalisée dans le passé (suivi du conditionnel passé).</p>
+                    <div class="example-box">
+                        <p>Si tu <span class="highlight">étais venu</span> plus tôt, tu l'aurais vu.</p>
+                        <p>Si j'<span class="highlight">avais su</span>, je ne serais pas venu.</p>
+                        <p>Si nous <span class="highlight">avions étudié</span>, nous aurions réussi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> À retenir</h4>
+                <p><strong>Plus-que-parfait</strong> = action déjà terminée dans le passé (c'est le "passé dans le passé").</p>
+                <p>Exemple : Hier, quand je suis arrivé (passé récent), il <u>avait déjà mangé</u> (passé plus lointain).</p>
+            </div>
+        </section>
+
+        <!-- SECTION PIÈGES -->
+        <section id="pieges" class="content-section">
+            <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+            
+            <div class="exceptions-grid">
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Confusion avec la voix passive</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Attention !</strong> "Il était fatigué" peut être :</p>
+                        <p>✅ <strong>Plus-que-parfait passif</strong> (si on peut ajouter "par quelqu'un/quelque chose")</p>
+                        <p><em>Ex: Il était fatigué <u>par ce long voyage</u>.</em></p>
+                        <p>❌ <strong>Être + adjectif attribut</strong> (si c'est un état)</p>
+                        <p><em>Ex: Il était fatigué (il avait sommeil).</em></p>
+                        <p><strong>Astuce :</strong> Si tu peux remplacer par un autre adjectif (Il était <u>content</u>), c'est un attribut, pas du passif.</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> "Être" + adjectif : même structure, sens différent</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Même construction</strong> (auxiliaire être + participe/adjectif) mais sens différent :</p>
+                        <p>✅ <strong>Plus-que-parfait :</strong> Il <u>était parti</u> (action terminée)</p>
+                        <p>✅ <strong>Attribut du sujet :</strong> Il <u>était content</u> (état)</p>
+                        <p>✅ <strong>Passif :</strong> Il <u>était aimé</u> (par quelqu'un)</p>
+                        <p><strong>Comment distinguer ?</strong> Le sens et la possibilité d'ajouter "par..." ou de remplacer par un adjectif.</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Accord du participe passé</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Avec ÊTRE :</strong> Le participe passé s'accorde TOUJOURS avec le sujet.</p>
+                        <p>Ex: Elles <u>étaient parties</u>.</p>
+                        <p><strong>Avec AVOIR :</strong> Le participe passé ne s'accorde PAS avec le sujet.</p>
+                        <p>Ex: Elles <u>avaient mangé</u> (pas d'accord).</p>
+                        <p><strong>MAIS :</strong> Accord avec le COD si placé avant.</p>
+                        <p>Ex: Les pommes qu'elles <u>avaient mangées</u> (COD "les pommes" avant → accord).</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Choix de l'auxiliaire : être ou avoir ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>AVOIR :</strong> la plupart des verbes</p>
+                        <p>Ex: j'avais <u>mangé</u>, j'avais <u>fini</u>, j'avais <u>pris</u></p>
+                        <p><strong>ÊTRE :</strong></p>
+                        <p>- Les 16 verbes de déplacement (aller, venir, partir, arriver, entrer, sortir, monter, descendre, tomber, rester, retourner, passer, etc.)</p>
+                        <p>- Les verbes pronominaux (se lever, se laver, etc.)</p>
+                        <p>- Naître et mourir</p>
+                        <p><strong>Attention aux verbes qui changent de sens !</strong></p>
+                        <p>Ex: Je <u>suis monté</u> (dans l'arbre) / J'<u>avais monté</u> (les valises)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE MENTALE -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            
+            <div class="mindmap-grid">
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 1 - Verbes irréguliers</h3>
+                    <img src="assets/img/carte-mentale-conjugaison-plus-que-parfait-francais-1.png" alt="Carte mentale verbes irréguliers" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/carte-mentale-conjugaison-plus-que-parfait-francais-1.png', 'plus-que-parfait-carte1.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 2 - Récapitulatif</h3>
+                    <img src="assets/img/Carte-mentale-Plus-que-parfait-de-lindicatif.jpg" alt="Carte mentale récapitulative" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Carte-mentale-Plus-que-parfait-de-lindicatif.jpg', 'plus-que-parfait-carte2.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 3 - Définition</h3>
+                    <img src="assets/img/Le-plus-que-parfait.webp" alt="Carte mentale définition" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Le-plus-que-parfait.webp', 'plus-que-parfait-carte3.webp')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 4 - Construction</h3>
+                    <img src="assets/img/plus-que_parfait.png" alt="Carte mentale construction" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/plus-que_parfait.png', 'plus-que-parfait-carte4.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FICHE DE RÉVISION -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+            
+            <div class="customize-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-sliders-h"></i> Personnalise ta fiche
+                </h2>
+                
+                <div class="customize-grid">
+                    <div class="customize-option">
+                        <h3><i class="fas fa-puzzle-piece"></i> Construction</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-auxiliaires" checked>
+                            <span>Auxiliaires à l'imparfait</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-avoir" checked>
+                            <span>Verbes avec AVOIR</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-etre" checked>
+                            <span>Verbes avec ÊTRE</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-pronominaux" checked>
+                            <span>Verbes pronominaux</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-list"></i> Verbes irréguliers</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-irreguliers" checked>
+                            <span>Tableau des 20 verbes fréquents</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-history"></i> Valeurs</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-anterieure" checked>
+                            <span>Action antérieure</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-terminee" checked>
+                            <span>Action terminée</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-si" checked>
+                            <span>Après "si" conditionnel</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Pièges</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege1" checked>
+                            <span>Voix passive vs attribut</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege2" checked>
+                            <span>Accord du participe</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege3" checked>
+                            <span>Choix être/avoir</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-accent" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div id="fichePreview" class="fiche-preview">
+                <h2>📝 Le plus-que-parfait - Fiche de révision</h2>
+                <div id="preview-content"></div>
+            </div>
+        </section>
+
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+            
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-video"></i> Vidéos</h3>
+                    <a href="https://www.dailymotion.com/video/x82sg61" class="ressource-link" target="_blank">Le plus-que-parfait (Dailymotion)</a>
+                    <a href="https://www.youtube.com/watch?v=07EF1YI5bW4" class="ressource-link" target="_blank">Le plus-que-parfait (YouTube)</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Ortholud</h3>
+                    <a href="https://www.ortholud.com/conjugaison/conjugaison5/plus-que-parfait.php" class="ressource-link" target="_blank">10 questions de conjugaison</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-language"></i> Lingolia</h3>
+                    <a href="https://francais.lingolia.com/fr/grammaire/les-temps/le-plus-que-parfait/exercices" class="ressource-link" target="_blank">Exercices</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Français Facile</h3>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-37379.php" class="ressource-link" target="_blank">Exercice 1</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-64140.php" class="ressource-link" target="_blank">Exercice 2</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-gamepad"></i> Logiciel Educatif</h3>
+                    <a href="https://www.logicieleducatif.fr/jeu/plus-que-parfait" class="ressource-link" target="_blank">Jeu en ligne</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-gamepad"></i> Jeux interactifs</h3>
+                    <a href="https://wordwall.net/fr/resource/36583717/le-plus-que-parfait" class="ressource-link" target="_blank">Wordwall</a>
+                    <a href="https://view.genially.com/5fa2e380cb9a580cfa4a143a/presentation-plus-que-parfait-jeu" class="ressource-link" target="_blank">Genially</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = document.querySelector('.content-section.active')?.innerText || "Leçon sur le plus-que-parfait de l'indicatif.";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Cartes dépliables
+        function toggleCard(cardId) {
+            document.getElementById(cardId).classList.toggle('expanded');
+        }
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        // Télécharger image
+        function downloadImage(src, filename) {
+            const link = document.createElement('a');
+            link.href = src;
+            link.download = filename;
+            link.click();
+        }
+
+        // Générer l'aperçu de la fiche
+        function generatePreview() {
+            const preview = document.getElementById('fichePreview');
+            const content = document.getElementById('preview-content');
+            let html = '';
+
+            if (document.getElementById('check-auxiliaires')?.checked) {
+                html += `<div class="section"><h3>Auxiliaires à l'imparfait</h3>
+                <p><strong>Avoir :</strong> j'avais, tu avais, il avait, nous avions, vous aviez, ils avaient</p>
+                <p><strong>Être :</strong> j'étais, tu étais, il était, nous étions, vous étiez, ils étaient</p></div>`;
+            }
+
+            if (document.getElementById('check-avoir')?.checked) {
+                html += `<div class="section"><h3>Verbes avec AVOIR</h3>
+                <p><strong>Chanter :</strong> j'avais chanté, tu avais chanté, il avait chanté, nous avions chanté, vous aviez chanté, ils avaient chanté</p>
+                <p><strong>Finir :</strong> j'avais fini, tu avais fini...</p>
+                <p><strong>Prendre :</strong> j'avais pris, tu avais pris...</p></div>`;
+            }
+
+            if (document.getElementById('check-etre')?.checked) {
+                html += `<div class="section"><h3>Verbes avec ÊTRE (accord)</h3>
+                <p><strong>Aller :</strong> j'étais allé(e), tu étais allé(e), il était allé, elle était allée, nous étions allé(e)s, vous étiez allé(e)s, ils étaient allés, elles étaient allées</p>
+                <p><strong>Venir :</strong> j'étais venu(e)...</p>
+                <p><strong>Arriver :</strong> j'étais arrivé(e)...</p></div>`;
+            }
+
+            if (document.getElementById('check-pronominaux')?.checked) {
+                html += `<div class="section"><h3>Verbes pronominaux</h3>
+                <p><strong>Se lever :</strong> je m'étais levé(e), tu t'étais levé(e), il s'était levé, elle s'était levée, nous nous étions levé(e)s, vous vous étiez levé(e)s, ils s'étaient levés, elles s'étaient levées</p></div>`;
+            }
+
+            if (document.getElementById('check-irreguliers')?.checked) {
+                html += `<div class="section"><h3>Verbes irréguliers fréquents</h3>
+                <p><strong>Aller :</strong> été allé - <strong>Faire :</strong> fait - <strong>Dire :</strong> dit - <strong>Venir :</strong> venu - <strong>Prendre :</strong> pris - <strong>Voir :</strong> vu - <strong>Pouvoir :</strong> pu - <strong>Vouloir :</strong> voulu - <strong>Savoir :</strong> su - <strong>Devoir :</strong> dû - <strong>Recevoir :</strong> reçu - <strong>Ouvrir :</strong> ouvert - <strong>Mettre :</strong> mis - <strong>Conduire :</strong> conduit - <strong>Naître :</strong> né - <strong>Mourir :</strong> mort - <strong>Sortir :</strong> sorti</p></div>`;
+            }
+
+            if (document.getElementById('check-anterieure')?.checked || document.getElementById('check-terminee')?.checked || document.getElementById('check-si')?.checked) {
+                html += `<div class="section"><h3>Valeurs</h3>`;
+                if (document.getElementById('check-anterieure')?.checked) html += `<p><strong>Action antérieure :</strong> Quand j'avais fini, je suis sorti.</p>`;
+                if (document.getElementById('check-terminee')?.checked) html += `<p><strong>Action terminée :</strong> Il avait oublié ses clés.</p>`;
+                if (document.getElementById('check-si')?.checked) html += `<p><strong>Après "si" :</strong> Si j'avais su, je ne serais pas venu.</p>`;
+                html += `</div>`;
+            }
+
+            if (document.getElementById('check-piege1')?.checked || document.getElementById('check-piege2')?.checked || document.getElementById('check-piege3')?.checked) {
+                html += `<div class="section" style="border-left-color: var(--danger);"><h3>Pièges</h3>`;
+                if (document.getElementById('check-piege1')?.checked) html += `<p><strong>Passif vs attribut :</strong> "Il était fatigué" (par le voyage = passif / il avait sommeil = attribut)</p>`;
+                if (document.getElementById('check-piege2')?.checked) html += `<p><strong>Accord :</strong> Avec être → accord ; Avec avoir → pas d'accord (sauf COD avant)</p>`;
+                if (document.getElementById('check-piege3')?.checked) html += `<p><strong>Être ou avoir ?</strong> 16 verbes de déplacement + pronominaux → être ; les autres → avoir</p>`;
+                html += `</div>`;
+            }
+
+            content.innerHTML = html || '<p style="text-align: center;">Sélectionne des éléments</p>';
+            preview.classList.add('active');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exporter PDF
+        function exportPDF() {
+            generatePreview();
+            setTimeout(() => window.print(), 500);
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    const currentPage = 'indicatif-plus-que-parfait.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                            let parent = link.closest('li');
+                            if (parent) parent.closest('li')?.classList.add('active');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français - 3ème</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>

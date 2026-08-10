@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions Brevet - Connexion</title>
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Styles spécifiques à la page d'authentification */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 20px;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .auth-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .auth-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .auth-header h1 i {
+            color: var(--warning);
+        }
+        
+        .auth-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .auth-card h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .checkbox input {
+            width: auto;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all var(--transition-base);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--text-primary);
+            margin-top: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--medium-gray);
+        }
+        
+        .auth-separator {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .auth-separator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--light-gray);
+        }
+        
+        .auth-separator span {
+            background: white;
+            padding: 0 15px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+        
+        .auth-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            color: white;
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--warning);
+        }
+        
+        .feature h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .feature p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .auth-footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: var(--danger);
+            color: white;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: var(--success);
+            color: white;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1><i class="fas fa-graduation-cap"></i> Révisions Brevet</h1>
+            <p>Plateforme interactive de révision pour le brevet de français</p>
+        </div>
+        
+        <!-- Carte de connexion -->
+        <div class="auth-card" id="login-card">
+            <h2><i class="fas fa-sign-in-alt"></i> Connexion</h2>
+            
+            <div class="error-message" id="login-error"></div>
+            
+            <form id="login-form" onsubmit="return login(event)">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Nom d'utilisateur
+                    </label>
+                    <input type="text" id="username" placeholder="Votre nom d'utilisateur" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Mot de passe
+                    </label>
+                    <input type="password" id="password" placeholder="Votre mot de passe" required>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="remember-me">
+                        <span>Se souvenir de moi</span>
+                    </label>
+                    <a href="#" onclick="showForgotPassword(); return false;">Mot de passe oublié ?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
+            </form>
+            
+            <div class="auth-separator">
+                <span>ou</span>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="showRegister()">
+                <i class="fas fa-user-plus"></i> Créer un compte
+            </button>
+        </div>
+        
+        <!-- Carte d'inscription (cachée par défaut) -->
+        <div class="auth-card" id="register-card" style="display: none;">
+            <h2><i class="fas fa-user-plus"></i> Créer un compte</h2>
+            
+            <div class="error-message" id="register-error"></div>
+            <div class="success-message" id="register-success"></div>
+            
+            <form id="register-form" onsubmit="return register(event)">
+                <div class="form-group">
+                    <label for="reg-username">
+                        <i class="fas fa-user"></i> Nom d'utilisateur
+                    </label>
+                    <input type="text" id="reg-username" placeholder="Choisissez un nom d'utilisateur" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-email">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="reg-email" placeholder="Votre adresse email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-password">
+                        <i class="fas fa-lock"></i> Mot de passe
+                    </label>
+                    <input type="password" id="reg-password" placeholder="Créez un mot de passe" required minlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-confirm">
+                        <i class="fas fa-lock"></i> Confirmer le mot de passe
+                    </label>
+                    <input type="password" id="reg-confirm" placeholder="Retapez votre mot de passe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-class">
+                        <i class="fas fa-users"></i> Classe
+                    </label>
+                    <select id="reg-class" required>
+                        <option value="">Sélectionnez votre classe</option>
+                        <option value="3A">3ème A</option>
+                        <option value="3B">3ème B</option>
+                        <option value="3C">3ème C</option>
+                        <option value="3D">3ème D</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" id="reg-accept" required>
+                        <span>J'accepte les <a href="#" onclick="showTerms(); return false;">conditions d'utilisation</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check"></i> S'inscrire
+                </button>
+                
+                <button type="button" class="btn btn-secondary" onclick="showLogin()">
+                    <i class="fas fa-arrow-left"></i> Retour à la connexion
+                </button>
+            </form>
+        </div>
+        
+        <!-- Fonctionnalités -->
+        <div class="auth-features">
+            <div class="feature">
+                <i class="fas fa-brain"></i>
+                <h3>Apprentissage personnalisé</h3>
+                <p>Adapté à ton niveau</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-chart-line"></i>
+                <h3>Suivi de progression</h3>
+                <p>Visualise tes progrès</p>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-gamepad"></i>
+                <h3>Quiz interactifs</h3>
+                <p>Teste tes connaissances</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="auth-footer">
+            <p>© 2026 Révisions Brevet - Tous droits réservés</p>
+            <p><a href="#">Mentions légales</a> | <a href="#">Contact</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Afficher le formulaire d'inscription
+        function showRegister() {
+            document.getElementById('login-card').style.display = 'none';
+            document.getElementById('register-card').style.display = 'block';
+        }
+        
+        // Afficher le formulaire de connexion
+        function showLogin() {
+            document.getElementById('login-card').style.display = 'block';
+            document.getElementById('register-card').style.display = 'none';
+        }
+        
+        // Connexion
+        function login(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember-me').checked;
+            
+            // Récupérer les utilisateurs depuis localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Vérifier les identifiants
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Connexion réussie
+                localStorage.setItem('currentUserId', user.id);
+                localStorage.setItem('currentUsername', user.username);
+                
+                if (remember) {
+                    localStorage.setItem('rememberMe', 'true');
+                }
+                
+                // Rediriger vers le dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                // Erreur de connexion
+                const errorDiv = document.getElementById('login-error');
+                errorDiv.textContent = '❌ Nom d\'utilisateur ou mot de passe incorrect';
+                errorDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 3000);
+            }
+            
+            return false;
+        }
+        
+        // Inscription
+        function register(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('reg-username').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const confirm = document.getElementById('reg-confirm').value;
+            const userClass = document.getElementById('reg-class').value;
+            
+            // Vérifications
+            if (password !== confirm) {
+                showError('register-error', 'Les mots de passe ne correspondent pas');
+                return false;
+            }
+            
+            // Récupérer les utilisateurs existants
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Vérifier si l'utilisateur existe déjà
+            if (users.some(u => u.username === username)) {
+                showError('register-error', 'Ce nom d\'utilisateur est déjà pris');
+                return false;
+            }
+            
+            if (users.some(u => u.email === email)) {
+                showError('register-error', 'Cet email est déjà utilisé');
+                return false;
+            }
+            
+            // Créer le nouvel utilisateur
+            const newUser = {
+                id: users.length + 1,
+                username: username,
+                email: email,
+                password: password,
+                class: userClass,
+                created_at: new Date().toISOString(),
+                dys_mode: false
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Afficher le succès
+            const successDiv = document.getElementById('register-success');
+            successDiv.textContent = '✅ Inscription réussie ! Redirection...';
+            successDiv.style.display = 'block';
+            
+            // Connecter automatiquement et rediriger
+            setTimeout(() => {
+                localStorage.setItem('currentUserId', newUser.id);
+                localStorage.setItem('currentUsername', newUser.username);
+                window.location.href = 'dashboard.html';
+            }, 1500);
+            
+            return false;
+        }
+        
+        function showError(elementId, message) {
+            const errorDiv = document.getElementById(elementId);
+            errorDiv.textContent = '❌ ' + message;
+            errorDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        function showForgotPassword() {
+            alert('Fonctionnalité "Mot de passe oublié" à implémenter.\n\nPour l\'instant, contactez un administrateur.');
+        }
+        
+        function showTerms() {
+            alert('Conditions d\'utilisation\n\nEn utilisant cette plateforme, vous acceptez de réviser sérieusement pour le brevet ! 📚');
+        }
+        
+        // Initialiser quelques utilisateurs de test si aucun n'existe
+        document.addEventListener('DOMContentLoaded', function() {
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            if (users.length === 0) {
+                const defaultUsers = [
+                    {
+                        id: 1,
+                        username: 'eleve1',
+                        email: 'eleve1@example.com',
+                        password: 'motdepasse123',
+                        class: '3A',
+                        created_at: new Date().toISOString(),
+                        dys_mode: false
+                    },
+                    {
+                        id: 2,
+                        username: 'demo',
+                        email: 'demo@example.com',
+                        password: 'demo',
+                        class: '3B',
+                        created_at: new Date().toISOString(),
+                        dys_mode: false
+                    }
+                ];
+                
+                localStorage.setItem('users', JSON.stringify(defaultUsers));
+                console.log('Utilisateurs de test créés : demo/demo et eleve1/motdepasse123');
+            }
+            
+            // Vérifier si déjà connecté
+            const currentUserId = localStorage.getItem('currentUserId');
+            if (currentUserId) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions Brevet - Connexion Simple</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .login-box h1 {
+            text-align: center;
+            color: #4361ee;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .login-box h1 i {
+            color: #ffb703;
+        }
+        
+        .login-box p {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #212529;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #3f37c9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e7f3ff;
+            border-left: 4px solid #4361ee;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1><i class="fas fa-graduation-cap"></i> Révisions Brevet</h1>
+        <p>Entre ton prénom et ta classe pour commencer</p>
+        
+        <form onsubmit="return startRevision(event)">
+            <div class="form-group">
+                <label for="nom">Ton prénom :</label>
+                <input type="text" id="nom" placeholder="Ex: Marie" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="classe">Ta classe :</label>
+                <select id="classe" required>
+                    <option value="">Choisis ta classe</option>
+                    <option value="3A">3ème A</option>
+                    <option value="3B">3ème B</option>
+                    <option value="3C">3ème C</option>
+                    <option value="3D">3ème D</option>
+                    <option value="3E">3ème E</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn">
+                <i class="fas fa-arrow-right"></i> Commencer les révisions
+            </button>
+        </form>
+        
+        <div class="info">
+            <strong><i class="fas fa-info-circle"></i> Info :</strong> 
+            Tes informations sont sauvegardées automatiquement. Ton professeur peut voir ta progression.
+        </div>
+    </div>
+    
+    <script>
+        function startRevision(event) {
+            event.preventDefault();
+            
+            const nom = document.getElementById('nom').value.trim();
+            const classe = document.getElementById('classe').value;
+            
+            // Sauvegarder les infos
+            localStorage.setItem('elevenom', nom);
+            localStorage.setItem('eleveclasse', classe);
+            localStorage.setItem('connexionDate', new Date().toISOString());
+            
+            // Sauvegarder dans la liste des élèves (pour le prof)
+            let eleves = JSON.parse(localStorage.getItem('listeEleves') || '[]');
+            
+            // Vérifier si l'élève existe déjà
+            const eleveExistant = eleves.find(e => e.nom === nom && e.classe === classe);
+            if (!eleveExistant) {
+                eleves.push({
+                    nom: nom,
+                    classe: classe,
+                    premiereConnexion: new Date().toISOString(),
+                    derniereConnexion: new Date().toISOString()
+                });
+                localStorage.setItem('listeEleves', JSON.stringify(eleves));
+            } else {
+                // Mettre à jour la dernière connexion
+                eleveExistant.derniereConnexion = new Date().toISOString();
+                localStorage.setItem('listeEleves', JSON.stringify(eleves));
+            }
+            
+            // Rediriger vers le menu principal
+            window.location.href = 'menu.html';
+            
+            return false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révisions Brevet — Français 3ème</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --radius: 14px;
+            --shadow: 0 4px 14px rgba(0,0,0,0.09);
+            --shadow-hover: 0 10px 28px rgba(0,0,0,0.15);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:var(--font-main); background:#f0f2f5; color:#1f2937; min-height:100vh; }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg,#1e3a5f 0%,#0f2640 100%);
+            color: white;
+            padding: 44px 40px 52px;
+            text-align: center;
+            position: relative;
+        }
+        .header h1 { font-family:var(--font-heading); font-size:2.4rem; margin-bottom:8px; }
+        .header h1 span { color:#fcd34d; }
+        .header p { font-size:1rem; opacity:0.8; }
+
+        /* MAIN */
+        .main { max-width:1100px; margin:0 auto; padding:36px 24px 60px; }
+
+        /* CATÉGORIE */
+        .categorie { margin-bottom:36px; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); background:white; }
+
+        .cat-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 22px;
+            cursor: pointer;
+            user-select: none;
+            transition: filter 0.2s;
+        }
+        .cat-header:hover { filter: brightness(1.06); }
+
+        .cat-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .cat-header h2 { font-family:var(--font-heading); font-size:1.2rem; flex:1; color:white; }
+        .cat-chevron { color:rgba(255,255,255,0.8); font-size:1rem; transition:transform 0.3s; }
+        .categorie.open .cat-chevron { transform: rotate(90deg); }
+
+        /* Couleurs des catégories */
+        .cat-conjugaison .cat-header { background: linear-gradient(135deg,#be185d,#9d174d); }
+        .cat-grammaire   .cat-header { background: linear-gradient(135deg,#7e3a8a,#5b21b6); }
+        .cat-vocabulaire .cat-header { background: linear-gradient(135deg,#0e7490,#164e63); }
+        .cat-litterature .cat-header { background: linear-gradient(135deg,#1d4ed8,#1e3a8a); }
+        .cat-ecriture    .cat-header { background: linear-gradient(135deg,#047857,#065f46); }
+
+        /* GRILLE */
+        .cat-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .categorie.open .cat-body { max-height: 2000px; }
+
+        .fiches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            padding: 20px 22px 24px;
+        }
+
+        /* CARTE FICHE */
+        .fiche-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 16px 18px;
+            text-decoration: none;
+            color: #1f2937;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.25s;
+        }
+        .fiche-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: transparent;
+            background: white;
+        }
+        .fiche-card-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .fiche-card h3 { font-size:0.95rem; margin-bottom:3px; line-height:1.3; }
+        .fiche-card p  { font-size:0.78rem; color:#6b7280; line-height:1.4; }
+
+        /* Couleurs icônes */
+        .ic-pink   { background:#be185d; }
+        .ic-violet { background:#7e3a8a; }
+        .ic-cyan   { background:#0e7490; }
+        .ic-blue   { background:#1d4ed8; }
+        .ic-green  { background:#047857; }
+
+        /* FOOTER */
+        footer { text-align:center; padding:20px; font-size:0.8rem; color:#9ca3af; }
+
+        @media(max-width:600px){
+            .header h1 { font-size:1.7rem; }
+            .main { padding:20px 14px 40px; }
+            .fiches-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1><i class="fas fa-graduation-cap"></i> Révisions <span>Brevet</span></h1>
+    <p>Toutes tes fiches de français pour le DNB — 3ème</p>
+</header>
+
+<main class="main">
+
+    <!-- ══ CONJUGAISON ══ -->
+    <div class="categorie cat-conjugaison open" id="m-conjugaison">
+        <div class="cat-header" onclick="toggleCat('m-conjugaison')">
+            <div class="cat-icon"><i class="fas fa-spell-check"></i></div>
+            <h2>Conjugaison</h2>
+            <i class="fas fa-chevron-right cat-chevron"></i>
+        </div>
+        <div class="cat-body">
+            <div class="fiches-grid">
+                <a href="indicatif-present.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-clock"></i></div>
+                    <div><h3>Présent de l'indicatif</h3><p>Formation, emplois, verbes irréguliers</p></div>
+                </a>
+                <a href="indicatif-imparfait.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-history"></i></div>
+                    <div><h3>Imparfait</h3><p>Description, habitude, arrière-plan du récit</p></div>
+                </a>
+                <a href="indicatif-passe-simple.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-scroll"></i></div>
+                    <div><h3>Passé simple</h3><p>Actions du récit littéraire, premier plan</p></div>
+                </a>
+                <a href="indicatif-passe-compose.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-check-double"></i></div>
+                    <div><h3>Passé composé</h3><p>Passé récent, langue orale et courante</p></div>
+                </a>
+                <a href="indicatif-futur-simple.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-arrow-right"></i></div>
+                    <div><h3>Futur simple</h3><p>Actions à venir, promesses, prédictions</p></div>
+                </a>
+                <a href="indicatif-futur-anterieur.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-forward"></i></div>
+                    <div><h3>Futur antérieur</h3><p>Action antérieure à un futur</p></div>
+                </a>
+                <a href="indicatif-passe-anterieur.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-undo"></i></div>
+                    <div><h3>Passé antérieur</h3><p>Antériorité par rapport au passé simple</p></div>
+                </a>
+                <a href="indicatif-plus-que-parfait.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-step-backward"></i></div>
+                    <div><h3>Plus-que-parfait</h3><p>Retour en arrière, antériorité dans le passé</p></div>
+                </a>
+                <a href="imperatif-present.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-hand-point-right"></i></div>
+                    <div><h3>Impératif présent</h3><p>Ordres, conseils, demandes</p></div>
+                </a>
+                <a href="imperatif-passe.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-exclamation"></i></div>
+                    <div><h3>Impératif passé</h3><p>Ordre à accomplir avant une échéance</p></div>
+                </a>
+                <a href="subjonctif-present.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-question"></i></div>
+                    <div><h3>Subjonctif présent</h3><p>Doute, volonté, sentiment, hypothèse</p></div>
+                </a>
+                <a href="subjonctif-imparfait.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-ellipsis-h"></i></div>
+                    <div><h3>Subjonctif imparfait</h3><p>Style soutenu, concordance des temps</p></div>
+                </a>
+                <a href="subjonctif-passe.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-check"></i></div>
+                    <div><h3>Subjonctif passé</h3><p>Antériorité dans la subordonnée</p></div>
+                </a>
+                <a href="modes-aspects-voix.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-sliders-h"></i></div>
+                    <div><h3>Modes, aspects, voix</h3><p>Vue d'ensemble des modes verbaux</p></div>
+                </a>
+                <a href="modes-impersonnels.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-pink"><i class="fas fa-infinity"></i></div>
+                    <div><h3>Modes impersonnels</h3><p>Infinitif, participe, gérondif</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ GRAMMAIRE ══ -->
+    <div class="categorie cat-grammaire open" id="m-grammaire">
+        <div class="cat-header" onclick="toggleCat('m-grammaire')">
+            <div class="cat-icon"><i class="fas fa-book"></i></div>
+            <h2>Grammaire</h2>
+            <i class="fas fa-chevron-right cat-chevron"></i>
+        </div>
+        <div class="cat-body">
+            <div class="fiches-grid">
+                <a href="Type_forme_et_voix_de_la_phrase.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-violet"><i class="fas fa-align-left"></i></div>
+                    <div><h3>Type, forme et voix de la phrase</h3><p>Déclaratif, interrogatif, actif, passif…</p></div>
+                </a>
+                <a href="phrases-complexes.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-violet"><i class="fas fa-project-diagram"></i></div>
+                    <div><h3>Phrases complexes</h3><p>Coordination, subordination, juxtaposition</p></div>
+                </a>
+                <a href="expansions-nom.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-violet"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <div><h3>Expansions du nom</h3><p>Épithète, CDN, relative, apposition</p></div>
+                </a>
+                <a href="Parole_rapportee.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-violet"><i class="fas fa-quote-right"></i></div>
+                    <div><h3>Parole rapportée</h3><p>Discours direct, indirect, indirect libre</p></div>
+                </a>
+                <a href="formation-mots.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-violet"><i class="fas fa-puzzle-piece"></i></div>
+                    <div><h3>Formation des mots</h3><p>Préfixes, suffixes, composition, dérivation</p></div>
+                </a>
+                <a href="fonctions.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-violet"><i class="fas fa-sitemap"></i></div>
+                    <div><h3>Les fonctions</h3><p>Sujet, COD, COI, attribut, complément…</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ VOCABULAIRE ══ -->
+    <div class="categorie cat-vocabulaire open" id="m-vocabulaire">
+        <div class="cat-header" onclick="toggleCat('m-vocabulaire')">
+            <div class="cat-icon"><i class="fas fa-search"></i></div>
+            <h2>Vocabulaire &amp; Analyse</h2>
+            <i class="fas fa-chevron-right cat-chevron"></i>
+        </div>
+        <div class="cat-body">
+            <div class="fiches-grid">
+                <a href="champ-lexical-semantique.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-cyan"><i class="fas fa-tags"></i></div>
+                    <div><h3>Champ lexical &amp; sémantique</h3><p>Connotation, dénotation, registres de langue</p></div>
+                </a>
+                <a href="figures-de-style.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-cyan"><i class="fas fa-palette"></i></div>
+                    <div><h3>Figures de style</h3><p>Métaphore, comparaison, anaphore, hyperbole…</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ LITTÉRATURE ══ -->
+    <div class="categorie cat-litterature open" id="m-litterature">
+        <div class="cat-header" onclick="toggleCat('m-litterature')">
+            <div class="cat-icon"><i class="fas fa-masks-theater"></i></div>
+            <h2>Littérature &amp; Analyse de texte</h2>
+            <i class="fas fa-chevron-right cat-chevron"></i>
+        </div>
+        <div class="cat-body">
+            <div class="fiches-grid">
+                <a href="genres-registres-types.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-blue"><i class="fas fa-books"></i></div>
+                    <div><h3>Genre, registre &amp; type de texte</h3><p>Roman, poésie, théâtre, tragique, comique…</p></div>
+                </a>
+                <a href="versification.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-blue"><i class="fas fa-feather-alt"></i></div>
+                    <div><h3>La versification</h3><p>Vers, strophes, rimes, sonorités, rythme</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ ÉCRITURE ══ -->
+    <div class="categorie cat-ecriture open" id="m-ecriture">
+        <div class="cat-header" onclick="toggleCat('m-ecriture')">
+            <div class="cat-icon"><i class="fas fa-pen-nib"></i></div>
+            <h2>Écriture — Méthodes brevet</h2>
+            <i class="fas fa-chevron-right cat-chevron"></i>
+        </div>
+        <div class="cat-body">
+            <div class="fiches-grid">
+                <a href="ecriture-invention.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-green"><i class="fas fa-magic"></i></div>
+                    <div><h3>Écriture d'invention</h3><p>Méthode, genres (lettre, dialogue…), outils, pièges</p></div>
+                </a>
+                <a href="sujet-reflexion.html" class="fiche-card">
+                    <div class="fiche-card-icon ic-green"><i class="fas fa-brain"></i></div>
+                    <div><h3>Sujet de réflexion</h3><p>Argumentation, structure, connecteurs, nuances</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer>Révisions Brevet Français — 3ème &nbsp;·&nbsp; Bonne chance ! 📚</footer>
+
+<script>
+    function toggleCat(id) {
+        document.getElementById(id)?.classList.toggle('open');
+    }
+</script>
+</body>
+</html>
