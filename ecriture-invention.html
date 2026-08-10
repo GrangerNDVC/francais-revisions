@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'écriture d'invention — Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VERT ÉMERAUDE — ÉCRITURE === */
+        :root {
+            --primary: #047857;
+            --primary-light: #059669;
+            --secondary: #065f46;
+            --accent: #10b981;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 10px 20px rgba(0,0,0,0.13);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body { font-family:var(--font-main); background:var(--light); color:var(--dark); line-height:1.6; display:flex; min-height:100vh; transition:all 0.3s; }
+
+        /* SIDEBAR */
+        .sidebar { width:280px; background:linear-gradient(180deg,var(--primary),var(--secondary)); color:white; height:100vh; position:fixed; padding:25px 20px; box-shadow:var(--shadow); overflow-y:auto; z-index:100; }
+        .sidebar h2 { font-family:var(--font-heading); font-size:1.8rem; margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+        .sidebar h2 i { color:var(--warning); }
+        .sidebar p { font-size:0.9rem; opacity:0.9; margin-bottom:30px; }
+        .sidebar ul { list-style:none; }
+        .sidebar > ul > li { margin-bottom:25px; }
+        .sidebar li strong { display:flex; align-items:center; justify-content:space-between; font-size:1.1rem; padding:12px 15px; background:rgba(255,255,255,0.1); border-radius:var(--border-radius); cursor:pointer; transition:all 0.3s; }
+        .sidebar li strong:hover { background:rgba(255,255,255,0.2); transform:translateX(5px); }
+        .sidebar li strong i { transition:transform 0.3s; }
+        .sidebar li.active strong i { transform:rotate(90deg); }
+        .submenu { padding-left:20px; margin-top:10px; max-height:0; overflow:hidden; transition:max-height 0.4s; }
+        .sidebar li.active .submenu { max-height:300px; }
+        .submenu li { list-style:none; margin:8px 0; }
+        .submenu li a { display:block; padding:8px 15px; background:rgba(255,255,255,0.05); border-radius:10px; color:white; text-decoration:none; transition:all 0.2s; }
+        .submenu li a:hover, .submenu li a.active { background:var(--accent); transform:translateX(5px); }
+
+        /* MAIN */
+        .main-content { margin-left:280px; flex:1; padding:40px; max-width:1400px; }
+
+        /* HEADER */
+        .header-controls { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:30px; padding-bottom:20px; border-bottom:2px solid var(--light-gray); }
+        .btn-group { display:flex; flex-wrap:wrap; gap:10px; }
+        .btn { padding:12px 24px; border:none; border-radius:var(--border-radius); font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; display:inline-flex; align-items:center; gap:10px; }
+        .btn-primary { background:var(--primary); color:white; }
+        .btn-primary:hover { background:var(--secondary); transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+        .btn-secondary { background:var(--light-gray); color:var(--dark); }
+        .btn-secondary:hover { background:#d8d8d8; transform:translateY(-3px); }
+        .btn-accent { background:var(--accent); color:white; }
+        .btn-accent:hover { background:var(--primary-light); transform:translateY(-3px); }
+        .btn-success { background:#4cc9f0; color:white; }
+        .btn-success:hover { background:#3ab4d9; transform:translateY(-3px); }
+
+        /* ONGLETS */
+        .lesson-tabs { display:flex; margin-bottom:25px; border-bottom:2px solid var(--light-gray); flex-wrap:wrap; }
+        .tab { padding:15px 20px; background:none; border:none; font-size:1rem; font-weight:600; color:var(--dark); cursor:pointer; position:relative; transition:all 0.3s; display:flex; align-items:center; gap:8px; flex:1; min-width:130px; justify-content:center; }
+        .tab:hover { color:var(--primary); }
+        .tab.active { color:var(--primary); }
+        .tab.active::after { content:''; position:absolute; bottom:-2px; left:0; width:100%; height:3px; background:var(--primary); border-radius:3px 3px 0 0; }
+
+        /* SECTIONS */
+        .content-section { background:white; border-radius:var(--border-radius); padding:35px; box-shadow:var(--shadow); margin-bottom:40px; animation:fadeIn 0.5s ease; display:none; }
+        .content-section.active { display:block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+        .content-section h1 { font-family:var(--font-heading); color:var(--primary); font-size:2rem; margin-bottom:25px; display:flex; align-items:center; gap:15px; }
+        .content-section h2 { color:var(--secondary); font-size:1.35rem; margin:30px 0 15px; display:flex; align-items:center; gap:10px; padding-bottom:8px; border-bottom:2px solid var(--light-gray); }
+        .content-section h3 { color:var(--primary); font-size:1.1rem; margin:16px 0 8px; }
+
+        /* BOÎTES */
+        .info-box { background:#ecfdf5; border-left:5px solid var(--primary); padding:20px; border-radius:var(--border-radius); margin:20px 0; }
+        .info-box h4 { color:var(--primary); margin-bottom:10px; display:flex; align-items:center; gap:8px; font-size:1.1rem; }
+        .warning-box { background:#fffbeb; border-left:5px solid var(--warning); padding:20px; border-radius:var(--border-radius); margin:20px 0; }
+        .warning-box h4 { color:#92400e; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+        .danger-box { background:#fff5f5; border-left:5px solid var(--danger); padding:20px; border-radius:var(--border-radius); margin:20px 0; }
+        .danger-box h4 { color:var(--danger); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+
+        /* ACCORDÉONS */
+        .expandable-cards { display:grid; grid-template-columns:1fr; gap:20px; margin-top:25px; }
+        .expandable-card { background:var(--light-gray); border-radius:var(--border-radius); overflow:hidden; box-shadow:var(--shadow); }
+        .expandable-card-header { padding:20px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; background:#ecfdf5; transition:background 0.2s; }
+        .expandable-card-header:hover { background:#d1fae5; }
+        .expandable-card-header h3 { display:flex; align-items:center; gap:10px; margin:0; color:var(--primary); font-size:1.25rem; }
+        .expandable-card-content { padding:0 20px; max-height:0; overflow:hidden; transition:max-height 0.5s ease,padding 0.3s; background:white; }
+        .expandable-card.expanded .expandable-card-content { max-height:5000px; padding:20px; }
+        .expand-icon { transition:transform 0.3s; color:var(--secondary); }
+        .expandable-card.expanded .expand-icon { transform:rotate(180deg); }
+
+        /* EXEMPLE */
+        .example-box { background:linear-gradient(135deg,#f0fdf4,#dcfce7); border-left:4px solid var(--accent); padding:14px 18px; border-radius:8px; margin:10px 0; }
+        .example-box p { margin:5px 0; }
+
+        /* ÉTAPES NUMÉROTÉES (méthode) */
+        .etapes-container { display:grid; grid-template-columns:1fr; gap:0; margin:20px 0; position:relative; }
+        .etape { display:flex; gap:20px; align-items:flex-start; margin-bottom:0; position:relative; }
+        .etape-numero { width:52px; height:52px; min-width:52px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:700; font-family:var(--font-heading); box-shadow:0 4px 10px rgba(4,120,87,0.35); z-index:1; }
+        .etape-ligne { position:absolute; left:25px; top:52px; width:2px; height:calc(100% - 10px); background:linear-gradient(to bottom,var(--accent),transparent); }
+        .etape-body { flex:1; background:white; border-radius:var(--border-radius); padding:18px 20px; box-shadow:var(--shadow); margin-bottom:20px; border-top:3px solid var(--accent); }
+        .etape-body h3 { color:var(--primary); font-size:1.15rem; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+        .etape-body p { margin:4px 0; }
+        .etape-body ul { padding-left:18px; margin:8px 0; }
+        .etape-body li { margin:5px 0; }
+
+        /* GRILLE GENRES */
+        .genres-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:16px; margin:16px 0; }
+        .genre-fiche { background:white; border-radius:var(--border-radius); padding:18px; box-shadow:var(--shadow); border-top:5px solid var(--primary); }
+        .genre-fiche h3 { color:var(--primary); font-size:1.05rem; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+        .genre-fiche ul { padding-left:16px; }
+        .genre-fiche li { margin:4px 0; font-size:0.9rem; }
+        .genre-fiche .consigne-ex { font-style:italic; background:#ecfdf5; padding:7px 10px; border-radius:6px; margin-top:10px; font-size:0.85rem; color:var(--secondary); border-left:3px solid var(--accent); }
+
+        /* SCHÉMA NARRATIF */
+        .schema-narratif { display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin:20px 0; align-items:stretch; }
+        @media(max-width:800px){ .schema-narratif{grid-template-columns:1fr;} }
+        .schema-etape { background:var(--primary); color:white; padding:16px 12px; text-align:center; position:relative; }
+        .schema-etape:not(:last-child)::after { content:'▶'; position:absolute; right:-14px; top:50%; transform:translateY(-50%); font-size:1.4rem; color:var(--accent); z-index:2; }
+        @media(max-width:800px){ .schema-etape:not(:last-child)::after{content:'▼';right:auto;bottom:-16px;top:auto;left:50%;transform:translateX(-50%);} }
+        .schema-etape:nth-child(2) { background:var(--primary-light); }
+        .schema-etape:nth-child(3) { background:#059669; }
+        .schema-etape:nth-child(4) { background:#10b981; }
+        .schema-etape:nth-child(5) { background:var(--accent); color:var(--secondary); }
+        .schema-etape strong { display:block; font-size:0.95rem; margin-bottom:6px; }
+        .schema-etape span { font-size:0.8rem; opacity:0.9; }
+
+        /* BOÎTE À OUTILS */
+        .outils-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin:16px 0; }
+        .outil-card { background:white; border-radius:var(--border-radius); padding:16px; box-shadow:var(--shadow); border-left:4px solid var(--accent); }
+        .outil-card h3 { color:var(--primary); font-size:1rem; margin-bottom:10px; display:flex; align-items:center; gap:7px; }
+        .outil-card .tags { display:flex; flex-wrap:wrap; gap:5px; }
+        .tag-mot { background:#ecfdf5; color:var(--secondary); border:1px solid #a7f3d0; padding:3px 9px; border-radius:20px; font-size:0.82rem; }
+        .tag-connecteur { background:#fffbeb; color:#92400e; border:1px solid #fde68a; padding:3px 9px; border-radius:20px; font-size:0.82rem; }
+        .tag-formule { background:#f5f3ff; color:#5b21b6; border:1px solid #ddd6fe; padding:3px 9px; border-radius:20px; font-size:0.82rem; }
+
+        /* BARÈME */
+        .bareme-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; margin:16px 0; }
+        .bareme-card { border-radius:var(--border-radius); padding:16px; text-align:center; box-shadow:var(--shadow); }
+        .bareme-card .points { font-size:2rem; font-weight:700; line-height:1; }
+        .bareme-card .label { font-size:0.85rem; margin-top:5px; }
+        .bareme-card.b1 { background:#ecfdf5; border-top:4px solid var(--primary); }
+        .bareme-card.b2 { background:#fffbeb; border-top:4px solid var(--warning); }
+        .bareme-card.b3 { background:#f5f3ff; border-top:4px solid #8b5cf6; }
+        .bareme-card.b4 { background:#fff5f5; border-top:4px solid var(--danger); }
+        .bareme-card.b1 .points { color:var(--primary); }
+        .bareme-card.b2 .points { color:#92400e; }
+        .bareme-card.b3 .points { color:#6d28d9; }
+        .bareme-card.b4 .points { color:var(--danger); }
+
+        /* TABLEAU */
+        .tableau-inv { width:100%; border-collapse:collapse; margin:15px 0; font-size:0.93rem; }
+        .tableau-inv th { background:var(--primary); color:white; padding:11px 14px; text-align:left; }
+        .tableau-inv td { padding:10px 14px; border-bottom:1px solid var(--light-gray); vertical-align:top; }
+        .tableau-inv tr:hover { background:#f0fdf4; }
+
+        /* EXCEPTIONS / PIÈGES */
+        .exceptions-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:22px; }
+        @media(max-width:700px){ .exceptions-grid{grid-template-columns:1fr;} }
+        .exception-card { background:var(--light-gray); border-radius:var(--border-radius); overflow:hidden; box-shadow:var(--shadow); }
+        .exception-card-header { padding:15px 18px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; background:#fff5f5; border-left:5px solid var(--danger); }
+        .exception-card-header:hover { background:#ffe4e4; }
+        .exception-card-header h3 { display:flex; align-items:center; gap:10px; margin:0; color:var(--danger); font-size:1rem; }
+        .exception-card-content { padding:0 18px; max-height:0; overflow:hidden; transition:max-height 0.4s,padding 0.3s; background:white; }
+        .exception-card.expanded .exception-card-content { max-height:1500px; padding:18px; }
+
+        /* CARTES MENTALES */
+        .mindmap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:26px; margin-top:26px; }
+        .mindmap-card { background:white; padding:20px; border-radius:var(--border-radius); box-shadow:var(--shadow); display:flex; flex-direction:column; }
+        .mindmap-card h3 { color:var(--primary); margin-bottom:14px; display:flex; align-items:center; gap:8px; font-size:1.1rem; }
+        .image-container { width:100%; height:230px; overflow:hidden; border-radius:8px; cursor:pointer; border:2px solid var(--light-gray); display:flex; align-items:center; justify-content:center; position:relative; background:#f0f0f0; margin-bottom:12px; }
+        .image-container::after { content:'\f00e'; font-family:'Font Awesome 6 Free'; font-weight:900; position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.45); color:white; padding:5px 9px; border-radius:6px; font-size:1rem; pointer-events:none; }
+        .image-container:hover { border-color:var(--primary); }
+        .image-container img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
+        .image-container:hover img { transform:scale(1.05); }
+
+        /* FICHE */
+        .customize-section { background:white; border-radius:var(--border-radius); padding:30px; box-shadow:var(--shadow); margin-bottom:30px; }
+        .customize-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; margin-top:18px; }
+        .customize-option { background:#f8f9fa; border-radius:var(--border-radius); padding:14px; border:2px solid #e9ecef; }
+        .customize-option h3 { color:var(--primary); margin-bottom:8px; font-size:0.95rem; }
+        .checkbox-simple { display:flex; align-items:center; gap:8px; margin:7px 0; font-size:0.88rem; cursor:pointer; }
+        .checkbox-simple input { width:15px; height:15px; accent-color:var(--primary); cursor:pointer; }
+        .fiche-compacte { background:white; padding:20px; font-size:0.88rem; line-height:1.5; max-width:210mm; margin:20px auto; box-shadow:var(--shadow); border-radius:var(--border-radius); }
+        .fiche-compacte h2 { color:var(--primary); text-align:center; margin-bottom:14px; padding-bottom:8px; border-bottom:2px solid var(--primary); font-size:1.25rem; }
+        .fiche-compacte h3 { color:var(--secondary); font-size:0.95rem; margin:13px 0 4px; }
+        .fiche-compacte p { margin:3px 0; }
+        .fiche-compacte ul { margin:4px 0 8px 18px; }
+        .fiche-compacte .section { margin-bottom:13px; padding:9px; background:#ecfdf5; border-radius:6px; border-left:3px solid var(--accent); }
+        .fiche-compacte .warning { border-left-color:var(--danger); background:#fff5f5; }
+        .badge { display:inline-block; background:var(--primary); color:white; padding:2px 7px; border-radius:4px; font-size:0.75rem; margin-right:3px; font-weight:700; }
+
+        /* RESSOURCES */
+        .ressources-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:18px; margin-top:28px; }
+        .ressource-card { background:white; border-radius:var(--border-radius); padding:18px; box-shadow:var(--shadow); }
+        .ressource-card h3 { color:var(--primary); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+        .ressource-link { display:inline-block; margin:4px 4px 4px 0; padding:6px 13px; background:#ecfdf5; border-radius:20px; color:var(--primary); text-decoration:none; font-size:0.86rem; transition:all 0.3s; border:1px solid #a7f3d0; }
+        .ressource-link:hover { background:var(--primary); color:white; transform:translateX(3px); }
+
+        /* MODAL */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; justify-content:center; align-items:center; padding:40px; }
+        .modal-overlay.active { display:flex; }
+        .modal-content { position:relative; max-width:92vw; max-height:90vh; }
+        .modal-content img { max-width:100%; max-height:85vh; object-fit:contain; border-radius:8px; }
+        .modal-close { position:absolute; top:-42px; right:0; background:none; border:none; color:white; font-size:2.2rem; cursor:pointer; transition:all 0.2s; }
+        .modal-close:hover { transform:scale(1.2); color:var(--danger); }
+        .modal-download { position:absolute; bottom:-42px; right:0; background:var(--primary); color:white; padding:10px 20px; border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:8px; transition:all 0.3s; }
+        .modal-download:hover { background:var(--secondary); }
+
+        /* PRINT */
+        @media print {
+            .sidebar,.lesson-tabs,.btn-group,.customize-section,.modal-overlay,.header-controls{display:none!important;}
+            .main-content{margin-left:0;padding:0;}
+            .fiche-compacte{display:block!important;box-shadow:none;padding:15mm;margin:0;}
+            .content-section{box-shadow:none;padding:0;}
+            .mindmap-grid{display:none;}
+        }
+
+        /* DYS */
+        .dys-mode{font-family:var(--font-dys)!important;font-size:1.2rem!important;background:#fef7e0!important;}
+        .dys-mode .content-section{background:#fef9e8!important;border:2px solid #ffecb3!important;}
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            .sidebar{width:100%;height:auto;position:relative;}
+            .main-content{margin-left:0;padding:20px;}
+            .lesson-tabs{flex-direction:column;}
+            .tab{min-width:100%;}
+            .schema-narratif,.exceptions-grid,.mindmap-grid{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main-content">
+
+    <header class="header-controls">
+        <div class="btn-group">
+            <button class="btn btn-accent" id="dysToggle"><i class="fas fa-eye"></i> Mode Dys</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="toggleAudio()"><i class="fas fa-volume-up" id="audioIcon"></i> Audio</button>
+        </div>
+    </header>
+
+    <h1 style="color:var(--primary);margin-bottom:10px;font-family:var(--font-heading);font-size:2rem;">
+        <i class="fas fa-pen-nib" style="color:var(--accent);"></i> L'écriture d'invention au brevet
+    </h1>
+
+    <div class="lesson-tabs">
+        <button class="tab active" data-target="lecon"><i class="fas fa-book-open"></i> Méthode</button>
+        <button class="tab" data-target="genres"><i class="fas fa-list-alt"></i> Les genres</button>
+        <button class="tab" data-target="outils"><i class="fas fa-toolbox"></i> Boîte à outils</button>
+        <button class="tab" data-target="pieges"><i class="fas fa-exclamation-triangle"></i> Pièges</button>
+        <button class="tab" data-target="carte"><i class="fas fa-project-diagram"></i> Carte mentale</button>
+        <button class="tab" data-target="fiche"><i class="fas fa-file-alt"></i> Fiche de révision</button>
+        <button class="tab" data-target="ressources"><i class="fas fa-external-link-alt"></i> Aller plus loin</button>
+    </div>
+
+    <!-- ======================== MÉTHODE ======================== -->
+    <section id="lecon" class="content-section active">
+        <h1><i class="fas fa-route"></i> La méthode : analyser avant de rédiger</h1>
+
+        <div class="info-box">
+            <h4><i class="fas fa-lightbulb"></i> Qu'est-ce que l'écriture d'invention ?</h4>
+            <p>L'écriture d'invention est le <strong>deuxième sujet</strong> de l'épreuve de français au brevet. Elle compte pour <strong>40 points</strong> sur 100. On vous demande de produire un texte original en respectant des contraintes précises : un genre, une longueur, un lien avec le texte étudié en première partie.</p>
+            <p style="margin-top:8px;">La règle d'or : <strong>ne jamais commencer à écrire avant d'avoir analysé la consigne</strong>. Cinq minutes de réflexion valent mieux que deux pages hors-sujet.</p>
+        </div>
+
+        <!-- BARÈME -->
+        <h2><i class="fas fa-chart-pie"></i> Le barème (40 points)</h2>
+        <div class="bareme-grid">
+            <div class="bareme-card b1">
+                <div class="points">~14</div>
+                <div class="label"><strong>Respect des codes du genre</strong><br>Contraintes formelles respectées</div>
+            </div>
+            <div class="bareme-card b2">
+                <div class="points">~12</div>
+                <div class="label"><strong>Cohérence & contenu</strong><br>Idées, logique, lien avec le texte</div>
+            </div>
+            <div class="bareme-card b3">
+                <div class="points">~8</div>
+                <div class="label"><strong>Qualité de l'écriture</strong><br>Vocabulaire, style, figures de style</div>
+            </div>
+            <div class="bareme-card b4">
+                <div class="points">~6</div>
+                <div class="label"><strong>Orthographe & grammaire</strong><br>Moins de 5 fautes = max des points</div>
+            </div>
+        </div>
+
+        <!-- LES 5 ÉTAPES -->
+        <h2><i class="fas fa-list-ol"></i> Les 5 étapes de la méthode</h2>
+
+        <div class="etapes-container">
+
+            <div class="etape">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div class="etape-numero">1</div>
+                    <div class="etape-ligne"></div>
+                </div>
+                <div class="etape-body">
+                    <h3><i class="fas fa-highlighter"></i> L'analyse — le surligneur</h3>
+                    <p>Avant même de chercher une idée, <strong>surlignez les mots-clés</strong> de la consigne et reformulez ce que l'on attend de vous.</p>
+                    <ul>
+                        <li><strong>Quoi ?</strong> Suite de texte, dialogue, lettre, journal intime, discours, poème… ?</li>
+                        <li><strong>Depuis quel point du texte ?</strong> (suite, réécriture, prolongement ?)</li>
+                        <li><strong>Quelle longueur ?</strong> (minimum 300 mots en général)</li>
+                        <li><strong>Quelles contraintes explicites ?</strong> (« en prose », « à la 1ère personne », « dans le style de l'auteur »…)</li>
+                    </ul>
+                    <div class="example-box">
+                        <p>⚠️ Se tromper sur le genre, c'est perdre jusqu'à <strong>14 points</strong> de « respect des codes ». C'est l'erreur la plus coûteuse.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="etape">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div class="etape-numero">2</div>
+                    <div class="etape-ligne"></div>
+                </div>
+                <div class="etape-body">
+                    <h3><i class="fas fa-anchor"></i> L'ancrage — le lien avec le texte</h3>
+                    <p>Votre texte doit être <strong>enraciné dans le texte de l'épreuve</strong>. Ce n'est pas une invention libre : on reste dans l'univers du texte.</p>
+                    <ul>
+                        <li><strong>Le thème :</strong> reprenez le champ lexical dominant du texte d'origine. Si le texte parle de la mer, votre suite doit rester dans cet univers.</li>
+                        <li><strong>La personne :</strong> si le texte est à la 1ère personne (« je »), votre suite doit l'être aussi sauf consigne contraire. Changer de point de vue en cours de route est une faute grave.</li>
+                        <li><strong>Les personnages :</strong> ne changez pas leurs noms, leur caractère ou leurs relations établis dans le texte.</li>
+                        <li><strong>Le ton général :</strong> un texte réaliste tragique ne devient pas soudainement comique dans votre suite.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="etape">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div class="etape-numero">3</div>
+                    <div class="etape-ligne"></div>
+                </div>
+                <div class="etape-body">
+                    <h3><i class="fas fa-map-marker-alt"></i> La cohérence — la chasse aux anachronismes</h3>
+                    <p>C'est l'étape <em>« vérification de la réalité »</em>. Votre texte doit être cohérent avec le cadre du texte source.</p>
+                    <ul>
+                        <li><strong>Où ?</strong> Précisez le cadre spatial (ville, campagne, mer, intérieur…) en accord avec le texte.</li>
+                        <li><strong>Quand ?</strong> Époque historique : un texte du XIXe siècle n'a pas de smartphone, d'avion ou d'internet !</li>
+                        <li><strong>Qui parle à qui ?</strong> Identifiez le statut du narrateur (interne, externe, omniscient) et ne le changez pas.</li>
+                        <li><strong>La situation d'énonciation :</strong> le destinataire d'une lettre, l'auteur d'un journal intime, l'énonciateur d'un discours doivent rester cohérents.</li>
+                    </ul>
+                    <div class="example-box">
+                        <p>💡 <strong>Astuce anti-anachronisme :</strong> avant d'écrire, notez l'époque, le lieu et le registre de langue du texte source, et vérifiez que chaque élément de votre texte y est compatible.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="etape">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div class="etape-numero">4</div>
+                    <div class="etape-ligne"></div>
+                </div>
+                <div class="etape-body">
+                    <h3><i class="fas fa-sitemap"></i> La structure — le brouillon organisé</h3>
+                    <p><strong>Pas d'écriture au kilomètre !</strong> Avant de rédiger, faites un brouillon en 5 minutes pour organiser vos idées en paragraphes distincts.</p>
+                    <p style="margin-top:10px;">Pour un récit, respectez le <strong>schéma narratif</strong> :</p>
+                    <div class="schema-narratif" style="margin:14px 0 18px 0; border-radius:10px; overflow:hidden;">
+                        <div class="schema-etape"><strong>Situation initiale</strong><span>Qui ? Où ? Quand ? Contexte stable</span></div>
+                        <div class="schema-etape"><strong>Élément perturbateur</strong><span>Un événement vient briser l'équilibre</span></div>
+                        <div class="schema-etape"><strong>Péripéties</strong><span>Actions, réactions, rebondissements</span></div>
+                        <div class="schema-etape"><strong>Résolution</strong><span>Le problème se résout (ou pas)</span></div>
+                        <div class="schema-etape"><strong>Situation finale</strong><span>Nouvel équilibre, leçon, chute</span></div>
+                    </div>
+                    <div class="example-box">
+                        <p>Pour une <strong>suite de texte</strong> : reprenez exactement là où le texte s'arrête. Ne résumez pas ce qui précède.</p>
+                        <p>Pour un <strong>changement de point de vue</strong> : racontez les mêmes événements mais depuis un autre personnage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="etape">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div class="etape-numero">5</div>
+                </div>
+                <div class="etape-body">
+                    <h3><i class="fas fa-spell-check"></i> La relecture — la correction</h3>
+                    <p>Réservez <strong>5 à 10 minutes</strong> à la fin pour relire. C'est jusqu'à 6 points récupérables.</p>
+                    <ul>
+                        <li><strong>Corriger les fautes :</strong> orthographe, accords (sujet/verbe, nom/adjectif), conjugaisons.</li>
+                        <li><strong>Éviter les répétitions :</strong> remplacez les mots répétés par des synonymes ou des pronoms.</li>
+                        <li><strong>Clarifier le sens :</strong> chaque phrase doit être compréhensible. Relisez à voix basse dans votre tête.</li>
+                        <li><strong>Vérifier la longueur :</strong> comptez approximativement le nombre de mots. En dessous du minimum, vous perdez des points.</li>
+                    </ul>
+                    <div class="warning-box" style="margin-top:12px;">
+                        <h4><i class="fas fa-exclamation-triangle"></i> La règle des 5 fautes</h4>
+                        <p>En général, <strong>moins de 5 fautes</strong> = maximum des points d'orthographe. Chaque faute supplémentaire coûte 0,5 point. Relire est rentable !</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== LES GENRES ======================== -->
+    <section id="genres" class="content-section">
+        <h1><i class="fas fa-list-alt"></i> Les genres d'écriture au brevet</h1>
+
+        <div class="info-box">
+            <h4><i class="fas fa-lightbulb"></i> Comment identifier le genre demandé ?</h4>
+            <p>La consigne indique toujours explicitement ou implicitement le genre. Cherchez les mots-clés : <em>« rédigez une suite »</em>, <em>« écrivez une lettre »</em>, <em>« imaginez un dialogue »</em>, <em>« rédigez un journal intime »</em>…</p>
+            <p style="margin-top:6px;">Puis posez-vous les questions spécifiques à ce genre pour en respecter les codes.</p>
+        </div>
+
+        <div class="genres-grid">
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-scroll"></i> Suite de texte / Récit</h3>
+                <ul>
+                    <li>Reprendre <strong>exactement</strong> là où le texte s'arrête</li>
+                    <li>Conserver la personne (1ère ou 3ème)</li>
+                    <li>Conserver le temps du récit (passé simple + imparfait)</li>
+                    <li>Respecter le registre (réaliste, fantastique…)</li>
+                    <li>Plusieurs paragraphes organisés logiquement</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Imaginez la suite de ce récit en maintenant le registre fantastique. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-envelope"></i> La lettre</h3>
+                <ul>
+                    <li><strong>Lieu et date</strong> en haut à droite</li>
+                    <li><strong>Formule d'appel</strong> : <em>Cher…, Madame…, Monsieur…</em></li>
+                    <li>Corps de la lettre : introduction, développement, conclusion</li>
+                    <li><strong>Formule de politesse</strong> finale adaptée au destinataire</li>
+                    <li><strong>Signature</strong> (prénom ou nom du personnage)</li>
+                    <li>Registre de langue adapté au destinataire (soutenu si inconnu)</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Écrivez la lettre que le personnage enverrait à sa mère après cet événement. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-book"></i> Le journal intime</h3>
+                <ul>
+                    <li><strong>Date</strong> en tête d'entrée</li>
+                    <li>Toujours à la <strong>1ère personne</strong></li>
+                    <li>Ton <strong>intime, subjectif</strong>, émotionnel</li>
+                    <li>Pensées, ressentis, réflexions intérieures</li>
+                    <li>Peut commencer par une formule : <em>« Cher journal, »</em></li>
+                    <li>Présent ou passé composé (temporalité récente)</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Rédigez la page de journal intime que le personnage écrit ce soir-là. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-comments"></i> Le dialogue / La scène de théâtre</h3>
+                <ul>
+                    <li>Nom du personnage suivi de deux points, puis réplique</li>
+                    <li>Didascalies (indications de mise en scène) en italique ou entre parenthèses</li>
+                    <li>Registre de langue adapté à chaque personnage</li>
+                    <li>Un vrai échange : questions, réponses, tensions</li>
+                    <li>Pour le théâtre : indication scénique en début (Scène X)</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Imaginez le dialogue entre les deux personnages après la dispute. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-microphone"></i> Le discours / La plaidoirie</h3>
+                <ul>
+                    <li>S'adresse directement à un public : <em>Mesdames, Messieurs…</em></li>
+                    <li>Registre <strong>soutenu</strong></li>
+                    <li>Structure argumentative : thèse + arguments + exemples + conclusion</li>
+                    <li>Apostrophes au public, questions rhétoriques</li>
+                    <li>Formule de clôture percutante</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Rédigez le discours que le personnage prononce devant l'assemblée. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-user"></i> Changement de point de vue</h3>
+                <ul>
+                    <li>Raconter les <strong>mêmes événements</strong> depuis un autre personnage</li>
+                    <li>Adopter la personne grammaticale du nouveau narrateur</li>
+                    <li>Exprimer ses pensées, émotions, perceptions propres</li>
+                    <li>Ne pas changer les faits, seulement le regard porté dessus</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Racontez la même scène du point de vue du personnage secondaire. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-feather-alt"></i> Le poème</h3>
+                <ul>
+                    <li>Respecter la forme demandée (vers libres ou forme fixe ?)</li>
+                    <li>Travail sur le rythme, les sonorités, les images</li>
+                    <li>Figures de style : métaphores, comparaisons, anaphores…</li>
+                    <li>Si vers : majuscule en début de vers, attention aux rimes si demandées</li>
+                    <li>Champ lexical en lien avec le thème du texte source</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Rédigez un poème en vers libres sur le thème de la liberté, en écho au texte. »</div>
+            </div>
+
+            <div class="genre-fiche">
+                <h3><i class="fas fa-pencil-alt"></i> La réécriture / Transposition</h3>
+                <ul>
+                    <li>Transformer un passage selon une contrainte : changer d'époque, de genre, de registre</li>
+                    <li>Conserver le sens et les événements principaux</li>
+                    <li>Adapter le style, le vocabulaire et les références à la nouvelle contrainte</li>
+                    <li>Attention aux anachronismes si changement d'époque</li>
+                </ul>
+                <div class="consigne-ex">Ex. : « Transposez cette scène à l'époque contemporaine en conservant les enjeux. »</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== BOÎTE À OUTILS ======================== -->
+    <section id="outils" class="content-section">
+        <h1><i class="fas fa-toolbox"></i> Boîte à outils — enrichir son écriture</h1>
+
+        <h2><i class="fas fa-link"></i> Connecteurs logiques et temporels</h2>
+        <div class="outils-grid">
+
+            <div class="outil-card">
+                <h3><i class="fas fa-clock"></i> Connecteurs temporels</h3>
+                <div class="tags">
+                    <span class="tag-connecteur">Soudain</span><span class="tag-connecteur">Alors</span><span class="tag-connecteur">Peu après</span><span class="tag-connecteur">Le lendemain</span><span class="tag-connecteur">Tandis que</span><span class="tag-connecteur">Lorsque</span><span class="tag-connecteur">Enfin</span><span class="tag-connecteur">Dès lors</span><span class="tag-connecteur">Au même instant</span><span class="tag-connecteur">Plus tard</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-map-signs"></i> Connecteurs spatiaux</h3>
+                <div class="tags">
+                    <span class="tag-connecteur">À l'horizon</span><span class="tag-connecteur">Au loin</span><span class="tag-connecteur">Derrière lui</span><span class="tag-connecteur">En face</span><span class="tag-connecteur">Plus bas</span><span class="tag-connecteur">Au fond</span><span class="tag-connecteur">Autour d'eux</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-balance-scale"></i> Connecteurs logiques</h3>
+                <div class="tags">
+                    <span class="tag-connecteur">Pourtant</span><span class="tag-connecteur">Cependant</span><span class="tag-connecteur">Or</span><span class="tag-connecteur">Ainsi</span><span class="tag-connecteur">C'est pourquoi</span><span class="tag-connecteur">En effet</span><span class="tag-connecteur">De surcroît</span><span class="tag-connecteur">Néanmoins</span>
+                </div>
+            </div>
+
+        </div>
+
+        <h2><i class="fas fa-palette"></i> Verbes expressifs pour le récit</h2>
+        <div class="outils-grid">
+
+            <div class="outil-card">
+                <h3><i class="fas fa-walking"></i> Verbes de mouvement</h3>
+                <div class="tags">
+                    <span class="tag-mot">se faufiler</span><span class="tag-mot">trébucher</span><span class="tag-mot">s'élancer</span><span class="tag-mot">dévaler</span><span class="tag-mot">surgir</span><span class="tag-mot">se figer</span><span class="tag-mot">chanceler</span><span class="tag-mot">bondir</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-heart"></i> Verbes d'émotion</h3>
+                <div class="tags">
+                    <span class="tag-mot">frissonner</span><span class="tag-mot">tressaillir</span><span class="tag-mot">suffoquer</span><span class="tag-mot">se morfondre</span><span class="tag-mot">exulter</span><span class="tag-mot">se délecter</span><span class="tag-mot">frémir</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-eye"></i> Verbes de perception</h3>
+                <div class="tags">
+                    <span class="tag-mot">distinguer</span><span class="tag-mot">percevoir</span><span class="tag-mot">discerner</span><span class="tag-mot">humer</span><span class="tag-mot">scruter</span><span class="tag-mot">entrevoir</span><span class="tag-mot">guetter</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-comment-alt"></i> Verbes de parole</h3>
+                <div class="tags">
+                    <span class="tag-mot">murmurer</span><span class="tag-mot">bredouiller</span><span class="tag-mot">grommeler</span><span class="tag-mot">s'exclamer</span><span class="tag-mot">répliquer</span><span class="tag-mot">souffler</span><span class="tag-mot">clamer</span>
+                </div>
+            </div>
+
+        </div>
+
+        <h2><i class="fas fa-magic"></i> Figures de style utiles</h2>
+        <div class="outils-grid">
+
+            <div class="outil-card">
+                <h3><i class="fas fa-star"></i> Comparaison</h3>
+                <div class="tags"><span class="tag-formule">comme</span><span class="tag-formule">tel(le) que</span><span class="tag-formule">semblable à</span><span class="tag-formule">pareil à</span></div>
+                <p style="font-size:0.85rem;margin-top:8px;font-style:italic;">« Il avançait, <em>tel un fantôme</em>, dans le couloir obscur. »</p>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-fire"></i> Métaphore</h3>
+                <div class="tags"><span class="tag-formule">image directe sans outil</span></div>
+                <p style="font-size:0.85rem;margin-top:8px;font-style:italic;">« La nuit était un manteau de velours posé sur la ville. »</p>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-redo"></i> Anaphore</h3>
+                <div class="tags"><span class="tag-formule">répétition en début de phrase</span></div>
+                <p style="font-size:0.85rem;margin-top:8px;font-style:italic;">« <em>Il courait.</em> <em>Il criait.</em> <em>Il pleurait.</em> »</p>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-exclamation"></i> Hyperbole</h3>
+                <div class="tags"><span class="tag-formule">exagération expressives</span></div>
+                <p style="font-size:0.85rem;margin-top:8px;font-style:italic;">« Elle attendait depuis une éternité. »</p>
+            </div>
+
+        </div>
+
+        <h2><i class="fas fa-pen"></i> Formules clés par genre</h2>
+        <div class="outils-grid">
+
+            <div class="outil-card">
+                <h3><i class="fas fa-envelope"></i> Lettre</h3>
+                <div class="tags">
+                    <span class="tag-formule">Cher(e) [prénom],</span>
+                    <span class="tag-formule">Madame, Monsieur,</span>
+                    <span class="tag-formule">Je t'écris pour te dire…</span>
+                    <span class="tag-formule">Je vous prie d'agréer…</span>
+                    <span class="tag-formule">Bien à toi,</span>
+                    <span class="tag-formule">Cordialement,</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-book"></i> Journal intime</h3>
+                <div class="tags">
+                    <span class="tag-formule">Ce soir, [date],</span>
+                    <span class="tag-formule">Cher journal,</span>
+                    <span class="tag-formule">Je n'arrive pas à croire que…</span>
+                    <span class="tag-formule">Comment aurais-je pu imaginer…</span>
+                    <span class="tag-formule">Je dois l'avouer…</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-microphone"></i> Discours</h3>
+                <div class="tags">
+                    <span class="tag-formule">Mesdames, Messieurs,</span>
+                    <span class="tag-formule">Permettez-moi de…</span>
+                    <span class="tag-formule">C'est pourquoi je vous demande…</span>
+                    <span class="tag-formule">Ensemble, nous pouvons…</span>
+                    <span class="tag-formule">Je vous remercie.</span>
+                </div>
+            </div>
+
+            <div class="outil-card">
+                <h3><i class="fas fa-scroll"></i> Incipit de récit</h3>
+                <div class="tags">
+                    <span class="tag-formule">Ce matin-là, rien ne laissait présager…</span>
+                    <span class="tag-formule">Il n'avait pas fait dix pas que…</span>
+                    <span class="tag-formule">Le silence était retombé lorsque…</span>
+                    <span class="tag-formule">Jamais il n'avait ressenti…</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== PIÈGES ======================== -->
+    <section id="pieges" class="content-section">
+        <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+
+        <div class="warning-box">
+            <h4><i class="fas fa-lightbulb"></i> Le checklist avant de rendre la copie</h4>
+            <p>✅ J'ai identifié et respecté le genre demandé.</p>
+            <p>✅ Je reste à la même personne grammaticale que le texte source (sauf consigne contraire).</p>
+            <p>✅ Mon texte est cohérent avec l'époque, le lieu et les personnages du texte original.</p>
+            <p>✅ J'ai fait un plan et mon texte est organisé en paragraphes distincts.</p>
+            <p>✅ J'ai relu et corrigé mes fautes d'orthographe et d'accord.</p>
+            <p>✅ Mon texte dépasse la longueur minimale demandée.</p>
+        </div>
+
+        <div class="exceptions-grid">
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Écrire sans lire la consigne jusqu'au bout</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>C'est l'erreur numéro 1. Beaucoup d'élèves commencent à écrire dès qu'ils voient « suite du texte » sans lire les contraintes qui suivent.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>❌ Consigne lue à moitié : « Écrivez la suite du texte… » → on écrit un récit.</p>
+                        <p>✅ Consigne complète : « …sous forme de lettre que le personnage enverrait à son ami » → c'est une lettre, pas un récit.</p>
+                    </div>
+                    <p style="margin-top:8px;"><strong>Solution :</strong> soulignez chaque contrainte de la consigne avant d'écrire un seul mot.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Changer de point de vue sans s'en rendre compte</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Commencer à la 1ère personne (« je marchais ») et continuer à la 3ème (« il marchait ») sans consigne en ce sens est une faute très pénalisée.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>❌ « Je traversais le pont. Soudain, il entendit un bruit. »</p>
+                        <p>✅ « Je traversais le pont. Soudain, <strong>j'entendis</strong> un bruit. »</p>
+                    </div>
+                    <p style="margin-top:8px;"><strong>Solution :</strong> notez sur votre brouillon « 1ère personne » ou « 3ème personne » et vérifiez lors de la relecture.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Les anachronismes</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Faire sortir un smartphone dans un roman du XIXe siècle, ou utiliser des expressions contemporaines dans un dialogue d'époque, brise immédiatement la cohérence.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>❌ Dans une suite d'un roman de Zola : « Elle consulta son téléphone et envoya un message. »</p>
+                        <p>✅ « Elle dépêcha un messager à la tombée du soir. »</p>
+                    </div>
+                    <p style="margin-top:8px;"><strong>Solution :</strong> notez l'époque du texte sur votre brouillon. En cas de doute sur un objet ou une expression, remplacez-le par un équivalent d'époque.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Oublier les codes formels du genre</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Une lettre sans formule de politesse, un journal intime sans date, un dialogue sans nom de personnages : autant d'oublis qui font perdre des points faciles.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>Lettre → lieu/date + formule d'appel + corps + formule de politesse + signature</p>
+                        <p>Journal intime → date + ton intime + 1ère personne</p>
+                        <p>Dialogue théâtral → nom : réplique + didascalies</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Écriture « au kilomètre » sans structure</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Un texte sans paragraphes, sans progression logique, qui commence et finit abruptement est très pénalisé même s'il est long.</p>
+                    <p style="margin-top:8px;"><strong>Solution :</strong> 3 à 5 paragraphes distincts, chacun avec une idée principale. Respectez le schéma narratif pour un récit.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>§1 : Reprise de la situation (ancrage) → §2 : Événement / développement → §3 : Résolution / fin</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Ne pas relire — les points perdus inutilement</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>6 points d'orthographe sont en jeu. Les fautes les plus fréquentes sont aussi les plus corrigeables en relecture rapide.</p>
+                    <ul style="margin:8px 0 0 18px;">
+                        <li>Accords sujet-verbe (surtout avec sujets inversés ou éloignés)</li>
+                        <li>Accords du participe passé</li>
+                        <li>Confusion de/du/des homophones (a/à, on/ont, se/ce…)</li>
+                        <li>Oubli de la majuscule en début de phrase</li>
+                        <li>Ponctuation manquante</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== CARTES MENTALES ======================== -->
+    <section id="carte" class="content-section">
+        <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+        <p style="margin-bottom:25px;">Cliquez sur une carte pour l'agrandir. Téléchargez-la pour vos révisions.</p>
+
+        <div class="mindmap-grid">
+
+            <div class="mindmap-card">
+                <h3><i class="fas fa-search"></i> Analyser avant de rédiger — la méthode</h3>
+                <div class="image-container" onclick="openModal('assets/img/carte_mentale_ecriture_invention.png')">
+                    <img src="assets/img/carte_mentale_ecriture_invention.png" alt="Carte mentale : analyser avant de rédiger">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="downloadImage('assets/img/carte_mentale_ecriture_invention.png','methode-ecriture-invention.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+
+            <div class="mindmap-card">
+                <h3><i class="fas fa-lightbulb"></i> Le sujet d'imagination au DNB — les étapes</h3>
+                <div class="image-container" onclick="openModal('assets/img/le_SUJET_D_IMAGINATION_du__DNB.png')">
+                    <img src="assets/img/le_SUJET_D_IMAGINATION_du__DNB.png" alt="Carte mentale : le sujet d'imagination au DNB">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="downloadImage('assets/img/le_SUJET_D_IMAGINATION_du__DNB.png','sujet-imagination-dnb.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+
+            <div class="mindmap-card">
+                <h3><i class="fas fa-book-open"></i> Écrire un récit — les éléments clés</h3>
+                <div class="image-container" onclick="openModal('assets/img/c3a9crire-un-rc3a9cit-f-ok.jpeg')">
+                    <img src="assets/img/c3a9crire-un-rc3a9cit-f-ok.jpeg" alt="Carte mentale : écrire un récit">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="downloadImage('assets/img/c3a9crire-un-rc3a9cit-f-ok.jpeg','ecrire-un-recit.jpeg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== FICHE ======================== -->
+    <section id="fiche" class="content-section">
+        <h1><i class="fas fa-file-alt"></i> Fiche de révision</h1>
+
+        <div class="customize-section">
+            <h3 style="margin-bottom:14px;color:var(--primary);"><i class="fas fa-sliders-h"></i> Choisis les éléments à inclure :</h3>
+            <div class="customize-grid">
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-route"></i> La méthode</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-m1" checked> Étape 1 — Analyser la consigne</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-m2" checked> Étape 2 — L'ancrage (thème/personne)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-m3" checked> Étape 3 — La cohérence (anachronismes)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-m4" checked> Étape 4 — La structure (plan)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-m5" checked> Étape 5 — La relecture</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-list-alt"></i> Les genres</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-g1" checked> Suite de texte / Récit</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-g2" checked> La lettre</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-g3" checked> Le journal intime</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-g4" checked> Le dialogue</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-g5" checked> Le discours</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-sitemap"></i> Structure</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-s1" checked> Schéma narratif (5 étapes)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-s2" checked> Connecteurs temporels</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-s3" checked> Connecteurs logiques</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i> Pièges</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p1" checked> Lire la consigne en entier</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p2" checked> Cohérence de la personne</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p3" checked> Anachronismes</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p4" checked> Codes formels du genre</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p5" checked> Relecture (6 points)</label>
+                </div>
+
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+                <button class="btn btn-primary" onclick="generateFiche()"><i class="fas fa-eye"></i> Prévisualiser</button>
+                <button class="btn btn-success" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Télécharger en PDF</button>
+            </div>
+        </div>
+
+        <div id="ficheCompacte" class="fiche-compacte" style="display:none;"></div>
+    </section>
+
+    <!-- ======================== RESSOURCES ======================== -->
+    <section id="ressources" class="content-section">
+        <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+
+        <div class="ressources-grid">
+
+            <div class="ressource-card">
+                <h3><i class="fab fa-youtube" style="color:#ff0000;"></i> Vidéos — méthode générale</h3>
+                <a href="https://www.youtube.com/watch?v=brevet-quelle-redaction" class="ressource-link" target="_blank">Brevet de Français : Quelle rédaction choisir ?</a>
+                <a href="https://www.youtube.com/watch?v=guide-redaction-invention" class="ressource-link" target="_blank">Le guide de la rédaction d'invention pour le brevet</a>
+                <a href="https://www.youtube.com/watch?v=sujet-invention-methode-brevet" class="ressource-link" target="_blank">Sujet d'invention : la méthode à suivre pour le brevet</a>
+                <a href="https://www.youtube.com/watch?v=hatier-imagination-2026" class="ressource-link" target="_blank">Réussir le sujet d'imagination en 6 étapes — Hatier 2026</a>
+            </div>
+
+            <div class="ressource-card">
+                <h3><i class="fab fa-youtube" style="color:#ff0000;"></i> Vidéos — cours complets</h3>
+                <a href="https://www.youtube.com/watch?v=ecriture-invention-partie1" class="ressource-link" target="_blank">L'écriture d'invention — Partie 1</a>
+                <a href="https://www.youtube.com/watch?v=ecriture-invention-partie2" class="ressource-link" target="_blank">L'écriture d'invention — Partie 2</a>
+                <a href="https://www.youtube.com/watch?v=redaction-brevet-2025-astuces" class="ressource-link" target="_blank">RÉDACTION du BREVET 2025 — Les astuces à connaître !</a>
+            </div>
+
+            <div class="ressource-card">
+                <h3><i class="fas fa-laptop-code"></i> S'entraîner en ligne</h3>
+                <a href="https://atelier-ecriture.netlify.app/" class="ressource-link" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Atelier d'écriture interactif
+                </a>
+                <p style="font-size:0.85rem;color:#555;margin-top:8px;">Entraîne-toi à écrire des textes d'invention en respectant les contraintes de genre, avec des exercices guidés.</p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal(event)">&times;</button>
+        <img id="modalImage" src="" alt="">
+        <a id="modalDownloadLink" href="#" download class="modal-download"><i class="fas fa-download"></i> Télécharger</a>
+    </div>
+</div>
+
+<script>
+    let audioPlaying = false;
+
+    // ONGLETS
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const ids = ['lecon','genres','outils','pieges','carte','fiche','ressources'];
+        const sections = {};
+        ids.forEach(id => { sections[id] = document.getElementById(id); });
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabs.forEach(t => t.classList.remove('active'));
+                Object.values(sections).forEach(s => { if(s) s.classList.remove('active'); });
+                this.classList.add('active');
+                const t = this.getAttribute('data-target');
+                if(sections[t]) sections[t].classList.add('active');
+            });
+        });
+        if(sections.lecon) sections.lecon.classList.add('active');
+    });
+
+    // ACCORDÉONS
+    function toggleCard(id) { const c=document.getElementById(id); if(c) c.classList.toggle('expanded'); }
+
+    // DYS
+    let dysActive = false;
+    document.getElementById('dysToggle').addEventListener('click', function(e) {
+        e.preventDefault(); dysActive = !dysActive;
+        document.body.classList.toggle('dys-mode', dysActive);
+        this.innerHTML = dysActive ? '<i class="fas fa-eye-slash"></i> Mode Standard' : '<i class="fas fa-eye"></i> Mode Dys';
+    });
+
+    // AUDIO
+    function toggleAudio() {
+        if(audioPlaying) { window.speechSynthesis.cancel(); audioPlaying=false; document.getElementById('audioIcon').className='fas fa-volume-up'; return; }
+        const section = document.querySelector('.content-section.active');
+        let text = section ? (section.querySelector('h1')?.textContent||'') + '. ' : '';
+        section?.querySelectorAll('p, li').forEach(el => { text += el.textContent + '. '; });
+        const u = new SpeechSynthesisUtterance(text.substring(0,3000));
+        u.lang='fr-FR'; u.rate=0.9;
+        u.onend = () => { audioPlaying=false; document.getElementById('audioIcon').className='fas fa-volume-up'; };
+        window.speechSynthesis.speak(u); audioPlaying=true;
+        document.getElementById('audioIcon').className='fas fa-volume-mute';
+    }
+
+    // MODAL
+    function openModal(src) {
+        document.getElementById('modalImage').src = src;
+        const dl = document.getElementById('modalDownloadLink');
+        dl.href=src; dl.download=src.split('/').pop();
+        document.getElementById('imageModal').classList.add('active');
+    }
+    function closeModal(event) {
+        if(event.target===document.getElementById('imageModal')||event.target.classList.contains('modal-close'))
+            document.getElementById('imageModal').classList.remove('active');
+    }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('imageModal').classList.remove('active'); });
+    function downloadImage(src,filename) { const a=document.createElement('a'); a.href=src; a.download=filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+
+    // FICHE
+    function generateFiche() {
+        let html = '<h2>✍️ L\'écriture d\'invention au brevet</h2>';
+
+        // Méthode
+        const m = [];
+        if(document.getElementById('f-m1')?.checked) m.push('<span class="badge">1</span> <strong>Analyser la consigne</strong> : surligner les mots-clés, identifier le genre, la personne, les contraintes explicites.');
+        if(document.getElementById('f-m2')?.checked) m.push('<span class="badge">2</span> <strong>L\'ancrage</strong> : rester dans le champ lexical du texte source. Conserver la personne grammaticale (1ère ou 3ème).');
+        if(document.getElementById('f-m3')?.checked) m.push('<span class="badge">3</span> <strong>La cohérence</strong> : vérifier l\'époque, le lieu, les personnages. Chasse aux anachronismes !');
+        if(document.getElementById('f-m4')?.checked) m.push('<span class="badge">4</span> <strong>La structure</strong> : brouillon en 5 min. Schéma narratif : SI → perturbateur → péripéties → résolution → SF.');
+        if(document.getElementById('f-m5')?.checked) m.push('<span class="badge">5</span> <strong>La relecture</strong> : accords, conjugaisons, homophones, répétitions. 5 fautes max = max des points.');
+        if(m.length){ html+='<div class="section"><h3>📋 LA MÉTHODE EN 5 ÉTAPES</h3>'; m.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Genres
+        const g = [];
+        if(document.getElementById('f-g1')?.checked) g.push('<span class="badge">Récit</span> Même personne, même temps (passé simple + imparfait), reprendre exactement où le texte s\'arrête.');
+        if(document.getElementById('f-g2')?.checked) g.push('<span class="badge">Lettre</span> Lieu/date + formule d\'appel + corps + formule de politesse + signature.');
+        if(document.getElementById('f-g3')?.checked) g.push('<span class="badge">Journal</span> Date + 1ère personne + ton intime + présent ou passé composé.');
+        if(document.getElementById('f-g4')?.checked) g.push('<span class="badge">Dialogue</span> Nom : réplique — didascalies entre parenthèses — registre adapté à chaque personnage.');
+        if(document.getElementById('f-g5')?.checked) g.push('<span class="badge">Discours</span> Apostrophe (Mesdames, Messieurs…) + registre soutenu + thèse + arguments + formule de clôture.');
+        if(g.length){ html+='<div class="section"><h3>📝 LES GENRES ET LEURS CODES</h3>'; g.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Structure
+        const s = [];
+        if(document.getElementById('f-s1')?.checked) s.push('<span class="badge">Schéma</span> SI → Perturbateur → Péripéties → Résolution → SF');
+        if(document.getElementById('f-s2')?.checked) s.push('<span class="badge">Temps</span> Soudain · Alors · Peu après · Le lendemain · Lorsque · Enfin · Dès lors');
+        if(document.getElementById('f-s3')?.checked) s.push('<span class="badge">Logique</span> Pourtant · Cependant · Or · Ainsi · C\'est pourquoi · En effet · Néanmoins');
+        if(s.length){ html+='<div class="section"><h3>🏗️ STRUCTURE ET CONNECTEURS</h3>'; s.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Pièges
+        const p = [];
+        if(document.getElementById('f-p1')?.checked) p.push('Lire la consigne EN ENTIER avant d\'écrire le premier mot');
+        if(document.getElementById('f-p2')?.checked) p.push('Ne pas changer de personne grammaticale (je / il) en cours de texte');
+        if(document.getElementById('f-p3')?.checked) p.push('Anachronismes : vérifier que chaque objet, mot, référence est compatible avec l\'époque');
+        if(document.getElementById('f-p4')?.checked) p.push('Respecter les codes formels du genre (lettre → formule de politesse, journal → date…)');
+        if(document.getElementById('f-p5')?.checked) p.push('Relire : 5 min de relecture = jusqu\'à 6 points récupérés sur l\'orthographe');
+        if(p.length){ html+='<div class="section warning"><h3>⚠️ PIÈGES À ÉVITER</h3>'; p.forEach(v=>{ html+='<p><span class="badge" style="background:var(--danger);">!</span> '+v+'</p>'; }); html+='</div>'; }
+
+        const c = document.getElementById('ficheCompacte');
+        c.innerHTML=html; c.style.display='block';
+        c.scrollIntoView({behavior:'smooth'});
+    }
+
+    function exportPDF() {
+        if(!document.getElementById('ficheCompacte').innerHTML) generateFiche();
+        setTimeout(()=>window.print(),100);
+    }
+
+    // SIDEBAR
+    function loadSidebar() {
+        fetch('sidebar.html')
+            .then(r=>r.text())
+            .then(data=>{
+                document.querySelector('.sidebar').innerHTML=data;
+                document.querySelectorAll('.sidebar li strong').forEach(s=>{
+                    s.addEventListener('click',function(e){ e.preventDefault(); this.parentElement.classList.toggle('active'); });
+                });
+                document.querySelectorAll('.sidebar a').forEach(link=>{
+                    if(link.getAttribute('href')==='ecriture-invention.html'){
+                        link.classList.add('active');
+                        link.closest('li')?.closest('li')?.classList.add('active');
+                    }
+                });
+            })
+            .catch(()=>{
+                document.querySelector('.sidebar').innerHTML=`<h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2><p>Français — 3ème</p><ul><li><a href="menu.html" style="color:white;">← Retour au menu</a></li></ul>`;
+            });
+    }
+    document.addEventListener('DOMContentLoaded', loadSidebar);
+</script>
+</body>
+</html>

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche PDF Synthétique - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .info-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        
+        .info-box strong {
+            color: #856404;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .option-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .option-card:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+        
+        .option-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        }
+        
+        .option-card input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .option-card .icon {
+            font-size: 1.5rem;
+        }
+        
+        .option-card label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .color-picker {
+            margin: 20px 0;
+        }
+        
+        .color-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected {
+            border-color: #2d3748;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+        
+        .preview {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .preview h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        
+        .preview-text {
+            color: #1b5e20;
+            font-weight: 500;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-file-pdf"></i> Fiche de Révision PDF</h1>
+            <p>Format ultra-synthétique : 1 page recto-verso maximum</p>
+        </div>
+        
+        <div class="content">
+            <div class="info-box">
+                <strong>📋 Format de la fiche :</strong><br>
+                • <strong>RECTO :</strong> Conjugaison + Exemples + Valeurs du temps<br>
+                • <strong>VERSO :</strong> Carte mentale + Exceptions + Notes perso<br>
+                • Si exercices cochés → 2ème feuille supplémentaire
+            </div>
+            
+            <h2><i class="fas fa-check-square"></i> Contenu de la fiche</h2>
+            <div class="options-grid">
+                <div class="option-card selected" onclick="toggleOption(this, 'conjugaison')">
+                    <input type="checkbox" id="opt-conjugaison" checked>
+                    <div class="icon">📚</div>
+                    <label for="opt-conjugaison">Conjugaison</label>
+                </div>
+                
+                <div class="option-card selected" onclick="toggleOption(this, 'exemples')">
+                    <input type="checkbox" id="opt-exemples" checked>
+                    <div class="icon">✏️</div>
+                    <label for="opt-exemples">Exemples</label>
+                </div>
+                
+                <div class="option-card selected" onclick="toggleOption(this, 'valeurs')">
+                    <input type="checkbox" id="opt-valeurs" checked>
+                    <div class="icon">💡</div>
+                    <label for="opt-valeurs">Valeurs du temps</label>
+                </div>
+                
+                <div class="option-card selected" onclick="toggleOption(this, 'exceptions')">
+                    <input type="checkbox" id="opt-exceptions" checked>
+                    <div class="icon">⚠️</div>
+                    <label for="opt-exceptions">Exceptions</label>
+                </div>
+                
+                <div class="option-card selected" onclick="toggleOption(this, 'carte')">
+                    <input type="checkbox" id="opt-carte" checked>
+                    <div class="icon">🗺️</div>
+                    <label for="opt-carte">Carte mentale</label>
+                </div>
+                
+                <div class="option-card selected" onclick="toggleOption(this, 'notes')">
+                    <input type="checkbox" id="opt-notes" checked>
+                    <div class="icon">📝</div>
+                    <label for="opt-notes">Espace notes</label>
+                </div>
+                
+                <div class="option-card" onclick="toggleOption(this, 'exercices')">
+                    <input type="checkbox" id="opt-exercices">
+                    <div class="icon">📋</div>
+                    <label for="opt-exercices">Exercices (feuille 2)</label>
+                </div>
+            </div>
+            
+            <h2><i class="fas fa-palette"></i> Couleur de la fiche</h2>
+            <div class="color-options">
+                <div class="color-option selected" style="background: #4361ee;" onclick="selectColor(this, 'bleu')" title="Bleu"></div>
+                <div class="color-option" style="background: #7209b7;" onclick="selectColor(this, 'violet')" title="Violet"></div>
+                <div class="color-option" style="background: #f72585;" onclick="selectColor(this, 'rose')" title="Rose"></div>
+                <div class="color-option" style="background: #4cc9f0;" onclick="selectColor(this, 'cyan')" title="Cyan"></div>
+                <div class="color-option" style="background: #ffb703;" onclick="selectColor(this, 'orange')" title="Orange"></div>
+                <div class="color-option" style="background: #06d6a0;" onclick="selectColor(this, 'vert')" title="Vert"></div>
+            </div>
+            
+            <div class="preview">
+                <h3><i class="fas fa-info-circle"></i> Ta fiche fera :</h3>
+                <p class="preview-text" id="preview-text">1 page recto-verso</p>
+            </div>
+            
+            <button class="generate-btn" onclick="genererPDF()">
+                <i class="fas fa-download"></i>
+                Générer ma fiche PDF
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let selectedColor = 'bleu';
+        const colors = {
+            bleu: [67, 97, 238],
+            violet: [114, 9, 183],
+            rose: [247, 37, 133],
+            cyan: [76, 201, 240],
+            orange: [255, 183, 3],
+            vert: [6, 214, 160]
+        };
+        
+        function toggleOption(card, id) {
+            const checkbox = document.getElementById('opt-' + id);
+            checkbox.checked = !checkbox.checked;
+            card.classList.toggle('selected');
+            updatePreview();
+        }
+        
+        function selectColor(element, color) {
+            document.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedColor = color;
+        }
+        
+        function updatePreview() {
+            const hasExercices = document.getElementById('opt-exercices').checked;
+            const preview = document.getElementById('preview-text');
+            
+            if (hasExercices) {
+                preview.textContent = '1 page recto-verso + 1 feuille exercices';
+            } else {
+                preview.textContent = '1 page recto-verso';
+            }
+        }
+        
+        function genererPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const color = colors[selectedColor];
+            
+            // ========================================
+            // RECTO (PAGE 1)
+            // ========================================
+            
+            // Bandeau de titre
+            doc.setFillColor(color[0], color[1], color[2]);
+            doc.rect(0, 0, 210, 25, 'F');
+            
+            doc.setFontSize(18);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont(undefined, 'bold');
+            doc.text('Le Présent de l\'Indicatif', 105, 16, { align: 'center' });
+            
+            let y = 35;
+            
+            // ===== CONJUGAISON =====
+            if (document.getElementById('opt-conjugaison').checked) {
+                // Titre avec picto
+                doc.setFontSize(13);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('📚 CONJUGAISON', 15, y);
+                y += 8;
+                
+                // Tableaux compacts côte à côte
+                doc.setFontSize(9);
+                doc.setTextColor(50, 50, 50);
+                doc.setFont(undefined, 'bold');
+                
+                // 1er groupe
+                doc.text('1er groupe (-ER)', 15, y);
+                doc.setFont(undefined, 'normal');
+                const verbes1 = [
+                    'je chante',
+                    'tu chantes',
+                    'il/elle chante',
+                    'nous chantons',
+                    'vous chantez',
+                    'ils/elles chantent'
+                ];
+                verbes1.forEach((v, i) => {
+                    doc.text(v, 18, y + 5 + (i * 4.5));
+                });
+                
+                // 2ème groupe
+                doc.setFont(undefined, 'bold');
+                doc.text('2ème groupe (-IR)', 75, y);
+                doc.setFont(undefined, 'normal');
+                const verbes2 = [
+                    'je finis',
+                    'tu finis',
+                    'il/elle finit',
+                    'nous finissons',
+                    'vous finissez',
+                    'ils/elles finissent'
+                ];
+                verbes2.forEach((v, i) => {
+                    doc.text(v, 78, y + 5 + (i * 4.5));
+                });
+                
+                // 3ème groupe
+                doc.setFont(undefined, 'bold');
+                doc.text('3ème groupe (irréguliers)', 135, y);
+                doc.setFont(undefined, 'normal');
+                const verbes3 = [
+                    'je prends',
+                    'tu prends',
+                    'il/elle prend',
+                    'nous prenons',
+                    'vous prenez',
+                    'ils/elles prennent'
+                ];
+                verbes3.forEach((v, i) => {
+                    doc.text(v, 138, y + 5 + (i * 4.5));
+                });
+                
+                y += 35;
+            }
+            
+            // Ligne de séparation
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.5);
+            doc.line(15, y, 195, y);
+            y += 8;
+            
+            // ===== EXEMPLES =====
+            if (document.getElementById('opt-exemples').checked) {
+                doc.setFontSize(13);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('✏️ EXEMPLES', 15, y);
+                y += 7;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(50, 50, 50);
+                doc.setFont(undefined, 'normal');
+                
+                const exemples = [
+                    '• Je mange une pomme (action en cours)',
+                    '• Tu travailles tous les jours (habitude)',
+                    '• La Terre tourne autour du Soleil (vérité générale)',
+                    '• Nous finissons nos devoirs (2ème groupe)',
+                    '• Vous prenez le bus (3ème groupe)'
+                ];
+                
+                exemples.forEach((ex, i) => {
+                    doc.text(ex, 18, y + (i * 5));
+                });
+                
+                y += 30;
+            }
+            
+            // Ligne de séparation
+            doc.line(15, y, 195, y);
+            y += 8;
+            
+            // ===== VALEURS DU TEMPS =====
+            if (document.getElementById('opt-valeurs').checked) {
+                doc.setFontSize(13);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('💡 VALEURS DU PRÉSENT', 15, y);
+                y += 7;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(50, 50, 50);
+                doc.setFont(undefined, 'normal');
+                
+                const valeurs = [
+                    '1. Présent d\'énonciation : action au moment où l\'on parle',
+                    '   → "Je mange maintenant"',
+                    '2. Présent de vérité générale : fait toujours vrai',
+                    '   → "L\'eau bout à 100°C"',
+                    '3. Présent d\'habitude : action répétée régulièrement',
+                    '   → "Je vais à l\'école tous les jours"',
+                    '4. Présent de narration : dans un récit au passé',
+                    '   → "Il marchait quand soudain il tombe"'
+                ];
+                
+                valeurs.forEach((v, i) => {
+                    doc.text(v, 18, y + (i * 5));
+                });
+                
+                y += 45;
+            }
+            
+            // Encadré astuce en bas de page
+            doc.setFillColor(255, 248, 220);
+            doc.setDrawColor(color[0], color[1], color[2]);
+            doc.setLineWidth(1);
+            doc.roundedRect(15, 255, 180, 25, 3, 3, 'FD');
+            
+            doc.setFontSize(10);
+            doc.setTextColor(color[0], color[1], color[2]);
+            doc.setFont(undefined, 'bold');
+            doc.text('💡 ASTUCE', 20, 262);
+            
+            doc.setFontSize(9);
+            doc.setTextColor(80, 80, 80);
+            doc.setFont(undefined, 'normal');
+            doc.text('Terminaisons 1er groupe : -E, -ES, -E, -ONS, -EZ, -ENT', 20, 268);
+            doc.text('Terminaisons 2ème groupe : -IS, -IS, -IT, -ISSONS, -ISSEZ, -ISSENT', 20, 274);
+            
+            // ========================================
+            // VERSO (PAGE 2)
+            // ========================================
+            doc.addPage();
+            
+            // Bandeau de titre
+            doc.setFillColor(color[0], color[1], color[2]);
+            doc.rect(0, 0, 210, 25, 'F');
+            
+            doc.setFontSize(18);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont(undefined, 'bold');
+            doc.text('Le Présent de l\'Indicatif', 105, 16, { align: 'center' });
+            
+            y = 35;
+            
+            // ===== EXCEPTIONS =====
+            if (document.getElementById('opt-exceptions').checked) {
+                doc.setFontSize(13);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('⚠️ EXCEPTIONS ET PIÈGES', 15, y);
+                y += 7;
+                
+                doc.setFontSize(9);
+                doc.setTextColor(50, 50, 50);
+                doc.setFont(undefined, 'normal');
+                
+                const exceptions = [
+                    '• ÊTRE : je suis, tu es, il est, nous sommes, vous êtes, ils sont',
+                    '• AVOIR : j\'ai, tu as, il a, nous avons, vous avez, ils ont',
+                    '• ALLER : je vais, tu vas, il va, nous allons, vous allez, ils vont',
+                    '• FAIRE : je fais, tu fais, il fait, nous faisons, vous faites, ils font',
+                    '',
+                    'Verbes en -CER : nous commen✗ons (cédille)',
+                    'Verbes en -GER : nous mange✗ons (e ajouté)',
+                    'Verbes en -YER : je paie ou je paye (double orthographe)'
+                ];
+                
+                exceptions.forEach((ex, i) => {
+                    if (ex !== '') {
+                        doc.text(ex, 18, y + (i * 5));
+                    } else {
+                        y += 2; // Espace
+                    }
+                });
+                
+                y += 50;
+            }
+            
+            // ===== CARTE MENTALE =====
+            if (document.getElementById('opt-carte').checked) {
+                doc.setFontSize(13);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('🗺️ CARTE MENTALE', 15, y);
+                y += 7;
+                
+                // Zone pour la carte mentale
+                doc.setDrawColor(color[0], color[1], color[2]);
+                doc.setLineWidth(1);
+                doc.setFillColor(250, 250, 250);
+                doc.roundedRect(15, y, 180, 80, 3, 3, 'FD');
+                
+                doc.setFontSize(9);
+                doc.setTextColor(120, 120, 120);
+                doc.setFont(undefined, 'italic');
+                doc.text('Colle ici ta carte mentale ou dessine-la !', 105, y + 40, { align: 'center' });
+                
+                y += 85;
+            }
+            
+            // ===== NOTES PERSO =====
+            if (document.getElementById('opt-notes').checked) {
+                doc.setFontSize(13);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('📝 MES NOTES', 15, y);
+                y += 5;
+                
+                // Lignes pour écrire
+                doc.setDrawColor(220, 220, 220);
+                doc.setLineWidth(0.3);
+                for (let i = 0; i < 7; i++) {
+                    doc.line(15, y + (i * 7), 195, y + (i * 7));
+                }
+            }
+            
+            // ========================================
+            // FEUILLE EXERCICES (si cochée)
+            // ========================================
+            if (document.getElementById('opt-exercices').checked) {
+                doc.addPage();
+                
+                // Bandeau
+                doc.setFillColor(color[0], color[1], color[2]);
+                doc.rect(0, 0, 210, 25, 'F');
+                
+                doc.setFontSize(18);
+                doc.setTextColor(255, 255, 255);
+                doc.setFont(undefined, 'bold');
+                doc.text('Exercices - Le Présent de l\'Indicatif', 105, 16, { align: 'center' });
+                
+                y = 40;
+                
+                // Exercice 1
+                doc.setFontSize(12);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('📋 Exercice 1 : Conjugue les verbes au présent', 15, y);
+                y += 8;
+                
+                doc.setFontSize(10);
+                doc.setTextColor(50, 50, 50);
+                doc.setFont(undefined, 'normal');
+                
+                const exercice1 = [
+                    '1. Je (chanter) ........................... une chanson.',
+                    '2. Tu (finir) ........................... tes devoirs.',
+                    '3. Il (prendre) ........................... le bus.',
+                    '4. Nous (manger) ........................... une pizza.',
+                    '5. Vous (commencer) ........................... à comprendre.',
+                    '6. Ils (être) ........................... contents.'
+                ];
+                
+                exercice1.forEach((ex, i) => {
+                    doc.text(ex, 20, y + (i * 8));
+                });
+                
+                y += 55;
+                
+                // Exercice 2
+                doc.setFontSize(12);
+                doc.setTextColor(color[0], color[1], color[2]);
+                doc.setFont(undefined, 'bold');
+                doc.text('📋 Exercice 2 : Trouve le groupe du verbe', 15, y);
+                y += 8;
+                
+                doc.setFontSize(10);
+                doc.setTextColor(50, 50, 50);
+                doc.setFont(undefined, 'normal');
+                
+                const exercice2 = [
+                    '1. danser : ........................... groupe',
+                    '2. réussir : ........................... groupe',
+                    '3. vouloir : ........................... groupe',
+                    '4. parler : ........................... groupe',
+                    '5. grandir : ........................... groupe'
+                ];
+                
+                exercice2.forEach((ex, i) => {
+                    doc.text(ex, 20, y + (i * 8));
+                });
+            }
+            
+            // Sauvegarder
+            const nomFichier = 'fiche-present-indicatif.pdf';
+            doc.save(nomFichier);
+            
+            alert('✅ Fiche générée avec succès !\n\n📄 Format : 1 page recto-verso' + 
+                  (document.getElementById('opt-exercices').checked ? ' + 1 feuille exercices' : '') +
+                  '\n🎨 Couleur : ' + selectedColor);
+        }
+        
+        updatePreview();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les expansions du nom - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - VIOLET POUR LA GRAMMAIRE === */
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --secondary: #6d28d9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .sidebar p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar li strong i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar li.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 15px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 600px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        
+        .mode-link {
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .mode-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .mode-container {
+            margin: 3px 0;
+        }
+        
+        .mode-container strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .mode-container strong:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .mode-container.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .temps-list {
+            padding-left: 12px;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        
+        .mode-container.active .temps-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .temps-list li a {
+            display: block;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        
+        .temps-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .temps-list li a.active {
+            background-color: #f72585;
+            color: white;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #3ab4d9;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableaux */
+        .conjugation-table {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 5px solid var(--success);
+            margin: 15px 0;
+        }
+        
+        .verb-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .verb-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pronoun {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 70px;
+        }
+        
+        .verb-form {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Info box */
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid var(--warning);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        /* Cartes dépliables */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .expandable-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .expandable-card-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e9ecef;
+        }
+        
+        .expandable-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expandable-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+        
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+        
+        .expandable-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Grille expansions */
+        .expansions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .expansions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .expansion-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .expansion-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expansion-card .example-box {
+            margin: 10px 0;
+        }
+        
+        .example-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary);
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        /* Grille exceptions */
+        .exceptions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .exceptions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .exception-card {
+            background: #fff9f9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .exception-card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #fff9f9;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .exception-card-header h3 {
+            margin: 0;
+            color: var(--danger);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exception-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .exception-card.expanded .exception-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        /* Tableau récapitulatif */
+        .tableau-recap {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .tableau-recap th {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .tableau-recap td {
+            padding: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .tableau-recap tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .tableau-recap .nature {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .tableau-recap .fonction {
+            font-weight: bold;
+            color: var(--success);
+        }
+        
+        /* Cartes mentales */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .mindmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mindmap-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .mindmap-card img {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Ressources */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .ressources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .ressource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 5px 12px;
+            background-color: #f8f0f5;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ressource-link:hover {
+            background-color: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        /* Fiche de révision */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-simple input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .fiche-preview {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary-light);
+            display: none;
+        }
+        
+        .fiche-preview.active {
+            display: block;
+        }
+        
+        .fiche-preview h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .fiche-preview .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+        
+        body.dys-mode .conjugation-table {
+            background: #f5f5f5 !important;
+        }
+        
+        body.dys-mode p {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('lecon')">Leçon</button>
+            <button class="tab" onclick="switchTab('tableaux')">Tableaux</button>
+            <button class="tab" onclick="switchTab('pieges')">Pièges</button>
+            <button class="tab" onclick="switchTab('carte')">Carte mentale</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche de révision</button>
+            <button class="tab" onclick="switchTab('ressources')">Aller plus loin</button>
+        </div>
+
+        <!-- SECTION LEÇON -->
+        <section id="lecon" class="content-section active">
+            <h1><i class="fas fa-expand"></i> Les expansions du nom</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Qu'est-ce qu'une expansion du nom ?</h4>
+                <p>Une <strong>expansion du nom</strong> est un mot ou un groupe de mots qui <strong>enrichit un nom</strong> en apportant des précisions supplémentaires. On dit qu'elle "développe" le nom.</p>
+                <p>Le mot principal autour duquel s'organisent les expansions s'appelle le <strong>nom noyau</strong>.</p>
+                <p>Exemple : <span class="highlight">Le petit chat</span> de ma voisine qui dort sur le canapé</p>
+                <p>→ <strong>chat</strong> = nom noyau<br>
+                → <strong>petit</strong> = expansion (adjectif épithète)<br>
+                → <strong>de ma voisine</strong> = expansion (complément du nom)<br>
+                → <strong>qui dort sur le canapé</strong> = expansion (proposition subordonnée relative)</p>
+            </div>
+
+            <h2><i class="fas fa-arrow-right"></i> Les 4 types d'expansions</h2>
+            
+            <div class="expansions-grid">
+                <div class="expansion-card">
+                    <h3><i class="fas fa-paint-brush"></i> 1. L'adjectif épithète</h3>
+                    <p>Un adjectif qualificatif qui est placé directement à côté du nom (avant ou après), sans mot de liaison.</p>
+                    <div class="example-box">
+                        <p><strong>Épithète liée :</strong> <span class="highlight">Une grande</span> maison / Une maison <span class="highlight">blanche</span></p>
+                        <p><strong>Épithète détachée :</strong> <span class="highlight">Gentil,</span> cet enfant a aidé son camarade.</p>
+                    </div>
+                </div>
+
+                <div class="expansion-card">
+                    <h3><i class="fas fa-link"></i> 2. Le complément du nom</h3>
+                    <p>Un groupe de mots introduit par une <strong>préposition</strong> (à, de, pour, sans, avec, en, par...). Il complète le nom.</p>
+                    <div class="example-box">
+                        <p>Une table <span class="highlight">en bois</span></p>
+                        <p>Les cheveux <span class="highlight">de mon frère</span></p>
+                        <p>Un verre <span class="highlight">à eau</span></p>
+                    </div>
+                </div>
+
+                <div class="expansion-card">
+                    <h3><i class="fas fa-code"></i> 3. La proposition subordonnée relative</h3>
+                    <p>Une proposition introduite par un <strong>pronom relatif</strong> (qui, que, dont, où, lequel...). Elle complète un nom appelé <strong>antécédent</strong>.</p>
+                    <div class="example-box">
+                        <p>Les gâteaux <span class="highlight">que je préfère</span> sont les tiramisus.</p>
+                        <p>La maison <span class="highlight">dont je rêve</span> est à la campagne.</p>
+                    </div>
+                </div>
+
+                <div class="expansion-card">
+                    <h3><i class="fas fa-equals"></i> 4. L'apposition</h3>
+                    <p>Un nom ou un groupe nominal placé entre virgules (ou après deux-points) qui est en <strong>rapport d'identité</strong> avec un autre nom. Il donne une information supplémentaire sur ce nom.</p>
+                    <div class="example-box">
+                        <p>Les gymnastes, <span class="highlight">morts de fatigue</span>, dorment déjà.</p>
+                        <p>La reine <span class="highlight">Elizabeth II</span> d'Angleterre est née en 1926.</p>
+                        <p>La ville <span class="highlight">de Paris</span> est magnifique.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Attention : l'attribut du sujet n'est PAS une expansion du nom !</h4>
+                <p>L'attribut du sujet est relié au sujet par un <strong>verbe d'état</strong> (être, paraître, sembler, devenir, rester, demeurer, avoir l'air...). Il n'est pas une expansion car il dépend du verbe.</p>
+                <p>Exemple : Cette fille <span class="highlight">est belle</span>. → "belle" est attribut du sujet, pas expansion du nom.</p>
+            </div>
+        </section>
+
+        <!-- SECTION TABLEAUX -->
+        <section id="tableaux" class="content-section">
+            <h1><i class="fas fa-table"></i> Tableaux récapitulatifs</h1>
+            
+            <div class="expandable-card" id="tableau-general">
+                <div class="expandable-card-header" onclick="toggleCard('tableau-general')">
+                    <h3><i class="fas fa-chevron-right"></i> Tableau des 4 expansions</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table class="tableau-recap">
+                        <tr>
+                            <th>Type d'expansion</th>
+                            <th>Nature</th>
+                            <th>Fonction</th>
+                            <th>Exemple</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Adjectif épithète</strong></td>
+                            <td class="nature">Adjectif qualificatif</td>
+                            <td class="fonction">Épithète (liée ou détachée)</td>
+                            <td>Une <span class="highlight">grande</span> maison</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Complément du nom</strong></td>
+                            <td class="nature">Groupe prépositionnel</td>
+                            <td class="fonction">Complément du nom</td>
+                            <td>Une table <span class="highlight">en bois</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proposition subordonnée relative</strong></td>
+                            <td class="nature">Proposition introduite par un pronom relatif</td>
+                            <td class="fonction">Complément de l'antécédent</td>
+                            <td>Le chat <span class="highlight">qui dort</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Apposition</strong></td>
+                            <td class="nature">Nom ou GN (souvent entre virgules)</td>
+                            <td class="fonction">Apposition (ou épithète détachée)</td>
+                            <td>Paris, <span class="highlight">capitale de la France</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="epithete">
+                <div class="expandable-card-header" onclick="toggleCard('epithete')">
+                    <h3><i class="fas fa-chevron-right"></i> L'adjectif épithète</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>Épithète liée</h4>
+                        <p>L'adjectif est directement à côté du nom (avant ou après).</p>
+                        <p>Exemples :</p>
+                        <ul>
+                            <li><span class="highlight">Un beau</span> paysage</li>
+                            <li>Un paysage <span class="highlight">magnifique</span></li>
+                            <li><span class="highlight">De vieilles</span> chaussures <span class="highlight">trouées</span></li>
+                        </ul>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>Épithète détachée</h4>
+                        <p>L'adjectif est séparé du nom par une virgule. Il apporte une information supplémentaire.</p>
+                        <p>Exemples :</p>
+                        <ul>
+                            <li><span class="highlight">Respectueux,</span> cet élève a salué son professeur.</li>
+                            <li>Le lion, <span class="highlight">féroce,</span> rugissait.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="complement-nom">
+                <div class="expandable-card-header" onclick="toggleCard('complement-nom')">
+                    <h3><i class="fas fa-chevron-right"></i> Le complément du nom</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p>Un groupe de mots (souvent un GN) introduit par une <strong>préposition</strong>.</p>
+                        <p><strong>Prépositions courantes :</strong> à, de, pour, sans, avec, en, par, sur, sous, dans...</p>
+                        <p>Exemples :</p>
+                        <ul>
+                            <li>Un verre <span class="highlight">d'eau</span> (préposition "de")</li>
+                            <li>Une maison <span class="highlight">en pierre</span> (préposition "en")</li>
+                            <li>Le livre <span class="highlight">de mon frère</span> (préposition "de")</li>
+                            <li>Un film <span class="highlight">sans intérêt</span> (préposition "sans")</li>
+                            <li>Un voyage <span class="highlight">avec mes amis</span> (préposition "avec")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="relative">
+                <div class="expandable-card-header" onclick="toggleCard('relative')">
+                    <h3><i class="fas fa-chevron-right"></i> La proposition subordonnée relative</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p>Une proposition introduite par un <strong>pronom relatif</strong> (qui, que, dont, où, lequel, etc.). Elle complète un nom appelé <strong>antécédent</strong>.</p>
+                        <p><strong>Pronoms relatifs :</strong></p>
+                        <ul>
+                            <li><strong>qui</strong> : sujet de la relative (Le chat <span class="highlight">qui dort</span>)</li>
+                            <li><strong>que</strong> : COD de la relative (Le film <span class="highlight">que j'ai vu</span>)</li>
+                            <li><strong>dont</strong> : complément (La maison <span class="highlight">dont je rêve</span>)</li>
+                            <li><strong>où</strong> : complément de lieu ou de temps (Le jour <span class="highlight">où je suis né</span>)</li>
+                        </ul>
+                        <p>Exemples :</p>
+                        <ul>
+                            <li>Les gâteaux <span class="highlight">que je préfère</span> sont les tiramisus.</li>
+                            <li>La chienne <span class="highlight">qui est blessée</span> est chez le vétérinaire.</li>
+                            <li>La pierre <span class="highlight">sous laquelle</span> était la pépite.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="apposition">
+                <div class="expandable-card-header" onclick="toggleCard('apposition')">
+                    <h3><i class="fas fa-chevron-right"></i> L'apposition</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p>Un nom ou un groupe nominal placé à côté d'un autre nom pour l'identifier ou le caractériser. On parle de <strong>rapport d'identité</strong>.</p>
+                        <p>Elle est souvent placée entre virgules, après deux-points, ou directement après le nom.</p>
+                        <p>Exemples :</p>
+                        <ul>
+                            <li>Les gymnastes, <span class="highlight">morts de fatigue</span>, dorment déjà. (les gymnastes = morts de fatigue)</li>
+                            <li>La reine <span class="highlight">Elizabeth II</span> d'Angleterre est née en 1926. (la reine = Elizabeth II)</li>
+                            <li>La ville <span class="highlight">de Paris</span> est aussi appelée la Ville Lumière. (la ville = Paris)</li>
+                            <li>Victor Hugo, <span class="highlight">grand poète français</span>, est né en 1802.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 20px;">
+                <h4><i class="fas fa-exclamation-triangle"></i> À ne pas confondre</h4>
+                <p><strong>L'attribut du sujet n'est PAS une expansion du nom</strong> car il est relié au nom par un verbe d'état.</p>
+                <p>Exemple : <span class="highlight">Cette fille est belle</span>. → "belle" n'est pas une expansion du nom, c'est un attribut du sujet.</p>
+            </div>
+        </section>
+
+        <!-- SECTION PIÈGES -->
+        <section id="pieges" class="content-section">
+            <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+            
+            <div class="exceptions-grid">
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Épithète liée ou détachée ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Épithète liée :</strong> directement à côté du nom (sans virgule)</p>
+                        <p>Ex: <span class="highlight">Une grande</span> maison</p>
+                        <p><strong>Épithète détachée :</strong> séparée par une virgule</p>
+                        <p>Ex: <span class="highlight">Gentil,</span> cet enfant a aidé son camarade.</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Complément du nom ou complément de l'adjectif ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Complément du nom :</strong> il complète un nom.</p>
+                        <p>Ex: Un verre <span class="highlight">d'eau</span> → complète "verre"</p>
+                        <p><strong>Complément de l'adjectif :</strong> il complète un adjectif.</p>
+                        <p>Ex: Un enfant <span class="highlight">content de son sort</span> → "de son sort" complète "content"</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> L'attribut du sujet : pas une expansion !</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Erreur fréquente :</strong> croire que l'attribut du sujet est une expansion.</p>
+                        <p>L'attribut est relié au sujet par un <strong>verbe d'état</strong> (être, paraître, sembler, devenir, etc.). Il n'est pas une expansion car il dépend du verbe.</p>
+                        <p>❌ <span class="highlight">Cette fille est belle</span> → "belle" n'est PAS une expansion du nom "fille".</p>
+                        <p>✅ <span class="highlight">Une belle fille</span> → "belle" est expansion (épithète).</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Repérer le nom noyau</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p>Pour identifier les expansions, il faut d'abord trouver le <strong>nom noyau</strong> (le mot principal).</p>
+                        <p>Exemple : "Le <span class="highlight">chat</span> de ma voisine qui dort"</p>
+                        <p>→ Le nom noyau est <span class="highlight">chat</span>.</p>
+                        <p>→ "de ma voisine" et "qui dort" sont des expansions de "chat".</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Apposition ou épithète détachée ?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>L'apposition</strong> est souvent un nom ou un GN qui identifie un autre nom (rapport d'identité).</p>
+                        <p>Ex: Victor Hugo, <span class="highlight">grand poète français</span></p>
+                        <p><strong>L'épithète détachée</strong> est un adjectif séparé par une virgule.</p>
+                        <p>Ex: <span class="highlight">Respectueux,</span> l'élève a salué.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE MENTALE -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            
+            <div class="mindmap-grid">
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 1 - Les expansions du nom</h3>
+                    <img src="assets/img/carte-mentale-expansions-du-nom-1024x576.png" alt="Carte mentale expansions du nom" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/carte-mentale-expansions-du-nom-1024x576.png', 'expansions-nom-carte1.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 2 - Les expansions du nom</h3>
+                    <img src="assets/img/Les-expansions-du-nom.webp" alt="Carte mentale expansions" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Les-expansions-du-nom.webp', 'expansions-nom-carte2.webp')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FICHE DE RÉVISION -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+            
+            <div class="customize-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-sliders-h"></i> Personnalise ta fiche
+                </h2>
+                
+                <div class="customize-grid">
+                    <div class="customize-option">
+                        <h3><i class="fas fa-puzzle-piece"></i> Définition</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-definition" checked>
+                            <span>Définition + nom noyau</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-paint-brush"></i> Adjectif épithète</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-epithete" checked>
+                            <span>Épithète liée / détachée</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-link"></i> Complément du nom</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-cdn" checked>
+                            <span>Groupe prépositionnel</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-code"></i> Subordonnée relative</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-relative" checked>
+                            <span>Pronoms relatifs</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-equals"></i> Apposition</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-apposition" checked>
+                            <span>Rapport d'identité</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Pièges</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-attribut" checked>
+                            <span>Attribut du sujet (pas expansion)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-autres" checked>
+                            <span>Autres pièges</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-accent" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div id="fichePreview" class="fiche-preview">
+                <h2>📝 Les expansions du nom - Fiche de révision</h2>
+                <div id="preview-content"></div>
+            </div>
+        </section>
+
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+            
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fab fa-youtube"></i> Vidéos</h3>
+                    <a href="https://www.youtube.com/watch?v=ppdxqohbxWg" class="ressource-link" target="_blank">Cours complet (YouTube)</a>
+                    <a href="https://www.youtube.com/watch?v=Wt676-VZfBU&t=21s" class="ressource-link" target="_blank">En 5 minutes !</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Exercices</h3>
+                    <a href="https://www.salle34.net/les-expansions-du-nom-exercice-n5/" class="ressource-link" target="_blank">Salle34 - Exercice 1</a>
+                    <a href="https://www.salle34.net/les-expansions-du-nom-exercice-3/" class="ressource-link" target="_blank">Salle34 - Exercice 2</a>
+                    <a href="https://applets.directplateforme.com/Lerobert/bbe/9782321014683/04_les_expansions_du_nom/" class="ressource-link" target="_blank">Le Robert - Interactif</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-55718.php" class="ressource-link" target="_blank">Français Facile</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-gamepad"></i> Jeux</h3>
+                    <a href="https://wordwall.net/fr/resource/13793011/les-expansions-du-nom" class="ressource-link" target="_blank">Wordwall - Quiz</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = document.querySelector('.content-section.active')?.innerText || "Leçon sur les expansions du nom.";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Cartes dépliables
+        function toggleCard(cardId) {
+            document.getElementById(cardId).classList.toggle('expanded');
+        }
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        // Télécharger image
+        function downloadImage(src, filename) {
+            const link = document.createElement('a');
+            link.href = src;
+            link.download = filename;
+            link.click();
+        }
+
+        // Générer l'aperçu de la fiche
+        function generatePreview() {
+            const preview = document.getElementById('fichePreview');
+            const content = document.getElementById('preview-content');
+            let html = '';
+
+            if (document.getElementById('check-definition')?.checked) {
+                html += `<div class="section"><h3>Définition</h3>
+                <p>Une <strong>expansion du nom</strong> est un mot ou un groupe de mots qui enrichit un nom (le <strong>nom noyau</strong>) en apportant des précisions.</p></div>`;
+            }
+
+            if (document.getElementById('check-epithete')?.checked) {
+                html += `<div class="section"><h3>Adjectif épithète</h3>
+                <p><strong>Épithète liée :</strong> directement à côté du nom (Une grande maison).</p>
+                <p><strong>Épithète détachée :</strong> séparée par une virgule (Gentil, cet enfant a aidé).</p></div>`;
+            }
+
+            if (document.getElementById('check-cdn')?.checked) {
+                html += `<div class="section"><h3>Complément du nom</h3>
+                <p>Groupe de mots introduit par une préposition (à, de, pour, sans...).</p>
+                <p>Ex: Une table en bois, les cheveux de mon frère.</p></div>`;
+            }
+
+            if (document.getElementById('check-relative')?.checked) {
+                html += `<div class="section"><h3>Proposition subordonnée relative</h3>
+                <p>Introduite par un pronom relatif (qui, que, dont, où).</p>
+                <p>Ex: Les gâteaux que je préfère, la maison dont je rêve.</p></div>`;
+            }
+
+            if (document.getElementById('check-apposition')?.checked) {
+                html += `<div class="section"><h3>Apposition</h3>
+                <p>Nom ou GN en rapport d'identité, souvent entre virgules.</p>
+                <p>Ex: Les gymnastes, morts de fatigue, dorment. La ville de Paris.</p></div>`;
+            }
+
+            if (document.getElementById('check-attribut')?.checked || document.getElementById('check-autres')?.checked) {
+                html += `<div class="section"><h3>Pièges</h3>`;
+                if (document.getElementById('check-attribut')?.checked) html += `<p><strong>⚠️ Attribut du sujet :</strong> n'est PAS une expansion (relié par un verbe d'état). Ex: Cette fille est belle.</p>`;
+                if (document.getElementById('check-autres')?.checked) html += `<p><strong>⚠️ Autres pièges :</strong> distinguer épithète liée/détachée, repérer le nom noyau.</p>`;
+                html += `</div>`;
+            }
+
+            content.innerHTML = html || '<p style="text-align: center;">Sélectionne des éléments</p>';
+            preview.classList.add('active');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exporter PDF
+        function exportPDF() {
+            generatePreview();
+            setTimeout(() => window.print(), 500);
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    const currentPage = 'expansions-nom.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                            let parent = link.closest('li');
+                            while (parent) {
+                                if (parent.tagName === 'LI') {
+                                    parent.classList.add('active');
+                                }
+                                parent = parent.parentElement ? parent.parentElement.closest('li') : null;
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français - 3ème</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>
