@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valeurs des temps et concordance - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - BLEU POUR LA CONJUGAISON === */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .sidebar p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar li strong i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar li.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 15px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 600px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        
+        .mode-link {
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .mode-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .mode-container {
+            margin: 3px 0;
+        }
+        
+        .mode-container strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .mode-container strong:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .mode-container.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .temps-list {
+            padding-left: 12px;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        
+        .mode-container.active .temps-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .temps-list li a {
+            display: block;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        
+        .temps-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .temps-list li a.active {
+            background-color: #f72585;
+            color: white;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableaux */
+        .conjugation-table {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 5px solid var(--success);
+            margin: 15px 0;
+        }
+        
+        .verb-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .verb-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pronoun {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 80px;
+        }
+        
+        .verb-form {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary);
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid var(--warning);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        /* Cartes dépliables */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .expandable-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .expandable-card-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e9ecef;
+        }
+        
+        .expandable-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expandable-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+        
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 800px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+        
+        .expandable-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Grille valeurs */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Tableaux de concordance */
+        .concordance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .concordance-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .concordance-table td {
+            padding: 8px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .concordance-table tr:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .discours-row {
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+        
+        .recit-row {
+            background-color: rgba(247, 37, 133, 0.1);
+        }
+        
+        /* Cartes mentales */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .mindmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mindmap-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .mindmap-card img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Ressources */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .ressources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .ressource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 5px 12px;
+            background-color: #f8f0f5;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ressource-link:hover {
+            background-color: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        /* Fiche de révision */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-simple input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .fiche-preview {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary-light);
+            display: none;
+        }
+        
+        .fiche-preview.active {
+            display: block;
+        }
+        
+        .fiche-preview h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .fiche-preview .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+        
+        body.dys-mode .conjugation-table {
+            background: #f5f5f5 !important;
+        }
+        
+        body.dys-mode p {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('rappel')">Rappel</button>
+            <button class="tab" onclick="switchTab('valeurs')">Valeurs indicatif</button>
+            <button class="tab" onclick="switchTab('modes')">Valeurs modes</button>
+            <button class="tab" onclick="switchTab('concordance')">Concordance</button>
+            <button class="tab" onclick="switchTab('carte')">Cartes mentales</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche</button>
+            <button class="tab" onclick="switchTab('ressources')">Ressources</button>
+        </div>
+
+        <!-- SECTION RAPPEL : DISCOURS VS RÉCIT -->
+        <section id="rappel" class="content-section active">
+            <h1><i class="fas fa-book-open"></i> Les deux systèmes temporels</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> À comprendre</h4>
+                <p>En français, on distingue deux grands systèmes pour organiser les temps selon le type de texte :</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;">
+                <div style="background: #e6f7ff; padding: 20px; border-radius: var(--border-radius); border-left: 5px solid var(--success);">
+                    <h2 style="color: var(--success); margin-bottom: 15px;"><i class="fas fa-comment-dots"></i> LE DISCOURS</h2>
+                    <p><strong>Textes :</strong> lettre, dialogue, journal intime, discours, texte argumentatif...</p>
+                    <p><strong>Point de référence :</strong> le <span class="highlight">présent de l'énonciation</span> (moment où l'on parle/écrit).</p>
+                    <div class="example-box">
+                        <p>Alors que tu <strong>grandissais</strong>, nous <strong>avons attendu</strong> ce jour. Tandis que nous t'<strong>observons</strong>, tu <strong>empoignes</strong> l'épée sacrée. Quand tu <strong>auras fini</strong> ta formation, tu nous <strong>mèneras</strong> vers le Graal.</p>
+                    </div>
+                </div>
+                <div style="background: #fff0f5; padding: 20px; border-radius: var(--border-radius); border-left: 5px solid var(--accent);">
+                    <h2 style="color: var(--accent); margin-bottom: 15px;"><i class="fas fa-book"></i> LE RÉCIT</h2>
+                    <p><strong>Textes :</strong> roman, nouvelle, conte, fait divers, récit historique...</p>
+                    <p><strong>Point de référence :</strong> un <span class="highlight">moment passé</span> choisi par le narrateur.</p>
+                    <div class="example-box">
+                        <p>Ils <strong>avaient attendu</strong> ce jour pendant longtemps. Tandis que l'<strong>observaient</strong> les chevaliers, Arthur <strong>empoigna</strong> l'épée sacrée. Bientôt il les <strong>mènerait</strong> vers le Graal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conjugation-table">
+                <h3><i class="fas fa-arrows-alt-h"></i> Comparaison : un même texte au discours et au récit</h3>
+                <table style="width: 100%;">
+                    <tr style="border-bottom: 2px solid var(--primary);">
+                        <th style="text-align: left; padding: 8px;">Temps du discours</th>
+                        <th style="text-align: left; padding: 8px;">Temps du récit correspondant</th>
+                    </tr>
+                    <tr>
+                        <td>Présent (je <strong>mange</strong>)</td>
+                        <td>Imparfait (je <strong>mangeais</strong>)</td>
+                    </tr>
+                    <tr>
+                        <td>Passé composé (j'<strong>ai mangé</strong>)</td>
+                        <td>Passé simple (je <strong>mangeai</strong>) ou plus-que-parfait</td>
+                    </tr>
+                    <tr>
+                        <td>Futur simple (je <strong>mangerai</strong>)</td>
+                        <td>Conditionnel présent (je <strong>mangerais</strong>)</td>
+                    </tr>
+                    <tr>
+                        <td>Futur antérieur (j'<strong>aurai mangé</strong>)</td>
+                        <td>Conditionnel passé (j'<strong>aurais mangé</strong>)</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION VALEURS DE L'INDICATIF -->
+        <section id="valeurs" class="content-section">
+            <h1><i class="fas fa-clock"></i> Valeurs des temps de l'indicatif</h1>
+
+            <div class="expandable-card" id="present">
+                <div class="expandable-card-header" onclick="toggleCard('present')">
+                    <h3><i class="fas fa-chevron-right"></i> Le présent</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Présent d'énonciation :</strong> au moment où l'on parle.</p>
+                        <p>Ex: En ce moment, je <u>mange</u>.</p>
+                        <p><strong>🔹 Présent de vérité générale :</strong> toujours vrai.</p>
+                        <p>Ex: La Terre <u>tourne</u> autour du Soleil.</p>
+                        <p><strong>🔹 Présent d'habitude :</strong> action répétée.</p>
+                        <p>Ex: Je <u>mange</u> à midi tous les jours.</p>
+                        <p><strong>🔹 Présent de narration :</strong> rend un récit passé plus vivant.</p>
+                        <p>Ex: En 1789, le peuple <u>prend</u> la Bastille.</p>
+                        <p><strong>🔹 Futur proche :</strong> avec un indicateur de temps.</p>
+                        <p>Ex: Je <u>reviens</u> tout de suite.</p>
+                        <p><strong>🔹 Passé récent :</strong> action qui vient de se passer.</p>
+                        <p>Ex: Le boulanger <u>sort</u> à l'instant.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="passe-compose">
+                <div class="expandable-card-header" onclick="toggleCard('passe-compose')">
+                    <h3><i class="fas fa-chevron-right"></i> Le passé composé</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Action passée :</strong> résultat, action achevée.</p>
+                        <p>Ex: Il <u>a plu</u> toute la journée.</p>
+                        <p><strong>🔹 Éventualité :</strong> après "si" (dans une hypothèse).</p>
+                        <p>Ex: Si tu <u>as fini</u>, tu peux sortir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="imparfait">
+                <div class="expandable-card-header" onclick="toggleCard('imparfait')">
+                    <h3><i class="fas fa-chevron-right"></i> L'imparfait</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Arrière-plan du récit :</strong> description, cadre.</p>
+                        <p>Ex: La nuit <u>tombait</u> doucement.</p>
+                        <p><strong>🔹 Habitude :</strong> action répétée dans le passé.</p>
+                        <p>Ex: Tous les jours, il <u>allait</u> à la pêche.</p>
+                        <p><strong>🔹 Hypothèse / Condition :</strong> dans une phrase avec "si".</p>
+                        <p>Ex: Si j'<u>avais</u> de l'argent, j'achèterais une maison.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="passe-simple">
+                <div class="expandable-card-header" onclick="toggleCard('passe-simple')">
+                    <h3><i class="fas fa-chevron-right"></i> Le passé simple</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Premier plan du récit :</strong> actions qui font avancer l'histoire.</p>
+                        <p>Ex: Soudain, le loup <u>sortit</u> du bois.</p>
+                        <p><strong>🔹 Action soudaine et ponctuelle :</strong></p>
+                        <p>Ex: Il <u>frappa</u> trois coups à la porte.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="plus-que-parfait">
+                <div class="expandable-card-header" onclick="toggleCard('plus-que-parfait')">
+                    <h3><i class="fas fa-chevron-right"></i> Le plus-que-parfait</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Antériorité dans le passé :</strong> avant une autre action passée.</p>
+                        <p>Ex: Quand il <u>avait fini</u>, il sortait.</p>
+                        <p><strong>🔹 Hypothèse non réalisée :</strong> dans une phrase avec "si".</p>
+                        <p>Ex: Si j'<u>avais su</u>, je ne serais pas venu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="passe-anterieur">
+                <div class="expandable-card-header" onclick="toggleCard('passe-anterieur')">
+                    <h3><i class="fas fa-chevron-right"></i> Le passé antérieur</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Antériorité immédiate par rapport au passé simple :</strong></p>
+                        <p>Ex: Dès qu'il <u>eut fini</u>, il sortit.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="futur-simple">
+                <div class="expandable-card-header" onclick="toggleCard('futur-simple')">
+                    <h3><i class="fas fa-chevron-right"></i> Le futur simple</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Avenir par rapport au présent :</strong></p>
+                        <p>Ex: Demain, je <u>partirai</u>.</p>
+                        <p><strong>🔹 Ordre / Instruction :</strong></p>
+                        <p>Ex: Tu <u>iras</u> chez le boulanger.</p>
+                        <p><strong>🔹 Supposition :</strong></p>
+                        <p>Ex: Il <u>aura</u> sans doute oublié.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="futur-anterieur">
+                <div class="expandable-card-header" onclick="toggleCard('futur-anterieur')">
+                    <h3><i class="fas fa-chevron-right"></i> Le futur antérieur</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Antériorité dans le futur :</strong></p>
+                        <p>Ex: Quand j'<u>aurai fini</u>, je sortirai.</p>
+                        <p><strong>🔹 Supposition :</strong></p>
+                        <p>Ex: Il <u>aura</u> sans doute oublié.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VALEURS DES MODES -->
+        <section id="modes" class="content-section">
+            <h1><i class="fas fa-cubes"></i> Valeurs des modes</h1>
+
+            <div class="expandable-card" id="conditionnel">
+                <div class="expandable-card-header" onclick="toggleCard('conditionnel')">
+                    <h3><i class="fas fa-chevron-right"></i> Le conditionnel (mode)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><span class="highlight">⚠️ Attention :</span> Le conditionnel n'est pas un temps de l'indicatif (sauf pour la valeur de "futur dans le passé"). C'est un mode à part entière.</p>
+                        <p><strong>🔹 Hypothèse / Condition :</strong> après "si".</p>
+                        <p>Ex: Si j'avais de l'argent, j'<u>achèterais</u> une maison.</p>
+                        <p><strong>🔹 Souhait / Désir :</strong></p>
+                        <p>Ex: Je <u>voudrais</u> voyager.</p>
+                        <p><strong>🔹 Atténuation / Politesse :</strong></p>
+                        <p>Ex: <u>Pourriez</u>-vous m'aider ?</p>
+                        <p><strong>🔹 Information incertaine (rumeur) :</strong></p>
+                        <p>Ex: Le président <u>serait</u> malade.</p>
+                        <p><strong>🔹 Imaginaire / Fiction :</strong></p>
+                        <p>Ex: Moi, je <u>serais</u> un magicien.</p>
+                        <p><strong>🔹 Valeur temporelle (futur dans le passé) :</strong></p>
+                        <p>Ex: Il a annoncé qu'il <u>viendrait</u>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="conditionnel-passe">
+                <div class="expandable-card-header" onclick="toggleCard('conditionnel-passe')">
+                    <h3><i class="fas fa-chevron-right"></i> Le conditionnel passé</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Hypothèse non réalisée :</strong></p>
+                        <p>Ex: Si j'avais su, j'<u>aurais acheté</u> cette maison.</p>
+                        <p><strong>🔹 Regret / Reproche :</strong></p>
+                        <p>Ex: J'<u>aurais dû</u> lui dire la vérité.</p>
+                        <p><strong>🔹 Information non confirmée dans le passé (rumeur) :</strong></p>
+                        <p>Ex: Le président <u>aurait été</u> malade.</p>
+                        <p><strong>🔹 Valeur temporelle (futur antérieur dans le passé) :</strong></p>
+                        <p>Ex: Il disait qu'il <u>aurait fini</u> avant ce soir.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="subjonctif">
+                <div class="expandable-card-header" onclick="toggleCard('subjonctif')">
+                    <h3><i class="fas fa-chevron-right"></i> Le subjonctif</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 Le doute, l'incertitude :</strong></p>
+                        <p>Ex: Je doute qu'il <u>vienne</u>.</p>
+                        <p><strong>🔹 Le souhait, le désir :</strong></p>
+                        <p>Ex: Je souhaite que tu <u>réussisses</u>.</p>
+                        <p><strong>🔹 L'obligation, la nécessité :</strong></p>
+                        <p>Ex: Il faut que vous <u>partiez</u>.</p>
+                        <p><strong>🔹 L'émotion, le sentiment :</strong></p>
+                        <p>Ex: Je suis content que tu <u>sois</u> là.</p>
+                        <p><strong>🔹 La possibilité, l'éventualité :</strong></p>
+                        <p>Ex: Il est possible qu'il <u>pleuve</u>.</p>
+                        <p><strong>🔹 Après certaines conjonctions :</strong> bien que, pour que, avant que...</p>
+                        <p>Ex: Bien qu'il <u>soit</u> tard, je reste.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="imperatif">
+                <div class="expandable-card-header" onclick="toggleCard('imperatif')">
+                    <h3><i class="fas fa-chevron-right"></i> L'impératif</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <p><strong>🔹 L'ordre, le commandement :</strong></p>
+                        <p>Ex: <u>Fais</u> tes devoirs !</p>
+                        <p><strong>🔹 Le conseil :</strong></p>
+                        <p>Ex: <u>Mange</u> équilibré.</p>
+                        <p><strong>🔹 La consigne, l'instruction :</strong></p>
+                        <p>Ex: <u>Prenez</u> la première rue à droite.</p>
+                        <p><strong>🔹 La prière, la demande polie :</strong></p>
+                        <p>Ex: <u>Donnez</u>-moi du pain, s'il vous plaît.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <h4><i class="fas fa-lightbulb"></i> Rappel : la valeur temporelle du conditionnel</h4>
+                <p>Le conditionnel a <strong>deux visages</strong> :</p>
+                <p>🔸 <strong>Comme mode :</strong> il exprime l'hypothèse, le souhait, l'atténuation, l'imaginaire (valeurs modales).</p>
+                <p>🔸 <strong>Comme temps :</strong> dans un récit au passé, il peut remplacer le futur (c'est le "futur dans le passé").</p>
+                <p>Ex: Il disait qu'il <u>viendrait</u>. (futur dans le passé = valeur temporelle)</p>
+            </div>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-info-circle"></i> Rappel : modes personnels vs impersonnels</h4>
+                <p>Les modes personnels (indicatif, subjonctif, impératif, conditionnel) se conjuguent avec des personnes.</p>
+                <p>Les modes impersonnels (infinitif, participe, gérondif) ne se conjuguent pas et ont d'autres emplois.</p>
+            </div>
+        </section>
+
+        <!-- SECTION CONCORDANCE DES TEMPS -->
+        <section id="concordance" class="content-section">
+            <h1><i class="fas fa-link"></i> La concordance des temps</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> Définition</h4>
+                <p>La <strong>concordance des temps</strong> est la relation entre le temps de la proposition principale et celui de la subordonnée. Elle permet de situer les actions les unes par rapport aux autres (antériorité, simultanéité, postériorité).</p>
+            </div>
+
+            <h2 style="margin-top: 30px;"><i class="fas fa-comment-dots"></i> Concordance dans le DISCOURS</h2>
+            <p>Quand la principale est au <strong>présent</strong> ou au <strong>futur</strong> :</p>
+            <table class="concordance-table">
+                <tr>
+                    <th>Relation temporelle</th>
+                    <th>Temps de la subordonnée</th>
+                    <th>Exemple</th>
+                </tr>
+                <tr class="discours-row">
+                    <td><strong>Simultanéité</strong> (en même temps)</td>
+                    <td>Présent</td>
+                    <td>Je crois qu'il <u>pleut</u>.</td>
+                </tr>
+                <tr class="discours-row">
+                    <td><strong>Antériorité</strong> (avant)</td>
+                    <td>Passé composé</td>
+                    <td>Je crois qu'il <u>a plu</u>.</td>
+                </tr>
+                <tr class="discours-row">
+                    <td><strong>Postériorité</strong> (après)</td>
+                    <td>Futur simple</td>
+                    <td>Je crois qu'il <u>pleuvra</u>.</td>
+                </tr>
+                <tr class="discours-row">
+                    <td><strong>Souhait, doute</strong></td>
+                    <td>Subjonctif présent</td>
+                    <td>Je souhaite qu'il <u>vienne</u>.</td>
+                </tr>
+                <tr class="discours-row">
+                    <td><strong>Souhait antérieur</strong></td>
+                    <td>Subjonctif passé</td>
+                    <td>Je souhaite qu'il <u>soit parti</u>.</td>
+                </tr>
+            </table>
+
+            <h2 style="margin-top: 30px;"><i class="fas fa-book"></i> Concordance dans le RÉCIT</h2>
+            <p>Quand la principale est à un <strong>temps du passé</strong> :</p>
+            <table class="concordance-table">
+                <tr>
+                    <th>Relation temporelle</th>
+                    <th>Temps de la subordonnée</th>
+                    <th>Exemple</th>
+                </tr>
+                <tr class="recit-row">
+                    <td><strong>Simultanéité</strong> (en même temps)</td>
+                    <td>Imparfait</td>
+                    <td>Il croyait qu'il <u>pleuvait</u>.</td>
+                </tr>
+                <tr class="recit-row">
+                    <td><strong>Antériorité</strong> (avant)</td>
+                    <td>Plus-que-parfait</td>
+                    <td>Il croyait qu'il <u>avait plu</u>.</td>
+                </tr>
+                <tr class="recit-row">
+                    <td><strong>Postériorité</strong> (après)</td>
+                    <td>Conditionnel présent</td>
+                    <td>Il croyait qu'il <u>pleuvrait</u>.</td>
+                </tr>
+                <tr class="recit-row">
+                    <td><strong>Souhait, doute</strong></td>
+                    <td>Imparfait du subjonctif</td>
+                    <td>Il souhaitait qu'il <u>vînt</u>.</td>
+                </tr>
+                <tr class="recit-row">
+                    <td><strong>Souhait antérieur</strong></td>
+                    <td>Plus-que-parfait du subj.</td>
+                    <td>Il souhaitait qu'il <u>fût venu</u>.</td>
+                </tr>
+            </table>
+
+            <div class="conjugation-table" style="margin-top: 30px;">
+                <h3><i class="fas fa-arrow-right"></i> Récapitulatif : passage du discours au récit</h3>
+                <p>Pour transformer un texte du discours au récit, on "décale" les temps :</p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Présent → Imparfait</strong> : "Il dit qu'il <u>mange</u>" → "Il disait qu'il <u>mangeait</u>"</li>
+                    <li><strong>Passé composé → Plus-que-parfait</strong> : "Il dit qu'il <u>a mangé</u>" → "Il disait qu'il <u>avait mangé</u>"</li>
+                    <li><strong>Futur simple → Conditionnel présent</strong> : "Il dit qu'il <u>mangera</u>" → "Il disait qu'il <u>mangerait</u>"</li>
+                    <li><strong>Futur antérieur → Conditionnel passé</strong> : "Il dit qu'il <u>aura mangé</u>" → "Il disait qu'il <u>aurait mangé</u>"</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> À savoir pour le brevet</h4>
+                <p>On vous demande souvent de <strong>réécrire un texte</strong> en changeant le temps de la principale. Il faut alors appliquer ces règles de concordance !</p>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE MENTALE -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            
+            <div class="mindmap-grid">
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Temps du discours</h3>
+                    <img src="assets/img/carte mentale concordance temps discours.png" alt="Carte mentale temps du discours" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/carte mentale concordance temps discours.png', 'concordance-carte1.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Temps du récit</h3>
+                    <img src="assets/img/carte mentale concordance temps recit png.png" alt="Carte mentale temps du récit" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/carte mentale concordance temps recit png.png', 'concordance-carte2.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Modes et temps</h3>
+                    <img src="assets/img/carte mentale Valeurs modes.png" alt="Carte mentale valeurs des modes" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/carte mentale Valeurs modes.png', 'concordance-carte3.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Concordance des temps</h3>
+                    <img src="assets/img/concordance des temps.jpg" alt="Carte mentale concordance" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/concordance des temps.jpg', 'concordance-carte4.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Tableau concordance</h3>
+                    <img src="assets/img/concordance.jpg" alt="Carte mentale tableau" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/concordance.jpg', 'concordance-carte5.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Concordance et valeurs</h3>
+                    <img src="assets/img/concordance-des-temps-1024x724.jpg" alt="Carte mentale détaillée" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/concordance-des-temps-1024x724.jpg', 'concordance-carte6.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Valeurs des modes</h3>
+                    <img src="assets/img/valeur-modes-.webp" alt="Carte mentale valeurs des modes" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/valeur-modes-.webp', 'concordance-carte7.webp')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Valeurs des temps</h3>
+                    <img src="assets/img/valeurs.jpg" alt="Carte mentale valeurs" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/valeurs.jpg', 'concordance-carte8.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FICHE DE RÉVISION -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+            
+            <div class="customize-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-sliders-h"></i> Personnalise ta fiche
+                </h2>
+                
+                <div class="customize-grid">
+                    <div class="customize-option">
+                        <h3><i class="fas fa-book-open"></i> Systèmes temporels</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-rappel-systeme" checked>
+                            <span>Discours vs Récit</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-correspondance" checked>
+                            <span>Correspondance discours/récit</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-clock"></i> Valeurs indicatif</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-present" checked>
+                            <span>Présent</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-imparfait" checked>
+                            <span>Imparfait</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-passe-simple" checked>
+                            <span>Passé simple</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-pc" checked>
+                            <span>Passé composé</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-pqp" checked>
+                            <span>Plus-que-parfait</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-futur" checked>
+                            <span>Futurs</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-cubes"></i> Valeurs modes</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-conditionnel" checked>
+                            <span>Conditionnel</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-subjonctif" checked>
+                            <span>Subjonctif</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-imperatif" checked>
+                            <span>Impératif</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-link"></i> Concordance</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-conc-discours" checked>
+                            <span>Concordance dans le discours</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-conc-recit" checked>
+                            <span>Concordance dans le récit</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-regle" checked>
+                            <span>Règle de transformation</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-accent" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div id="fichePreview" class="fiche-preview">
+                <h2>📝 Concordance et valeurs des temps - Fiche de révision</h2>
+                <div id="preview-content"></div>
+            </div>
+        </section>
+
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+            
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Exercices</h3>
+                    <a href="https://exercices.alloprof.qc.ca/app/client.php?projet=11&questionnaire=97&evaluation=60" class="ressource-link" target="_blank">Allô Prof - Cohérence 1</a>
+                    <a href="https://exercices.alloprof.qc.ca/app/client.php?projet=11&questionnaire=96&evaluation=59" class="ressource-link" target="_blank">Allô Prof - Cohérence 2</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-4754.php" class="ressource-link" target="_blank">Français Facile - Concordance</a>
+                    <a href="https://la-conjugaison.nouvelobs.com/exercice/jouer.php?id_niveau=6&id_rubrique=92" class="ressource-link" target="_blank">Le Nouvel Obs - CM2</a>
+                    <a href="https://philo-lettres.fr/grammaire/sequence50_web_gen_auroraW/co/03_02_exercice_2.html" class="ressource-link" target="_blank">Philo-Lettres</a>
+                    <a href="https://www.francaisfacile.com/exercicios/exercicio-frances-2/exercicio-frances-25519.php" class="ressource-link" target="_blank">Valeurs des temps</a>
+                    <a href="https://www.afterclasse.fr/exercices/89/les-valeurs-des-temps" class="ressource-link" target="_blank">Afterclasse</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-video"></i> Vidéos</h3>
+                    <a href="https://www.youtube.com/watch?v=SDBBAE_r-yU" class="ressource-link" target="_blank">Le grand récap 🚀</a>
+                    <a href="https://www.youtube.com/watch?v=y5TJujTg3Vc" class="ressource-link" target="_blank">Testez-vous !</a>
+                    <a href="https://www.youtube.com/watch?v=kn_7hz1WP8w" class="ressource-link" target="_blank">Valeurs modales</a>
+                    <a href="https://www.youtube.com/watch?v=MS132atAHmI" class="ressource-link" target="_blank">Pour le brevet</a>
+                    <a href="https://www.youtube.com/watch?v=0y_uNMo5sa4" class="ressource-link" target="_blank">Concordance</a>
+                    <a href="https://www.youtube.com/watch?v=oF6wTosBsF8" class="ressource-link" target="_blank">Explication simple</a>
+                    <a href="https://www.youtube.com/watch?v=D2Kxi2DEoKM" class="ressource-link" target="_blank">Concordance des temps</a>
+                    <a href="https://www.youtube.com/watch?v=XRkhcfhsdyc" class="ressource-link" target="_blank">Règles appliquées</a>
+                    <a href="https://www.youtube.com/watch?v=M16BX4eFWtA" class="ressource-link" target="_blank">Règles appliquées 2</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = document.querySelector('.content-section.active')?.innerText || "Leçon sur la concordance et les valeurs des temps.";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Cartes dépliables
+        function toggleCard(cardId) {
+            document.getElementById(cardId).classList.toggle('expanded');
+        }
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        // Télécharger image
+        function downloadImage(src, filename) {
+            const link = document.createElement('a');
+            link.href = src;
+            link.download = filename;
+            link.click();
+        }
+
+        // Générer l'aperçu de la fiche
+        function generatePreview() {
+            const preview = document.getElementById('fichePreview');
+            const content = document.getElementById('preview-content');
+            let html = '';
+
+            if (document.getElementById('check-rappel-systeme')?.checked) {
+                html += `<div class="section"><h3>Discours vs Récit</h3>
+                <p><strong>Discours :</strong> présent comme référence (lettre, dialogue). Ex: Il dit qu'il viendra.</p>
+                <p><strong>Récit :</strong> passé comme référence (roman, conte). Ex: Il disait qu'il viendrait.</p></div>`;
+            }
+
+            if (document.getElementById('check-correspondance')?.checked) {
+                html += `<div class="section"><h3>Correspondance discours/récit</h3>
+                <p>Présent → Imparfait</p>
+                <p>Passé composé → Plus-que-parfait</p>
+                <p>Futur → Conditionnel présent</p>
+                <p>Futur antérieur → Conditionnel passé</p></div>`;
+            }
+
+            if (document.getElementById('check-present')?.checked) {
+                html += `<div class="section"><h3>Présent</h3>
+                <p><strong>Énonciation :</strong> Je mange.</p>
+                <p><strong>Vérité générale :</strong> La Terre tourne.</p>
+                <p><strong>Habitude :</strong> Je mange à midi.</p>
+                <p><strong>Narration :</strong> En 1789, le peuple prend la Bastille.</p></div>`;
+            }
+
+            if (document.getElementById('check-imparfait')?.checked) {
+                html += `<div class="section"><h3>Imparfait</h3>
+                <p><strong>Arrière-plan :</strong> La nuit tombait.</p>
+                <p><strong>Habitude :</strong> Il allait à la pêche.</p>
+                <p><strong>Hypothèse :</strong> Si j'avais de l'argent...</p></div>`;
+            }
+
+            if (document.getElementById('check-passe-simple')?.checked) {
+                html += `<div class="section"><h3>Passé simple</h3>
+                <p><strong>Premier plan :</strong> Soudain, le loup sortit.</p>
+                <p><strong>Action ponctuelle :</strong> Il frappa à la porte.</p></div>`;
+            }
+
+            if (document.getElementById('check-pc')?.checked) {
+                html += `<div class="section"><h3>Passé composé</h3>
+                <p><strong>Action passée :</strong> Il a plu.</p>
+                <p><strong>Éventualité :</strong> Si tu as fini...</p></div>`;
+            }
+
+            if (document.getElementById('check-pqp')?.checked) {
+                html += `<div class="section"><h3>Plus-que-parfait</h3>
+                <p><strong>Antériorité :</strong> Quand il avait fini, il sortait.</p>
+                <p><strong>Hypothèse :</strong> Si j'avais su...</p></div>`;
+            }
+
+            if (document.getElementById('check-futur')?.checked) {
+                html += `<div class="section"><h3>Futurs</h3>
+                <p><strong>Futur simple :</strong> Demain, je partirai.</p>
+                <p><strong>Futur antérieur :</strong> Quand j'aurai fini, je sortirai.</p></div>`;
+            }
+
+            if (document.getElementById('check-conditionnel')?.checked) {
+                html += `<div class="section"><h3>Conditionnel (mode)</h3>
+                <p><strong>Hypothèse :</strong> Si j'avais de l'argent, j'achèterais...</p>
+                <p><strong>Souhait :</strong> Je voudrais voyager.</p>
+                <p><strong>Politesse :</strong> Pourriez-vous m'aider ?</p>
+                <p><strong>Futur dans le passé :</strong> Il disait qu'il viendrait.</p></div>`;
+            }
+
+            if (document.getElementById('check-subjonctif')?.checked) {
+                html += `<div class="section"><h3>Subjonctif</h3>
+                <p><strong>Doute :</strong> Je doute qu'il vienne.</p>
+                <p><strong>Souhait :</strong> Je souhaite que tu réussisses.</p>
+                <p><strong>Obligation :</strong> Il faut que tu partes.</p>
+                <p><strong>Émotion :</strong> Je suis content que tu sois là.</p></div>`;
+            }
+
+            if (document.getElementById('check-imperatif')?.checked) {
+                html += `<div class="section"><h3>Impératif</h3>
+                <p><strong>Ordre :</strong> Fais tes devoirs !</p>
+                <p><strong>Conseil :</strong> Mange équilibré.</p>
+                <p><strong>Consigne :</strong> Prenez la première rue.</p></div>`;
+            }
+
+            if (document.getElementById('check-conc-discours')?.checked) {
+                html += `<div class="section"><h3>Concordance dans le discours</h3>
+                <p>Principale au présent → subordonnée : présent (simultanéité), passé composé (antériorité), futur (postériorité), subjonctif.</p></div>`;
+            }
+
+            if (document.getElementById('check-conc-recit')?.checked) {
+                html += `<div class="section"><h3>Concordance dans le récit</h3>
+                <p>Principale au passé → subordonnée : imparfait (simultanéité), plus-que-parfait (antériorité), conditionnel présent (postériorité), imparfait du subjonctif.</p></div>`;
+            }
+
+            if (document.getElementById('check-regle')?.checked) {
+                html += `<div class="section"><h3>Règle de transformation</h3>
+                <p>Pour passer du discours au récit : présent → imparfait ; passé composé → plus-que-parfait ; futur → conditionnel présent.</p></div>`;
+            }
+
+            content.innerHTML = html || '<p style="text-align: center;">Sélectionne des éléments</p>';
+            preview.classList.add('active');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exporter PDF
+        function exportPDF() {
+            generatePreview();
+            setTimeout(() => window.print(), 500);
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    const currentPage = 'concordance-valeurs.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                            let parent = link.closest('li');
+                            if (parent) parent.closest('li')?.classList.add('active');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français - 3ème</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Révisions Brevet</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Barre latérale -->
+    <nav class="sidebar">
+        <div class="user-profile">
+            <div class="avatar">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <h3 id="username-display">Élève</h3>
+            <p id="user-class">3ème A</p>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item active">
+                <i class="fas fa-tachometer-alt"></i> Tableau de bord
+            </a>
+            
+            <div class="menu-section">
+                <h4><i class="fas fa-book"></i> Révisions</h4>
+                <a href="pages/conjugaison.html?lesson=present-indicatif" class="menu-item">
+                    <i class="fas fa-chevron-right"></i> Conjugaison
+                </a>
+                <a href="pages/grammaire.html" class="menu-item">
+                    <i class="fas fa-chevron-right"></i> Grammaire
+                </a>
+                <a href="pages/orthographe.html" class="menu-item">
+                    <i class="fas fa-chevron-right"></i> Orthographe
+                </a>
+                <a href="pages/analyse-texte.html" class="menu-item">
+                    <i class="fas fa-chevron-right"></i> Analyse de texte
+                </a>
+                <a href="pages/redaction.html" class="menu-item">
+                    <i class="fas fa-chevron-right"></i> Rédaction
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <h4><i class="fas fa-chart-line"></i> Progression</h4>
+                <a href="#stats" class="menu-item">
+                    <i class="fas fa-chart-bar"></i> Statistiques
+                </a>
+                <a href="#achievements" class="menu-item">
+                    <i class="fas fa-trophy"></i> Succès
+                </a>
+                <a href="#weaknesses" class="menu-item">
+                    <i class="fas fa-exclamation-triangle"></i> Points faibles
+                </a>
+            </div>
+            
+            <div class="menu-section">
+                <h4><i class="fas fa-cog"></i> Paramètres</h4>
+                <a href="#profile" class="menu-item">
+                    <i class="fas fa-user-cog"></i> Profil
+                </a>
+                <a href="#notifications" class="menu-item">
+                    <i class="fas fa-bell"></i> Notifications
+                </a>
+                <button class="menu-item" onclick="toggleDysMode()">
+                    <i class="fas fa-eye"></i> Mode DYS
+                </button>
+                <a href="index.html" class="menu-item logout">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contenu principal -->
+    <main class="dashboard-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <h1><i class="fas fa-tachometer-alt"></i> Tableau de bord</h1>
+            <div class="header-actions">
+                <div class="date-display">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span id="current-date"></span>
+                </div>
+                <button class="btn btn-primary" onclick="startDailyReview()">
+                    <i class="fas fa-play-circle"></i> Révision du jour
+                </button>
+            </div>
+        </header>
+        
+        <!-- Statistiques rapides -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #4361ee;">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="lessons-completed">0</h3>
+                    <p>Leçons terminées</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #4cc9f0;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="average-score">0%</h3>
+                    <p>Score moyen</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #f72585;">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="time-spent">0h</h3>
+                    <p>Temps de révision</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #ffb703;">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="streak-days">0</h3>
+                    <p>Jours consécutifs</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Progression par matière -->
+        <div class="progress-section">
+            <h2><i class="fas fa-chart-line"></i> Progression par matière</h2>
+            <div class="subject-progress">
+                <div class="progress-item">
+                    <h4>Conjugaison</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <span>75%</span>
+                </div>
+                
+                <div class="progress-item">
+                    <h4>Grammaire</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
+                    <span>60%</span>
+                </div>
+                
+                <div class="progress-item">
+                    <h4>Orthographe</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                    <span>45%</span>
+                </div>
+                
+                <div class="progress-item">
+                    <h4>Analyse de texte</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                    <span>30%</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommandations personnalisées -->
+        <div class="recommendations-section">
+            <h2><i class="fas fa-lightbulb"></i> Recommandations pour toi</h2>
+            <div class="recommendations-grid" id="recommendations-grid">
+                <!-- Les recommandations seront ajoutées dynamiquement -->
+            </div>
+        </div>
+        
+        <!-- Activité récente -->
+        <div class="activity-section">
+            <h2><i class="fas fa-history"></i> Activité récente</h2>
+            <div class="activity-list" id="activity-list">
+                <!-- L'activité sera ajoutée dynamiquement -->
+            </div>
+        </div>
+        
+        <!-- Objectifs -->
+        <div class="goals-section">
+            <h2><i class="fas fa-bullseye"></i> Objectifs de la semaine</h2>
+            <div class="goals-list">
+                <div class="goal-item">
+                    <i class="fas fa-check-circle" style="color: #4cc9f0;"></i>
+                    <span>Terminer 3 leçons de conjugaison</span>
+                    <div class="goal-progress">2/3</div>
+                </div>
+                <div class="goal-item">
+                    <i class="fas fa-check-circle" style="color: #ffb703;"></i>
+                    <span>Atteindre 80% en grammaire</span>
+                    <div class="goal-progress">60%</div>
+                </div>
+                <div class="goal-item">
+                    <i class="fas fa-check-circle" style="color: #f72585;"></i>
+                    <span>Réviser pendant 5 heures</span>
+                    <div class="goal-progress">3h</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/progress.js"></script>
+    
+    <script>
+        // Charger les données du dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+            updateCurrentDate();
+            loadUserActivity();
+            loadRecommendations();
+        });
+        
+        // Mettre à jour la date
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = 
+                now.toLocaleDateString('fr-FR', options);
+        }
+        
+        // Démarrer une révision du jour
+        function startDailyReview() {
+            // Choisir une leçon basée sur les points faibles
+            const weakSubjects = getWeakSubjects();
+            if (weakSubjects.length > 0) {
+                const randomSubject = weakSubjects[Math.floor(Math.random() * weakSubjects.length)];
+                window.location.href = `pages/${randomSubject}.html`;
+            } else {
+                // Si pas de points faibles, choisir au hasard
+                const subjects = ['conjugaison', 'grammaire', 'orthographe'];
+                const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+                window.location.href = `pages/${randomSubject}.html`;
+            }
+        }
+    </script>
+</body>
+</html>

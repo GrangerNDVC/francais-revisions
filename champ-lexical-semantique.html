@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Champ lexical, sémantique, connotation — Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === COULEUR BLEU-VERT ANALYSE DE TEXTE === */
+        :root {
+            --primary: #0e7490;
+            --primary-light: #0891b2;
+            --secondary: #155e75;
+            --accent: #06b6d4;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 10px 20px rgba(0,0,0,0.13);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar h2 { font-family:var(--font-heading); font-size:1.8rem; margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+        .sidebar h2 i { color:var(--warning); }
+        .sidebar p { font-size:0.9rem; opacity:0.9; margin-bottom:30px; }
+        .sidebar ul { list-style:none; }
+        .sidebar > ul > li { margin-bottom:25px; }
+        .sidebar li strong { display:flex; align-items:center; justify-content:space-between; font-size:1.1rem; padding:12px 15px; background:rgba(255,255,255,0.1); border-radius:var(--border-radius); cursor:pointer; transition:all 0.3s; }
+        .sidebar li strong:hover { background:rgba(255,255,255,0.2); transform:translateX(5px); }
+        .sidebar li strong i { transition:transform 0.3s; }
+        .sidebar li.active strong i { transform:rotate(90deg); }
+        .submenu { padding-left:20px; margin-top:10px; max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+        .sidebar li.active .submenu { max-height:300px; }
+        .submenu li { list-style:none; margin:8px 0; }
+        .submenu li a { display:block; padding:8px 15px; background:rgba(255,255,255,0.05); border-radius:10px; color:white; text-decoration:none; transition:all 0.2s; }
+        .submenu li a:hover, .submenu li a.active { background:var(--accent); transform:translateX(5px); }
+
+        /* ===== MAIN ===== */
+        .main-content { margin-left:280px; flex:1; padding:40px; max-width:1400px; }
+
+        /* ===== HEADER ===== */
+        .header-controls { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:15px; margin-bottom:30px; padding-bottom:20px; border-bottom:2px solid var(--light-gray); }
+        .btn-group { display:flex; flex-wrap:wrap; gap:10px; }
+        .btn { padding:12px 24px; border:none; border-radius:var(--border-radius); font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; display:inline-flex; align-items:center; gap:10px; }
+        .btn-primary { background:var(--primary); color:white; }
+        .btn-primary:hover { background:var(--secondary); transform:translateY(-3px); box-shadow:var(--shadow-hover); }
+        .btn-secondary { background:var(--light-gray); color:var(--dark); }
+        .btn-secondary:hover { background:#d8d8d8; transform:translateY(-3px); }
+        .btn-accent { background:var(--accent); color:white; }
+        .btn-accent:hover { background:#059669; transform:translateY(-3px); }
+        .btn-success { background:#4cc9f0; color:white; }
+        .btn-success:hover { background:#3ab4d9; transform:translateY(-3px); }
+
+        /* ===== ONGLETS ===== */
+        .lesson-tabs { display:flex; margin-bottom:25px; border-bottom:2px solid var(--light-gray); flex-wrap:wrap; }
+        .tab { padding:15px 20px; background:none; border:none; font-size:1rem; font-weight:600; color:var(--dark); cursor:pointer; position:relative; transition:all 0.3s; display:flex; align-items:center; gap:8px; flex:1; min-width:130px; justify-content:center; }
+        .tab:hover { color:var(--primary); }
+        .tab.active { color:var(--primary); }
+        .tab.active::after { content:''; position:absolute; bottom:-2px; left:0; width:100%; height:3px; background:var(--primary); border-radius:3px 3px 0 0; }
+
+        /* ===== SECTIONS ===== */
+        .content-section { background:white; border-radius:var(--border-radius); padding:35px; box-shadow:var(--shadow); margin-bottom:40px; animation:fadeIn 0.5s ease; display:none; }
+        .content-section.active { display:block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+
+        .content-section h1 { font-family:var(--font-heading); color:var(--primary); font-size:2rem; margin-bottom:25px; display:flex; align-items:center; gap:15px; }
+        .content-section h2 { color:var(--secondary); font-size:1.35rem; margin:30px 0 15px; display:flex; align-items:center; gap:10px; padding-bottom:8px; border-bottom:2px solid var(--light-gray); }
+        .content-section h3 { color:var(--primary); font-size:1.15rem; margin:18px 0 8px; }
+
+        /* ===== BOÎTES ===== */
+        .info-box { background:#e0f7fa; border-left:5px solid var(--primary); padding:20px; border-radius:var(--border-radius); margin:20px 0; }
+        .info-box h4 { color:var(--primary); margin-bottom:10px; display:flex; align-items:center; gap:8px; font-size:1.1rem; }
+        .warning-box { background:#fffbeb; border-left:5px solid var(--warning); padding:20px; border-radius:var(--border-radius); margin:20px 0; }
+        .warning-box h4 { color:#92400e; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+        .danger-box { background:#fff5f5; border-left:5px solid var(--danger); padding:20px; border-radius:var(--border-radius); margin:20px 0; }
+        .danger-box h4 { color:var(--danger); margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+
+        /* ===== ACCORDÉONS ===== */
+        .expandable-cards { display:grid; grid-template-columns:1fr; gap:20px; margin-top:25px; }
+        .expandable-card { background:var(--light-gray); border-radius:var(--border-radius); overflow:hidden; box-shadow:var(--shadow); }
+        .expandable-card-header { padding:20px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; background:#e0f7fa; transition:background 0.2s; }
+        .expandable-card-header:hover { background:#b2ebf2; }
+        .expandable-card-header h3 { display:flex; align-items:center; gap:10px; margin:0; color:var(--primary); font-size:1.25rem; }
+        .expandable-card-content { padding:0 20px; max-height:0; overflow:hidden; transition:max-height 0.5s ease, padding 0.3s ease; background:white; }
+        .expandable-card.expanded .expandable-card-content { max-height:4000px; padding:20px; }
+        .expand-icon { transition:transform 0.3s; color:var(--secondary); }
+        .expandable-card.expanded .expand-icon { transform:rotate(180deg); }
+
+        /* ===== EXEMPLE BOX ===== */
+        .example-box { background:linear-gradient(135deg,#f0f9ff,#e0f2fe); border-left:4px solid var(--accent); padding:14px 18px; border-radius:8px; margin:10px 0; }
+        .example-box p { margin:5px 0; }
+
+        /* ===== TAGS DE THÈME ===== */
+        .theme-tags { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+        .theme-tag { background:var(--accent); color:white; padding:4px 12px; border-radius:20px; font-size:0.85rem; font-weight:600; }
+        .theme-tag.peur { background:#dc2626; }
+        .theme-tag.mer { background:#2563eb; }
+        .theme-tag.guerre { background:#7c3aed; }
+        .theme-tag.amour { background:#db2777; }
+        .theme-tag.nature { background:#16a34a; }
+
+        /* ===== GRILLE CHAMPS ===== */
+        .champs-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:18px; margin:18px 0; }
+        .champ-card { background:white; border-radius:var(--border-radius); padding:18px; box-shadow:var(--shadow); border-top:5px solid var(--primary); }
+        .champ-card h3 { color:var(--primary); margin-bottom:8px; font-size:1rem; }
+        .champ-card .mots { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+        .mot-tag { background:#e0f7fa; color:var(--secondary); border:1px solid #b2ebf2; padding:3px 9px; border-radius:20px; font-size:0.82rem; }
+
+        /* ===== TABLEAU ===== */
+        .tableau-lex { width:100%; border-collapse:collapse; margin:15px 0; font-size:0.93rem; }
+        .tableau-lex th { background:var(--primary); color:white; padding:11px 14px; text-align:left; }
+        .tableau-lex td { padding:10px 14px; border-bottom:1px solid var(--light-gray); vertical-align:top; }
+        .tableau-lex tr:hover { background:#f0f9ff; }
+        .tableau-lex td strong { color:var(--primary); }
+
+        /* ===== REGISTRES ===== */
+        .registres-container { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:18px 0; }
+        @media(max-width:700px){ .registres-container{grid-template-columns:1fr;} }
+
+        .registre-card { border-radius:var(--border-radius); padding:20px; box-shadow:var(--shadow); }
+        .registre-card.familier   { background:#fff7ed; border-top:5px solid #f97316; }
+        .registre-card.courant    { background:#eff6ff; border-top:5px solid #3b82f6; }
+        .registre-card.soutenu    { background:#faf5ff; border-top:5px solid #8b5cf6; }
+        .registre-card h3 { font-size:1.1rem; margin-bottom:8px; }
+        .registre-card.familier h3  { color:#c2410c; }
+        .registre-card.courant h3   { color:#1d4ed8; }
+        .registre-card.soutenu h3   { color:#6d28d9; }
+        .registre-card ul { padding-left:18px; margin-top:6px; }
+        .registre-card li { margin:4px 0; font-size:0.9rem; }
+        .registre-exemple { font-style:italic; background:rgba(0,0,0,0.04); border-radius:6px; padding:8px 12px; margin-top:10px; font-size:0.88rem; }
+
+        /* ===== CONNOTATION ===== */
+        .connot-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin:16px 0; }
+        .connot-card { background:white; border-radius:var(--border-radius); padding:16px; box-shadow:var(--shadow); }
+        .connot-card .mot-principal { font-size:1.5rem; font-weight:700; color:var(--primary); margin-bottom:10px; }
+        .connot-card .denot { background:#f0f9ff; border-left:3px solid var(--primary); padding:8px 12px; border-radius:4px; margin:6px 0; font-size:0.9rem; }
+        .connot-card .connot-pos { background:#fff7ed; border-left:3px solid #f97316; padding:8px 12px; border-radius:4px; margin:6px 0; font-size:0.9rem; }
+        .connot-card .connot-neg { background:#fff5f5; border-left:3px solid var(--danger); padding:8px 12px; border-radius:4px; margin:6px 0; font-size:0.9rem; }
+        .label { font-size:0.75rem; font-weight:700; display:block; margin-bottom:3px; text-transform:uppercase; letter-spacing:0.05em; }
+        .label.d { color:var(--primary); }
+        .label.p { color:#c2410c; }
+        .label.n { color:var(--danger); }
+
+        /* ===== SYNONYMES/ANTONYMES ===== */
+        .syn-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0; }
+        .syn-card { background:white; border-radius:10px; padding:14px; box-shadow:var(--shadow); border-left:4px solid var(--accent); }
+        .syn-card h3 { color:var(--primary); font-size:0.95rem; margin-bottom:8px; }
+        .syn-card p { font-size:0.9rem; }
+
+        /* ===== EXCEPTIONS / PIÈGES ===== */
+        .exceptions-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:22px; }
+        @media(max-width:700px){ .exceptions-grid{grid-template-columns:1fr;} }
+
+        .exception-card { background:var(--light-gray); border-radius:var(--border-radius); overflow:hidden; box-shadow:var(--shadow); }
+        .exception-card-header { padding:15px 18px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; background:#fff5f5; border-left:5px solid var(--danger); }
+        .exception-card-header:hover { background:#ffe4e4; }
+        .exception-card-header h3 { display:flex; align-items:center; gap:10px; margin:0; color:var(--danger); font-size:1rem; }
+        .exception-card-content { padding:0 18px; max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s; background:white; }
+        .exception-card.expanded .exception-card-content { max-height:1500px; padding:18px; }
+
+        /* ===== CARTES MENTALES ===== */
+        .mindmap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:28px; margin-top:28px; }
+        .mindmap-card { background:white; padding:20px; border-radius:var(--border-radius); box-shadow:var(--shadow); display:flex; flex-direction:column; }
+        .mindmap-card h3 { color:var(--primary); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+        .image-container { width:100%; height:240px; overflow:hidden; border-radius:8px; cursor:pointer; border:2px solid var(--light-gray); display:flex; align-items:center; justify-content:center; position:relative; background:#f0f0f0; margin-bottom:12px; }
+        .image-container::after { content:'\f00e'; font-family:'Font Awesome 6 Free'; font-weight:900; position:absolute; top:10px; right:10px; background:rgba(0,0,0,0.45); color:white; padding:5px 9px; border-radius:6px; font-size:1rem; pointer-events:none; }
+        .image-container:hover { border-color:var(--primary); }
+        .image-container img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
+        .image-container:hover img { transform:scale(1.05); }
+
+        /* ===== FICHE ===== */
+        .customize-section { background:white; border-radius:var(--border-radius); padding:30px; box-shadow:var(--shadow); margin-bottom:30px; }
+        .customize-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; margin-top:18px; }
+        .customize-option { background:#f8f9fa; border-radius:var(--border-radius); padding:14px; border:2px solid #e9ecef; }
+        .customize-option h3 { color:var(--primary); margin-bottom:8px; font-size:0.95rem; }
+        .checkbox-simple { display:flex; align-items:center; gap:8px; margin:7px 0; font-size:0.88rem; cursor:pointer; }
+        .checkbox-simple input { width:15px; height:15px; accent-color:var(--primary); cursor:pointer; }
+
+        .fiche-compacte { background:white; padding:20px; font-size:0.88rem; line-height:1.4; max-width:210mm; margin:20px auto; box-shadow:var(--shadow); border-radius:var(--border-radius); }
+        .fiche-compacte h2 { color:var(--primary); text-align:center; margin-bottom:14px; padding-bottom:8px; border-bottom:2px solid var(--primary); font-size:1.25rem; }
+        .fiche-compacte h3 { color:var(--secondary); font-size:0.95rem; margin:13px 0 4px; }
+        .fiche-compacte p { margin:3px 0; }
+        .fiche-compacte ul { margin:4px 0 8px 18px; }
+        .fiche-compacte .section { margin-bottom:13px; padding:9px; background:#f0f9ff; border-radius:6px; border-left:3px solid var(--accent); }
+        .fiche-compacte .warning { border-left-color:var(--danger); background:#fff5f5; }
+        .badge { display:inline-block; background:var(--primary); color:white; padding:2px 7px; border-radius:4px; font-size:0.75rem; margin-right:3px; font-weight:700; }
+
+        /* ===== RESSOURCES ===== */
+        .ressources-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:18px; margin-top:28px; }
+        .ressource-card { background:white; border-radius:var(--border-radius); padding:18px; box-shadow:var(--shadow); }
+        .ressource-card h3 { color:var(--primary); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+        .ressource-link { display:inline-block; margin:4px 4px 4px 0; padding:5px 13px; background:#e0f7fa; border-radius:20px; color:var(--primary); text-decoration:none; font-size:0.86rem; transition:all 0.3s; border:1px solid #b2ebf2; }
+        .ressource-link:hover { background:var(--primary); color:white; transform:translateX(3px); }
+
+        /* ===== MODAL ===== */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; justify-content:center; align-items:center; padding:40px; }
+        .modal-overlay.active { display:flex; }
+        .modal-content { position:relative; max-width:90%; max-height:90%; }
+        .modal-content img { width:100%; height:100%; object-fit:contain; border-radius:8px; }
+        .modal-close { position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:2rem; cursor:pointer; transition:all 0.3s; }
+        .modal-close:hover { transform:scale(1.2); color:var(--danger); }
+        .modal-download { position:absolute; bottom:-40px; right:0; background:var(--primary); color:white; padding:9px 18px; border-radius:8px; text-decoration:none; display:flex; align-items:center; gap:8px; transition:all 0.3s; font-size:0.9rem; }
+        .modal-download:hover { background:var(--secondary); }
+
+        /* ===== PRINT ===== */
+        @media print {
+            .sidebar,.lesson-tabs,.btn-group,.customize-section,.modal-overlay,.header-controls { display:none!important; }
+            .main-content { margin-left:0; padding:0; }
+            .fiche-compacte { display:block!important; box-shadow:none; padding:15mm; margin:0; }
+            .content-section { box-shadow:none; padding:0; }
+            .mindmap-grid { display:none; }
+        }
+
+        /* ===== DYS ===== */
+        .dys-mode { font-family:var(--font-dys)!important; font-size:1.2rem!important; background:#fef7e0!important; }
+        .dys-mode .content-section { background:#fef9e8!important; border:2px solid #ffecb3!important; }
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:768px){
+            .sidebar{width:100%;height:auto;position:relative;}
+            .main-content{margin-left:0;padding:20px;}
+            .lesson-tabs{flex-direction:column;}
+            .tab{min-width:100%;}
+            .registres-container,.exceptions-grid,.mindmap-grid{grid-template-columns:1fr;}
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main-content">
+
+    <header class="header-controls">
+        <div class="btn-group">
+            <button class="btn btn-accent" id="dysToggle"><i class="fas fa-eye"></i> Mode Dys</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="toggleAudio()"><i class="fas fa-volume-up" id="audioIcon"></i> Audio</button>
+        </div>
+    </header>
+
+    <h1 style="color:var(--primary);margin-bottom:10px;font-family:var(--font-heading);font-size:2rem;">
+        <i class="fas fa-search" style="color:var(--accent);"></i> Champ lexical, champ sémantique, connotation &amp; registres de langue
+    </h1>
+
+    <div class="lesson-tabs">
+        <button class="tab active" data-target="lecon"><i class="fas fa-book-open"></i> Leçon</button>
+        <button class="tab" data-target="tableaux"><i class="fas fa-table"></i> Tableaux</button>
+        <button class="tab" data-target="pieges"><i class="fas fa-exclamation-triangle"></i> Pièges</button>
+        <button class="tab" data-target="carte"><i class="fas fa-project-diagram"></i> Carte mentale</button>
+        <button class="tab" data-target="fiche"><i class="fas fa-file-alt"></i> Fiche de révision</button>
+        <button class="tab" data-target="ressources"><i class="fas fa-external-link-alt"></i> Aller plus loin</button>
+    </div>
+
+    <!-- ======================== LEÇON ======================== -->
+    <section id="lecon" class="content-section active">
+        <h1><i class="fas fa-book-open"></i> Leçon : vocabulaire d'analyse littéraire</h1>
+
+        <div class="info-box">
+            <h4><i class="fas fa-lightbulb"></i> Pourquoi c'est important au brevet ?</h4>
+            <p>Le champ lexical est l'un des outils d'analyse les <strong>plus demandés au brevet</strong>. Il permet de repérer les thèmes d'un texte. Maîtriser aussi la connotation, le champ sémantique et les registres de langue permet d'<strong>interpréter les choix de l'auteur</strong> et d'argumenter une réponse de façon précise.</p>
+        </div>
+
+        <div class="expandable-cards">
+
+            <!-- 1. CHAMP LEXICAL -->
+            <div class="expandable-card expanded" id="card-cl">
+                <div class="expandable-card-header" onclick="toggleCard('card-cl')">
+                    <h3><i class="fas fa-tags"></i> 1. Le champ lexical — même thème, mots différents</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="info-box">
+                        <h4><i class="fas fa-bookmark"></i> Définition</h4>
+                        <p>Un <strong>champ lexical</strong> est un ensemble de mots (noms, verbes, adjectifs, adverbes) qui se rapportent à un <strong>même thème ou une même idée</strong>. Ces mots peuvent appartenir à des classes grammaticales différentes.</p>
+                    </div>
+
+                    <h3>Exemples de champs lexicaux</h3>
+                    <div class="champs-grid">
+                        <div class="champ-card">
+                            <h3><span class="theme-tag peur">La peur</span></h3>
+                            <div class="mots">
+                                <span class="mot-tag">terreur</span><span class="mot-tag">effroi</span><span class="mot-tag">angoisse</span><span class="mot-tag">frayeur</span><span class="mot-tag">trembler</span><span class="mot-tag">frissonner</span><span class="mot-tag">pâlir</span><span class="mot-tag">hurler</span><span class="mot-tag">épouvantable</span><span class="mot-tag">sinistre</span><span class="mot-tag">sueur froide</span>
+                            </div>
+                        </div>
+                        <div class="champ-card">
+                            <h3><span class="theme-tag mer">La mer</span></h3>
+                            <div class="mots">
+                                <span class="mot-tag">océan</span><span class="mot-tag">vague</span><span class="mot-tag">marée</span><span class="mot-tag">rivage</span><span class="mot-tag">écume</span><span class="mot-tag">navire</span><span class="mot-tag">naviguer</span><span class="mot-tag">flot</span><span class="mot-tag">tempête</span><span class="mot-tag">marin</span><span class="mot-tag">ancre</span><span class="mot-tag">voile</span>
+                            </div>
+                        </div>
+                        <div class="champ-card">
+                            <h3><span class="theme-tag amour">L'amour</span></h3>
+                            <div class="mots">
+                                <span class="mot-tag">passion</span><span class="mot-tag">tendresse</span><span class="mot-tag">aimer</span><span class="mot-tag">chérir</span><span class="mot-tag">embrasser</span><span class="mot-tag">ardent</span><span class="mot-tag">flamme</span><span class="mot-tag">soupir</span><span class="mot-tag">bonheur</span><span class="mot-tag">jalousie</span>
+                            </div>
+                        </div>
+                        <div class="champ-card">
+                            <h3><span class="theme-tag guerre">La guerre</span></h3>
+                            <div class="mots">
+                                <span class="mot-tag">combattre</span><span class="mot-tag">soldat</span><span class="mot-tag">arme</span><span class="mot-tag">bataille</span><span class="mot-tag">tranchée</span><span class="mot-tag">bombardement</span><span class="mot-tag">victoire</span><span class="mot-tag">défaite</span><span class="mot-tag">héroïsme</span><span class="mot-tag">carnage</span>
+                            </div>
+                        </div>
+                        <div class="champ-card">
+                            <h3><span class="theme-tag nature">La nature</span></h3>
+                            <div class="mots">
+                                <span class="mot-tag">forêt</span><span class="mot-tag">arbre</span><span class="mot-tag">fleur</span><span class="mot-tag">rivière</span><span class="mot-tag">prairie</span><span class="mot-tag">verdure</span><span class="mot-tag">brise</span><span class="mot-tag">soleil</span><span class="mot-tag">sauvage</span><span class="mot-tag">montagne</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top:20px;">Méthode en 4 étapes pour repérer un champ lexical</h3>
+                    <table class="tableau-lex">
+                        <tr><th>Étape</th><th>Action</th><th>Question à se poser</th></tr>
+                        <tr><td><strong>1. Lire</strong></td><td>Lire le texte attentivement</td><td>De quoi parle le texte ? Quelle est l'atmosphère ?</td></tr>
+                        <tr><td><strong>2. Souligner</strong></td><td>Entourer les mots liés au même thème (noms, verbes, adjectifs…)</td><td>Ces mots évoquent-ils la même idée ?</td></tr>
+                        <tr><td><strong>3. Nommer</strong></td><td>Donner un nom au champ lexical</td><td>« Le champ lexical de la… »</td></tr>
+                        <tr><td><strong>4. Interpréter</strong></td><td>Expliquer l'effet produit</td><td>Pourquoi l'auteur a-t-il choisi ce champ ? Quelle atmosphère crée-t-il ?</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2. CHAMP SÉMANTIQUE -->
+            <div class="expandable-card" id="card-cs">
+                <div class="expandable-card-header" onclick="toggleCard('card-cs')">
+                    <h3><i class="fas fa-sitemap"></i> 2. Le champ sémantique — un mot, plusieurs sens</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="info-box">
+                        <h4><i class="fas fa-bookmark"></i> Définition</h4>
+                        <p>Le <strong>champ sémantique</strong> d'un mot est l'ensemble de ses <strong>significations possibles</strong> (ses différents sens). Un même mot peut avoir plusieurs sens selon le contexte : c'est la <strong>polysémie</strong>.</p>
+                    </div>
+
+                    <div class="example-box" style="margin:15px 0;">
+                        <p><strong>Champ lexical ≠ Champ sémantique :</strong></p>
+                        <p>• Champ <strong>lexical</strong> = plusieurs mots différents → un même thème</p>
+                        <p>• Champ <strong>sémantique</strong> = un même mot → plusieurs sens différents</p>
+                    </div>
+
+                    <table class="tableau-lex">
+                        <tr><th>Mot</th><th>Sens 1</th><th>Sens 2</th><th>Sens 3</th></tr>
+                        <tr><td><strong>Feuille</strong></td><td>Partie d'un arbre</td><td>Feuille de papier</td><td>Feuille de calcul</td></tr>
+                        <tr><td><strong>Opération</strong></td><td>Calcul mathématique</td><td>Intervention chirurgicale</td><td>Opération militaire</td></tr>
+                        <tr><td><strong>Glace</strong></td><td>Eau gelée</td><td>Crème glacée</td><td>Miroir</td></tr>
+                        <tr><td><strong>Note</strong></td><td>Appréciation scolaire</td><td>Son musical</td><td>Message écrit</td></tr>
+                        <tr><td><strong>Pièce</strong></td><td>Partie d'un logement</td><td>Monnaie</td><td>Œuvre de théâtre</td></tr>
+                        <tr><td><strong>Cœur</strong></td><td>Organe (biologie)</td><td>Sentiments (amour)</td><td>Centre (le cœur de la ville)</td></tr>
+                    </table>
+
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Sens propre, sens figuré, sens contextuel</h4>
+                        <p><strong>Sens propre :</strong> sens premier, concret, littéral. <em>Ex : « La flamme brûle. »</em></p>
+                        <p><strong>Sens figuré :</strong> sens imagé, métaphorique. <em>Ex : « La flamme de l'amour. »</em></p>
+                        <p><strong>Sens contextuel :</strong> sens que prend un mot dans un contexte précis, parfois différent de sa définition habituelle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. CONNOTATION & DÉNOTATION -->
+            <div class="expandable-card" id="card-connot">
+                <div class="expandable-card-header" onclick="toggleCard('card-connot')">
+                    <h3><i class="fas fa-palette"></i> 3. Connotation &amp; dénotation — sens objectif vs subjectif</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="registres-container" style="grid-template-columns:1fr 1fr;">
+                        <div class="registre-card courant">
+                            <h3><i class="fas fa-book"></i> Dénotation</h3>
+                            <p>Le sens <strong>premier, objectif, neutre</strong> d'un mot. C'est la définition du dictionnaire, indépendante du contexte émotionnel.</p>
+                            <div class="registre-exemple">« Chien » = mammifère domestique de la famille des canidés.</div>
+                        </div>
+                        <div class="registre-card soutenu">
+                            <h3><i class="fas fa-heart"></i> Connotation</h3>
+                            <p>Le sens <strong>second, subjectif</strong>. Ce sont les images, émotions ou jugements de valeur que le mot évoque, qui varient selon le contexte et la culture.</p>
+                            <div class="registre-exemple">« Chien » → fidélité (positif) OU agressivité, insulte (négatif).</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top:20px;">Exemples détaillés</h3>
+                    <div class="connot-grid">
+                        <div class="connot-card">
+                            <div class="mot-principal">Rouge</div>
+                            <div class="denot"><span class="label d">Dénotation</span>Couleur (longueur d'onde ~700 nm)</div>
+                            <div class="connot-pos"><span class="label p">Connotation +</span>Amour, passion, chaleur, énergie</div>
+                            <div class="connot-neg"><span class="label n">Connotation −</span>Danger, sang, violence, colère</div>
+                        </div>
+                        <div class="connot-card">
+                            <div class="mot-principal">Nuit</div>
+                            <div class="denot"><span class="label d">Dénotation</span>Période d'obscurité entre coucher et lever du soleil</div>
+                            <div class="connot-pos"><span class="label p">Connotation +</span>Calme, repos, rêve, intimité, mystère</div>
+                            <div class="connot-neg"><span class="label n">Connotation −</span>Peur, danger, mort, solitude</div>
+                        </div>
+                        <div class="connot-card">
+                            <div class="mot-principal">Loup</div>
+                            <div class="denot"><span class="label d">Dénotation</span>Mammifère carnivore sauvage</div>
+                            <div class="connot-pos"><span class="label p">Connotation +</span>Liberté, force, vie sauvage, loyauté (meute)</div>
+                            <div class="connot-neg"><span class="label n">Connotation −</span>Danger, cruauté, prédateur (contes, fables)</div>
+                        </div>
+                        <div class="connot-card">
+                            <div class="mot-principal">Maison</div>
+                            <div class="denot"><span class="label d">Dénotation</span>Bâtiment servant d'habitation</div>
+                            <div class="connot-pos"><span class="label p">Connotation +</span>« Une demeure, une villa » → élégance, confort</div>
+                            <div class="connot-neg"><span class="label n">Connotation −</span>« Une bicoque, une masure » → misère, délabrement</div>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top:18px;">
+                        <h4><i class="fas fa-star"></i> Au brevet : comment analyser une connotation ?</h4>
+                        <p>Quand on vous demande <em>« quel effet produit ce mot ? »</em> ou <em>« quelle image est associée à ce mot ? »</em>, on vous demande d'analyser la <strong>connotation</strong>.</p>
+                        <p style="margin-top:6px;">→ Toujours <strong>lier la connotation au contexte</strong> : un même mot peut être positif dans un texte et négatif dans un autre.</p>
+                        <p style="margin-top:6px;"><strong>Formule type :</strong> <em>« Le mot "…" connote/évoque… ce qui crée une atmosphère de… »</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. REGISTRES DE LANGUE -->
+            <div class="expandable-card" id="card-reg">
+                <div class="expandable-card-header" onclick="toggleCard('card-reg')">
+                    <h3><i class="fas fa-user-tie"></i> 4. Les registres de langue — familier, courant, soutenu</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="info-box">
+                        <h4><i class="fas fa-bookmark"></i> Définition</h4>
+                        <p>Le <strong>registre de langue</strong> (ou niveau de langue) désigne la façon dont on s'exprime selon la <strong>situation de communication</strong> et l'<strong>interlocuteur</strong>. On distingue trois niveaux principaux.</p>
+                    </div>
+
+                    <div class="registres-container">
+                        <div class="registre-card familier">
+                            <h3><i class="fas fa-comment"></i> Familier</h3>
+                            <ul>
+                                <li>Langage du quotidien, oral</li>
+                                <li>Vocabulaire simple, argotique</li>
+                                <li>Phrases courtes, incorrectes</li>
+                                <li>Abréviations (<em>t'as, j'sais, ouais</em>)</li>
+                                <li>Négation incomplète (<em>je sais pas</em>)</li>
+                            </ul>
+                            <div class="registre-exemple">« T'as vu le mec ? Il a flippé grave ! »</div>
+                        </div>
+                        <div class="registre-card courant">
+                            <h3><i class="fas fa-newspaper"></i> Courant (standard)</h3>
+                            <ul>
+                                <li>Langage standard, correct</li>
+                                <li>Vocabulaire usuel, compris par tous</li>
+                                <li>Phrases grammaticalement correctes</li>
+                                <li>Presse, manuels, vie quotidienne polie</li>
+                                <li>Négation complète (<em>je ne sais pas</em>)</li>
+                            </ul>
+                            <div class="registre-exemple">« As-tu vu cet homme ? Il a eu très peur. »</div>
+                        </div>
+                        <div class="registre-card soutenu">
+                            <h3><i class="fas fa-feather-alt"></i> Soutenu (littéraire)</h3>
+                            <ul>
+                                <li>Langage recherché, élégant</li>
+                                <li>Vocabulaire rare, précis</li>
+                                <li>Phrases longues, subordonnées</li>
+                                <li>Subjonctif, passé simple, inversions</li>
+                                <li>Textes littéraires, discours officiels</li>
+                            </ul>
+                            <div class="registre-exemple">« Avez-vous aperçu cet individu ? Il fut saisi d'une frayeur considérable. »</div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top:18px;">
+                        <h4><i class="fas fa-lightbulb"></i> Pourquoi identifier le registre de langue ?</h4>
+                        <p>• Il <strong>caractérise un personnage</strong> (un paysan ne parle pas comme un aristocrate).</p>
+                        <p>• Il définit une <strong>situation</strong> (lettre officielle vs SMS entre amis).</p>
+                        <p>• Il crée des <strong>effets littéraires</strong> : un contraste comique entre deux personnages qui ne parlent pas le même niveau.</p>
+                        <p>• Au brevet : <em>« Quel registre de langue emploie ce personnage ? Quel effet cela produit-il ? »</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. SYNONYMES, ANTONYMES, HOMONYMES -->
+            <div class="expandable-card" id="card-syn">
+                <div class="expandable-card-header" onclick="toggleCard('card-syn')">
+                    <h3><i class="fas fa-exchange-alt"></i> 5. Synonymes, antonymes, homonymes, paronymes</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="syn-grid">
+                        <div class="syn-card">
+                            <h3><i class="fas fa-equals"></i> Synonymes</h3>
+                            <p>Mots de <strong>sens proche</strong>. Permettent d'éviter les répétitions et de nuancer.</p>
+                            <div class="example-box" style="margin-top:8px;">
+                                <p>peur / crainte / frayeur / terreur / effroi</p>
+                                <p>beau / joli / magnifique / splendide</p>
+                                <p>maison / demeure / habitation / logis</p>
+                            </div>
+                        </div>
+                        <div class="syn-card">
+                            <h3><i class="fas fa-not-equal"></i> Antonymes</h3>
+                            <p>Mots de <strong>sens opposé</strong> (contraires).</p>
+                            <div class="example-box" style="margin-top:8px;">
+                                <p>grand / petit · riche / pauvre</p>
+                                <p>clair / sombre · aimer / détester</p>
+                                <p>monter / descendre · vie / mort</p>
+                            </div>
+                        </div>
+                        <div class="syn-card">
+                            <h3><i class="fas fa-clone"></i> Homonymes</h3>
+                            <p>Mots qui <strong>se prononcent ou s'écrivent pareil</strong> mais ont des sens différents.</p>
+                            <div class="example-box" style="margin-top:8px;">
+                                <p>ver / verre / vers / vert</p>
+                                <p>saut / sot / sceau / seau</p>
+                                <p>air / ère / aire / ère</p>
+                            </div>
+                        </div>
+                        <div class="syn-card">
+                            <h3><i class="fas fa-exclamation-circle"></i> Paronymes</h3>
+                            <p>Mots qui se <strong>ressemblent</strong> mais ont des sens différents. Source de confusions fréquentes.</p>
+                            <div class="example-box" style="margin-top:8px;">
+                                <p>éminent / imminent</p>
+                                <p>allusion / illusion</p>
+                                <p>conjecture / conjoncture</p>
+                                <p>effusion / infusion</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="warning-box" style="margin-top:16px;">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Les synonymes ne sont jamais parfaits !</h4>
+                        <p>Ils ont des nuances de sens, de connotation ou de registre :</p>
+                        <p><strong>peur</strong> (courant) · <strong>crainte</strong> (soutenu) · <strong>frayeur</strong> (intensité forte) · <strong>terreur</strong> (extrême)</p>
+                        <p style="margin-top:6px;">→ Choisir le bon synonyme, c'est choisir la bonne nuance et le bon registre.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- fin expandable-cards -->
+    </section>
+
+    <!-- ======================== TABLEAUX ======================== -->
+    <section id="tableaux" class="content-section">
+        <h1><i class="fas fa-table"></i> Tableaux récapitulatifs</h1>
+
+        <div class="expandable-cards">
+
+            <div class="expandable-card expanded" id="tab-compare">
+                <div class="expandable-card-header" onclick="toggleCard('tab-compare')">
+                    <h3><i class="fas fa-columns"></i> Champ lexical vs champ sémantique — les différences clés</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table class="tableau-lex">
+                        <tr><th>Notion</th><th>Champ lexical</th><th>Champ sémantique</th></tr>
+                        <tr><td><strong>Définition</strong></td><td>Ensemble de mots différents liés à un même thème</td><td>Ensemble des sens différents d'un même mot</td></tr>
+                        <tr><td><strong>Question</strong></td><td>Quels mots parlent du même thème ?</td><td>Quels sens peut avoir ce mot ?</td></tr>
+                        <tr><td><strong>Exemple</strong></td><td>Peur → terreur, trembler, pâlir, sinistre, frissonner</td><td>Feuille → arbre, papier, calcul</td></tr>
+                        <tr><td><strong>Lien avec</strong></td><td>Thème du texte, atmosphère, registre</td><td>Polysémie, sens propre, sens figuré</td></tr>
+                        <tr><td><strong>Utilisation</strong></td><td>Analyser l'atmosphère, les thèmes d'un texte</td><td>Comprendre le sens d'un mot dans son contexte</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="tab-connot">
+                <div class="expandable-card-header" onclick="toggleCard('tab-connot')">
+                    <h3><i class="fas fa-palette"></i> Dénotation vs connotation</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table class="tableau-lex">
+                        <tr><th>Mot</th><th>Dénotation (dictionnaire)</th><th>Connotation positive</th><th>Connotation négative</th></tr>
+                        <tr><td><strong>Rouge</strong></td><td>Couleur (700 nm)</td><td>Amour, passion, chaleur</td><td>Danger, sang, colère</td></tr>
+                        <tr><td><strong>Nuit</strong></td><td>Obscurité entre coucher et lever du soleil</td><td>Calme, repos, rêve, intimité</td><td>Peur, danger, mort, solitude</td></tr>
+                        <tr><td><strong>Mur</strong></td><td>Construction verticale en maçonnerie</td><td>Protection, sécurité</td><td>Obstacle, enfermement, séparation</td></tr>
+                        <tr><td><strong>Loup</strong></td><td>Mammifère carnivore</td><td>Liberté, force sauvage</td><td>Danger, cruauté, prédateur</td></tr>
+                        <tr><td><strong>Blanc</strong></td><td>Couleur (absence de teinte)</td><td>Pureté, innocence, paix</td><td>Vide, froid, mort (deuil en Asie)</td></tr>
+                        <tr><td><strong>Or</strong></td><td>Métal précieux jaune</td><td>Richesse, succès, valeur</td><td>Cupidité, superficialité, avarice</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="tab-reg">
+                <div class="expandable-card-header" onclick="toggleCard('tab-reg')">
+                    <h3><i class="fas fa-user-tie"></i> Tableau comparatif des registres de langue</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table class="tableau-lex">
+                        <tr><th>Critère</th><th style="background:#c2410c;">Familier</th><th style="background:#1d4ed8;">Courant</th><th style="background:#6d28d9;">Soutenu</th></tr>
+                        <tr><td><strong>Vocabulaire</strong></td><td>Simple, argotique, abréviations</td><td>Usuel, standard</td><td>Recherché, rare, précis</td></tr>
+                        <tr><td><strong>Syntaxe</strong></td><td>Phrases courtes, incorrectes</td><td>Phrases correctes, simples</td><td>Phrases longues, subordonnées, inversions</td></tr>
+                        <tr><td><strong>Négation</strong></td><td>Incomplète : « je sais pas »</td><td>Complète : « je ne sais pas »</td><td>Complète + soutenu : « je n'en saurais rien »</td></tr>
+                        <tr><td><strong>Temps verbaux</strong></td><td>Présent, passé composé</td><td>Présent, passé composé, imparfait</td><td>Passé simple, subjonctif, conditionnel</td></tr>
+                        <tr><td><strong>Contexte</strong></td><td>Amis, famille, SMS, oral</td><td>Presse, école, vie courante</td><td>Littérature, discours, lettres officielles</td></tr>
+                        <tr><td><strong>Exemple</strong></td><td>« T'as flippé grave ! »</td><td>« Tu as eu très peur. »</td><td>« Vous fûtes saisi d'une frayeur considérable. »</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="expandable-card" id="tab-syn">
+                <div class="expandable-card-header" onclick="toggleCard('tab-syn')">
+                    <h3><i class="fas fa-exchange-alt"></i> Synonymes, antonymes, homonymes, paronymes</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table class="tableau-lex">
+                        <tr><th>Notion</th><th>Définition</th><th>Exemples</th><th>Attention !</th></tr>
+                        <tr><td><strong>Synonymes</strong></td><td>Même sens (ou très proche)</td><td>beau / joli / magnifique · peur / crainte / terreur</td><td>Jamais parfaits : nuances de sens et de registre</td></tr>
+                        <tr><td><strong>Antonymes</strong></td><td>Sens opposé</td><td>grand/petit · aimer/détester · monter/descendre</td><td>Un mot peut avoir plusieurs antonymes selon le sens</td></tr>
+                        <tr><td><strong>Homonymes</strong></td><td>Même prononciation ou orthographe, sens différent</td><td>ver/verre/vers/vert · saut/sot/sceau/seau</td><td>Erreurs orthographiques fréquentes à l'écrit</td></tr>
+                        <tr><td><strong>Paronymes</strong></td><td>Ressemblance (son ou graphie) mais sens différent</td><td>éminent/imminent · allusion/illusion</td><td>Confusions à l'écrit comme à l'oral</td></tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== PIÈGES ======================== -->
+    <section id="pieges" class="content-section">
+        <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+
+        <div class="warning-box">
+            <h4><i class="fas fa-lightbulb"></i> La méthode pour ne pas se tromper</h4>
+            <p><strong>Champ lexical :</strong> je cherche plusieurs mots → même thème. Ex : terreur, frissonner, pâlir = champ lexical de la peur.</p>
+            <p><strong>Champ sémantique :</strong> je pars d'un seul mot → je liste ses différents sens. Ex : feuille = arbre / papier / calcul.</p>
+            <p><strong>Connotation :</strong> je me demande quelle image/émotion ce mot évoque dans CE contexte précis.</p>
+            <p><strong>Registre :</strong> je regarde le vocabulaire, la syntaxe et la négation pour classer familier / courant / soutenu.</p>
+        </div>
+
+        <div class="exceptions-grid">
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Champ lexical ≠ famille de mots</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>C'est le piège <strong>numéro 1 au brevet</strong> !</p>
+                    <p style="margin-top:8px;"><strong>Famille de mots</strong> = même radical → <em>mer, marin, maritime, amerrir, sous-marin</em></p>
+                    <p><strong>Champ lexical</strong> = même thème (radicaux différents) → <em>mer, vague, navire, ancre, tempête, port</em></p>
+                    <div class="example-box" style="margin-top:10px;">
+                        <p>❌ « La famille de mots de la mer regroupe vague, navire et ancre »</p>
+                        <p>✅ « Le champ lexical de la mer regroupe vague, navire et ancre »</p>
+                        <p>✅ « La famille de mots de <em>mer</em> regroupe marin, maritime et amerrir »</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Champ lexical ≠ champ sémantique</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>La confusion vient du mot « champ » dans les deux expressions.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>✅ <strong>Champ lexical</strong> : <em>plusieurs mots différents</em> → un thème commun<br>
+                        Ex : « soleil, brise, verdure, prairie » = champ lexical de la nature</p>
+                        <p>✅ <strong>Champ sémantique</strong> : <em>un seul mot</em> → plusieurs sens<br>
+                        Ex : « feuille » peut désigner une feuille d'arbre, une feuille de papier ou une feuille de calcul</p>
+                    </div>
+                    <p style="margin-top:8px;"><strong>Astuce :</strong> Lexical = thème (plusieurs mots). Sémantique = sens (un seul mot, plusieurs définitions).</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Connotation variable selon le contexte</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>La connotation d'un mot <strong>n'est pas fixe</strong> : elle dépend du contexte, de la culture, de l'époque et du lecteur.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>• « Loup » dans un conte pour enfants → danger, méchanceté</p>
+                        <p>• « Loup » dans un roman d'aventure → liberté, force, instinct</p>
+                        <p>• « Blanc » en France → pureté, innocence</p>
+                        <p>• « Blanc » dans certaines cultures asiatiques → deuil, mort</p>
+                    </div>
+                    <p style="margin-top:8px;">→ Toujours justifier votre analyse de connotation avec des éléments du texte.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Les synonymes ne sont jamais identiques</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Deux synonymes ont toujours des nuances de <strong>sens</strong>, de <strong>connotation</strong> ou de <strong>registre</strong>.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p><em>peur</em> (registre courant, neutre)</p>
+                        <p><em>crainte</em> (registre soutenu, plus doux, respectueux)</p>
+                        <p><em>frayeur</em> (intensité plus forte, soudaine)</p>
+                        <p><em>terreur</em> (extrême, paralysant)</p>
+                        <p><em>flipper</em> (registre familier)</p>
+                    </div>
+                    <p style="margin-top:8px;">Choisir un synonyme, c'est choisir une nuance et un effet sur le lecteur.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Confondre homonymes et paronymes</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p><strong>Homonymes</strong> : se prononcent ou s'écrivent <em>exactement pareil</em>. La seule différence est le sens.</p>
+                    <p><strong>Paronymes</strong> : se <em>ressemblent</em> mais ne sont pas identiques. Ils se confondent à cause de leur proximité sonore ou graphique.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>Homonymes : <em>ver / vert / vers / verre</em> → même son /vɛr/</p>
+                        <p>Paronymes : <em>éminent</em> (remarquable) / <em>imminent</em> (qui va arriver) → ressemblance mais sens très différents</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Registre familier ≠ registre incorrect</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Le registre familier n'est pas une « faute ». Il est <strong>approprié dans certains contextes</strong> (entre amis, à l'oral, dans les dialogues d'un roman réaliste).</p>
+                    <p style="margin-top:8px;">Au brevet, on vous demande d'<strong>identifier</strong> le registre et d'<strong>expliquer son effet</strong>, pas de le corriger.</p>
+                    <div class="example-box" style="margin-top:8px;">
+                        <p>Dans un roman, un personnage qui parle en registre familier face à un personnage soutenu peut créer un <strong>effet comique</strong> ou souligner une <strong>différence sociale</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== CARTES MENTALES ======================== -->
+    <section id="carte" class="content-section">
+        <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+        <p style="margin-bottom:25px;">Cliquez sur une carte pour l'agrandir. Téléchargez-la pour vos révisions hors connexion.</p>
+
+        <div class="mindmap-grid">
+
+            <div class="mindmap-card">
+                <h3><i class="fas fa-tags"></i> Champ lexical, sémantique &amp; connotation</h3>
+                <div class="image-container" onclick="openModal('assets/img/Champ-lexical-semantique-connotation.png')">
+                    <img src="assets/img/Champ-lexical-semantique-connotation.png" alt="Carte mentale : champ lexical, sémantique, connotation">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="downloadImage('assets/img/Champ-lexical-semantique-connotation.png','champ-lexical-semantique.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+
+            <div class="mindmap-card">
+                <h3><i class="fas fa-key"></i> Les clés du vocabulaire — registres &amp; connotation</h3>
+                <div class="image-container" onclick="openModal('assets/img/Champ-lexical-semantique-connotation2.png')">
+                    <img src="assets/img/Champ-lexical-semantique-connotation2.png" alt="Carte mentale : les clés du vocabulaire">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="downloadImage('assets/img/Champ-lexical-semantique-connotation2.png','cles-vocabulaire.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== FICHE ======================== -->
+    <section id="fiche" class="content-section">
+        <h1><i class="fas fa-file-alt"></i> Fiche de révision</h1>
+
+        <div class="customize-section">
+            <h3 style="margin-bottom:14px;color:var(--primary);"><i class="fas fa-sliders-h"></i> Choisis les éléments à inclure :</h3>
+            <div class="customize-grid">
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-tags"></i> Champ lexical</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-cl-def" checked> Définition</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-cl-ex" checked> Exemples de thèmes</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-cl-methode" checked> Méthode en 4 étapes</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-sitemap"></i> Champ sémantique</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-cs-def" checked> Définition + polysémie</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-cs-ex" checked> Exemples (feuille, opération…)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-cs-propfig" checked> Sens propre / sens figuré</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-palette"></i> Connotation / Dénotation</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-con-def" checked> Définitions</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-con-ex" checked> Exemples (rouge, nuit, loup…)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-con-formule" checked> Formule d'analyse brevet</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-user-tie"></i> Registres de langue</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-reg-fam" checked> Familier</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-reg-cou" checked> Courant</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-reg-sou" checked> Soutenu</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-exchange-alt"></i> Syn. / Anton. / Homo.</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-syn" checked> Synonymes (+ nuances)</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-ant" checked> Antonymes</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-hom" checked> Homonymes / Paronymes</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-exclamation-triangle" style="color:var(--danger);"></i> Pièges</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p1" checked> Champ lexical ≠ famille de mots</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p2" checked> Champ lexical ≠ champ sémantique</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p3" checked> Connotation dépend du contexte</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="f-p4" checked> Synonymes ≠ identiques</label>
+                </div>
+
+            </div>
+            <div style="margin-top:20px;text-align:center;">
+                <button class="btn btn-primary" onclick="generateFiche()"><i class="fas fa-eye"></i> Prévisualiser</button>
+                <button class="btn btn-success" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Télécharger en PDF</button>
+            </div>
+        </div>
+
+        <div id="ficheCompacte" class="fiche-compacte" style="display:none;"></div>
+    </section>
+
+    <!-- ======================== RESSOURCES ======================== -->
+    <section id="ressources" class="content-section">
+        <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+
+        <div class="ressources-grid">
+
+            <div class="ressource-card">
+                <h3><i class="fab fa-youtube" style="color:#ff0000;"></i> Vidéos</h3>
+                <a href="https://www.youtube.com/watch?v=francais-champ-lexical" class="ressource-link" target="_blank">Le champ lexical, sémantique, dénotation, connotation — 5e/4e/3e</a>
+                <a href="https://www.youtube.com/watch?v=polysemie-champ-semantique" class="ressource-link" target="_blank">Polysémie, champ sémantique, sens abstrait et contextuel</a>
+                <a href="https://www.youtube.com/watch?v=champ-semantique-evulpo" class="ressource-link" target="_blank">Champ sémantique, lexical et connotation — evulpo</a>
+            </div>
+
+            <div class="ressource-card">
+                <h3><i class="fas fa-pencil-alt"></i> Quiz — Champ lexical</h3>
+                <a href="https://quizlet.com/fr/quiz-champ-lexical-vocabulaire" class="ressource-link" target="_blank">Quizlet — Le champ lexical (vocabulaire)</a>
+                <a href="https://www.lumni.fr/quiz/les-champs-lexicaux" class="ressource-link" target="_blank">Lumni — Les champs lexicaux (collège)</a>
+                <a href="https://www.kartable.fr/champ-lexical-semantique" class="ressource-link" target="_blank">Champ lexical / sémantique !</a>
+            </div>
+
+            <div class="ressource-card">
+                <h3><i class="fas fa-pencil-alt"></i> Exercices — Registres de langue</h3>
+                <a href="https://www.francaisfacile.com/exercice_francais/registres-de-langue" class="ressource-link" target="_blank">Registres de langue — Exercice en libre accès</a>
+                <a href="https://www.ortholud.com/registres-niveaux-de-langue" class="ressource-link" target="_blank">Registres (ou niveaux) de langue</a>
+                <a href="https://www.salle34.net/registres-de-langue/" class="ressource-link" target="_blank">Registres de langue — Salle34</a>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal(event)">&times;</button>
+        <img id="modalImage" src="" alt="">
+        <a id="modalDownloadLink" href="#" download class="modal-download"><i class="fas fa-download"></i> Télécharger</a>
+    </div>
+</div>
+
+<script>
+    let audioPlaying = false;
+
+    // ===== ONGLETS =====
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const ids = ['lecon','tableaux','pieges','carte','fiche','ressources'];
+        const sections = {};
+        ids.forEach(id => { sections[id] = document.getElementById(id); });
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabs.forEach(t => t.classList.remove('active'));
+                Object.values(sections).forEach(s => { if(s) s.classList.remove('active'); });
+                this.classList.add('active');
+                const t = this.getAttribute('data-target');
+                if(sections[t]) sections[t].classList.add('active');
+            });
+        });
+        if(sections.lecon) sections.lecon.classList.add('active');
+    });
+
+    // ===== ACCORDÉONS =====
+    function toggleCard(id) {
+        const c = document.getElementById(id);
+        if(c) c.classList.toggle('expanded');
+    }
+
+    // ===== DYS =====
+    let dysActive = false;
+    document.getElementById('dysToggle').addEventListener('click', function(e) {
+        e.preventDefault();
+        dysActive = !dysActive;
+        document.body.classList.toggle('dys-mode', dysActive);
+        this.innerHTML = dysActive ? '<i class="fas fa-eye-slash"></i> Mode Standard' : '<i class="fas fa-eye"></i> Mode Dys';
+    });
+
+    // ===== AUDIO =====
+    function toggleAudio() {
+        if(audioPlaying) {
+            window.speechSynthesis.cancel(); audioPlaying = false;
+            document.getElementById('audioIcon').className = 'fas fa-volume-up'; return;
+        }
+        const section = document.querySelector('.content-section.active');
+        let text = section ? (section.querySelector('h1')?.textContent || '') + '. ' : '';
+        section?.querySelectorAll('p, li').forEach(el => { text += el.textContent + '. '; });
+        const u = new SpeechSynthesisUtterance(text.substring(0,3000));
+        u.lang = 'fr-FR'; u.rate = 0.9;
+        u.onend = () => { audioPlaying=false; document.getElementById('audioIcon').className='fas fa-volume-up'; };
+        window.speechSynthesis.speak(u);
+        audioPlaying = true;
+        document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+    }
+
+    // ===== MODAL =====
+    function openModal(src) {
+        document.getElementById('modalImage').src = src;
+        const dl = document.getElementById('modalDownloadLink');
+        dl.href = src; dl.download = src.split('/').pop();
+        document.getElementById('imageModal').classList.add('active');
+    }
+    function closeModal(event) {
+        if(event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close'))
+            document.getElementById('imageModal').classList.remove('active');
+    }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') document.getElementById('imageModal').classList.remove('active'); });
+    function downloadImage(src, filename) {
+        const a = document.createElement('a'); a.href=src; a.download=filename;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    // ===== FICHE =====
+    function generateFiche() {
+        let html = '<h2>📚 Champ lexical, sémantique, connotation &amp; registres</h2>';
+
+        // Champ lexical
+        const cl = [];
+        if(document.getElementById('f-cl-def')?.checked)     cl.push('<span class="badge">Déf.</span> Ensemble de mots de classes différentes liés à un <strong>même thème</strong>.');
+        if(document.getElementById('f-cl-ex')?.checked)      cl.push('<span class="badge">Ex.</span> Peur → terreur, frissonner, pâlir, sinistre | Mer → vague, navire, ancre, marée');
+        if(document.getElementById('f-cl-methode')?.checked) cl.push('<span class="badge">Méthode</span> 1. Lire → 2. Souligner → 3. Nommer le champ → 4. Interpréter l\'effet');
+        if(cl.length){ html+='<div class="section"><h3>📌 CHAMP LEXICAL</h3>'; cl.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Champ sémantique
+        const cs = [];
+        if(document.getElementById('f-cs-def')?.checked)    cs.push('<span class="badge">Déf.</span> Ensemble des <strong>sens différents</strong> d\'un même mot (polysémie).');
+        if(document.getElementById('f-cs-ex')?.checked)     cs.push('<span class="badge">Ex.</span> <em>Feuille</em> → arbre / papier / calcul | <em>Note</em> → scolaire / musicale / écrite');
+        if(document.getElementById('f-cs-propfig')?.checked) cs.push('<span class="badge">Sens</span> Sens propre (concret/littéral) ≠ Sens figuré (imagé/métaphorique)');
+        if(cs.length){ html+='<div class="section"><h3>🔍 CHAMP SÉMANTIQUE</h3>'; cs.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Connotation
+        const co = [];
+        if(document.getElementById('f-con-def')?.checked)    co.push('<span class="badge">Dénot.</span> Sens objectif du dictionnaire | <span class="badge">Connot.</span> Sens subjectif, image évoquée');
+        if(document.getElementById('f-con-ex')?.checked)     co.push('<span class="badge">Ex.</span> Rouge → amour/passion (+) ou danger/sang (−) | Nuit → repos/rêve (+) ou mort/peur (−)');
+        if(document.getElementById('f-con-formule')?.checked) co.push('<span class="badge">Formule</span> « Le mot "…" connote/évoque… ce qui crée une atmosphère de… »');
+        if(co.length){ html+='<div class="section"><h3>🎨 CONNOTATION &amp; DÉNOTATION</h3>'; co.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Registres
+        const rg = [];
+        if(document.getElementById('f-reg-fam')?.checked) rg.push('<span class="badge" style="background:#c2410c;">Familier</span> Argot, abréviations, négation incomplète. Ex : « T\'as flippé grave ! »');
+        if(document.getElementById('f-reg-cou')?.checked) rg.push('<span class="badge" style="background:#1d4ed8;">Courant</span> Standard, correct, compris par tous. Ex : « Tu as eu très peur. »');
+        if(document.getElementById('f-reg-sou')?.checked) rg.push('<span class="badge" style="background:#6d28d9;">Soutenu</span> Vocabulaire rare, passé simple, subjonctif. Ex : « Vous fûtes saisi d\'une frayeur considérable. »');
+        if(rg.length){ html+='<div class="section"><h3>🎭 REGISTRES DE LANGUE</h3>'; rg.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Syn/Anton
+        const sy = [];
+        if(document.getElementById('f-syn')?.checked) sy.push('<span class="badge">Syn.</span> Sens proche — nuances : peur (courant) / frayeur (intense) / terreur (extrême)');
+        if(document.getElementById('f-ant')?.checked) sy.push('<span class="badge">Ant.</span> Sens opposé : grand/petit · aimer/détester · clair/sombre');
+        if(document.getElementById('f-hom')?.checked) sy.push('<span class="badge">Homo.</span> Même son, sens diff. : ver/vert/vers/verre | <span class="badge">Paro.</span> Ressemblent : éminent/imminent');
+        if(sy.length){ html+='<div class="section"><h3>🔄 SYNONYMES, ANTONYMES, HOMONYMES</h3>'; sy.forEach(v=>{ html+='<p>'+v+'</p>'; }); html+='</div>'; }
+
+        // Pièges
+        const pi = [];
+        if(document.getElementById('f-p1')?.checked) pi.push('Champ lexical ≠ famille de mots : même thème vs même radical');
+        if(document.getElementById('f-p2')?.checked) pi.push('Champ lexical (plusieurs mots → 1 thème) ≠ champ sémantique (1 mot → plusieurs sens)');
+        if(document.getElementById('f-p3')?.checked) pi.push('La connotation varie selon le contexte, la culture et l\'époque');
+        if(document.getElementById('f-p4')?.checked) pi.push('Les synonymes ne sont jamais identiques : nuances de sens, de registre et de connotation');
+        if(pi.length){ html+='<div class="section warning"><h3>⚠️ PIÈGES</h3>'; pi.forEach(p=>{ html+='<p><span class="badge" style="background:var(--danger);">!</span> '+p+'</p>'; }); html+='</div>'; }
+
+        const c = document.getElementById('ficheCompacte');
+        c.innerHTML = html; c.style.display='block';
+        c.scrollIntoView({behavior:'smooth'});
+    }
+
+    function exportPDF() {
+        if(!document.getElementById('ficheCompacte').innerHTML) generateFiche();
+        setTimeout(()=>window.print(),100);
+    }
+
+    // ===== SIDEBAR =====
+    function loadSidebar() {
+        fetch('sidebar.html')
+            .then(r=>r.text())
+            .then(data=>{
+                document.querySelector('.sidebar').innerHTML = data;
+                document.querySelectorAll('.sidebar li strong').forEach(s=>{
+                    s.addEventListener('click',function(e){ e.preventDefault(); this.parentElement.classList.toggle('active'); });
+                });
+                document.querySelectorAll('.sidebar a').forEach(link=>{
+                    if(link.getAttribute('href')==='champ-lexical-semantique.html'){
+                        link.classList.add('active');
+                        link.closest('li')?.closest('li')?.classList.add('active');
+                    }
+                });
+            })
+            .catch(()=>{
+                document.querySelector('.sidebar').innerHTML=`<h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2><p>Français — 3ème</p><ul><li><a href="menu.html" style="color:white;">← Retour au menu</a></li></ul>`;
+            });
+    }
+    document.addEventListener('DOMContentLoaded', loadSidebar);
+</script>
+</body>
+</html>

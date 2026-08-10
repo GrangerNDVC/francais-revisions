@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le conditionnel présent - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - BLEU POUR LA CONJUGAISON === */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+            
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== BARRE LATÉRALE ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .sidebar p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 25px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar > ul > li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar li strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .sidebar li strong:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar li strong i {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: transform 0.2s;
+        }
+        
+        .sidebar li.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .submenu {
+            padding-left: 15px;
+            margin-top: 5px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+        }
+        
+        .sidebar li.active .submenu {
+            max-height: 600px;
+        }
+        
+        .submenu li {
+            list-style: none;
+            margin: 5px 0;
+        }
+        
+        .submenu li a {
+            display: block;
+            padding: 6px 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .submenu li a:hover,
+        .submenu li a.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(3px);
+        }
+        
+        .mode-link {
+            display: block;
+            padding: 6px 12px;
+            margin: 4px 0;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .mode-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+        
+        .mode-container {
+            margin: 3px 0;
+        }
+        
+        .mode-container strong {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .mode-container strong:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .mode-container.active > strong i {
+            transform: rotate(90deg);
+        }
+        
+        .temps-list {
+            padding-left: 12px;
+            margin-top: 2px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s;
+        }
+        
+        .mode-container.active .temps-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .temps-list li a {
+            display: block;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        
+        .temps-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .temps-list li a.active {
+            background-color: #f72585;
+            color: white;
+        }
+        
+        .back-link {
+            display: block;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== CONTENU PRINCIPAL ===== */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            position: relative;
+        }
+        
+        /* Header avec boutons */
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .btn-accent:hover {
+            background-color: #e11570;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8d8d8;
+            transform: translateY(-2px);
+        }
+        
+        /* Onglets */
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--light-gray);
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section h1 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .content-section h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableaux */
+        .conjugation-table {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border-left: 5px solid var(--success);
+            margin: 15px 0;
+        }
+        
+        .verb-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .verb-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pronoun {
+            font-weight: bold;
+            color: var(--dark);
+            min-width: 80px;
+        }
+        
+        .verb-form {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--success);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 12px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            font-weight: bold;
+            color: var(--secondary);
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        /* Cartes dépliables */
+        .expandable-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .expandable-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .expandable-card-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e9ecef;
+        }
+        
+        .expandable-card-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .expandable-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+        
+        .expandable-card.expanded .expandable-card-content {
+            max-height: 800px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--secondary);
+        }
+        
+        .expandable-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* Grille valeurs */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--primary);
+        }
+        
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .value-card.temporelle {
+            border-top-color: var(--warning);
+            background-color: #fff9e6;
+        }
+        
+        .value-card.modale {
+            border-top-color: var(--accent);
+            background-color: #fdf0f5;
+        }
+        
+        /* Grille exceptions */
+        .exceptions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .exceptions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .exception-card {
+            background: #fff9f9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .exception-card-header {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background-color: #fff9f9;
+            border-left: 5px solid var(--danger);
+        }
+        
+        .exception-card-header h3 {
+            margin: 0;
+            color: var(--danger);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exception-card-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .exception-card.expanded .exception-card-content {
+            max-height: 500px;
+            padding: 15px;
+        }
+        
+        /* Cartes mentales */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .mindmap-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .mindmap-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .mindmap-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .mindmap-card img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Ressources */
+        .ressources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .ressources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .ressource-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .ressource-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ressource-link {
+            display: inline-block;
+            margin: 5px 5px 5px 0;
+            padding: 5px 12px;
+            background-color: #f8f0f5;
+            border-radius: 20px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .ressource-link:hover {
+            background-color: #f3e5f5;
+            transform: translateX(3px);
+        }
+        
+        /* Fiche de révision */
+        .customize-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        
+        .customize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .customize-option {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .customize-option h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-simple {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .checkbox-simple input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .fiche-preview {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary-light);
+            display: none;
+        }
+        
+        .fiche-preview.active {
+            display: block;
+        }
+        
+        .fiche-preview h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .fiche-preview .section {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Mode DYS */
+        body.dys-mode {
+            font-family: var(--font-dys) !important;
+            background-color: #fef7e0 !important;
+        }
+        
+        body.dys-mode .content-section {
+            background-color: #fef9e8 !important;
+            border: 2px solid #ffecb3;
+        }
+        
+        body.dys-mode .conjugation-table {
+            background: #f5f5f5 !important;
+        }
+        
+        body.dys-mode p {
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barre latérale -->
+    <aside class="sidebar" id="sidebar">
+        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+        <p>Français - 3ème</p>
+        <div style="text-align: center; padding: 20px; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p>Chargement du menu...</p>
+        </div>
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Header avec boutons -->
+        <header class="header-controls">
+            <div class="btn-group">
+                <button class="btn btn-accent" id="dysToggle">
+                    <i class="fas fa-eye"></i> Mode Dys
+                </button>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="toggleAudio()">
+                    <i class="fas fa-volume-up" id="audioIcon"></i> Audio
+                </button>
+            </div>
+        </header>
+
+        <!-- Onglets -->
+        <div class="lesson-tabs">
+            <button class="tab active" onclick="switchTab('lecon')">Leçon</button>
+            <button class="tab" onclick="switchTab('valeurs')">Valeurs</button>
+            <button class="tab" onclick="switchTab('pieges')">Pièges</button>
+            <button class="tab" onclick="switchTab('carte')">Carte mentale</button>
+            <button class="tab" onclick="switchTab('fiche')">Fiche de révision</button>
+            <button class="tab" onclick="switchTab('ressources')">Aller plus loin</button>
+        </div>
+
+        <!-- SECTION LEÇON -->
+        <section id="lecon" class="content-section active">
+            <h1><i class="fas fa-code-branch"></i> Le conditionnel présent</h1>
+            
+            <div class="info-box">
+                <h4><i class="fas fa-lightbulb"></i> À retenir</h4>
+                <p>Le <strong>conditionnel présent</strong> est un mode (et un temps) qui exprime des actions soumises à une condition, des souhaits, des hypothèses ou encore de la politesse.</p>
+                <p><strong>Construction :</strong> <span class="highlight">radical du futur simple</span> + <span class="highlight">terminaisons de l'imparfait</span> (-ais, -ais, -ait, -ions, -iez, -aient)</p>
+                <p>👉 Même radical que le futur, mêmes terminaisons que l'imparfait !</p>
+            </div>
+
+            <!-- ===== TABLEAUX DE CONJUGAISON (DÉPLIANTS) ===== -->
+            <h2 style="margin-top: 30px;"><i class="fas fa-arrow-right"></i> Conjugaison complète</h2>
+
+            <!-- 1er groupe -->
+            <div class="expandable-card" id="groupe1">
+                <div class="expandable-card-header" onclick="toggleCard('groupe1')">
+                    <h3><i class="fas fa-chevron-right"></i> 1er groupe (verbes en -ER)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>ENTRER</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">entrer<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">entrer<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">entrer<strong>ait</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">entrer<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">entrer<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">entrer<strong>aient</strong></span></div>
+                    </div>
+                    <p><strong>Exemple :</strong> Si j'avais le temps, j'<u>entrerais</u> au musée.</p>
+                </div>
+            </div>
+
+            <!-- 2e groupe -->
+            <div class="expandable-card" id="groupe2">
+                <div class="expandable-card-header" onclick="toggleCard('groupe2')">
+                    <h3><i class="fas fa-chevron-right"></i> 2ème groupe (verbes en -IR)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>FINIR</h4>
+                        <div class="verb-row"><span class="pronoun">je</span> <span class="verb-form">fini<strong>rais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">fini<strong>rais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">fini<strong>rait</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">fini<strong>rions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">fini<strong>riez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">fini<strong>raient</strong></span></div>
+                    </div>
+                    <p><strong>Exemple :</strong> Si nous travaillions plus, nous <u>finirions</u> plus tôt.</p>
+                </div>
+            </div>
+
+            <!-- 3e groupe -->
+            <div class="expandable-card" id="groupe3">
+                <div class="expandable-card-header" onclick="toggleCard('groupe3')">
+                    <h3><i class="fas fa-chevron-right"></i> 3ème groupe (verbes irréguliers)</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>PRENDRE</h4>
+                        <div class="verb-row"><span class="pronoun">je</span> <span class="verb-form">prendr<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">prendr<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">prendr<strong>ait</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">prendr<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">prendr<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">prendr<strong>aient</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>DIRE</h4>
+                        <div class="verb-row"><span class="pronoun">je</span> <span class="verb-form">dir<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">dir<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">dir<strong>ait</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">dir<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">dir<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">dir<strong>aient</strong></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Les auxiliaires -->
+            <div class="expandable-card" id="auxiliaires">
+                <div class="expandable-card-header" onclick="toggleCard('auxiliaires')">
+                    <h3><i class="fas fa-star"></i> Les auxiliaires ÊTRE et AVOIR</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <div class="conjugation-table">
+                        <h4>AVOIR</h4>
+                        <div class="verb-row"><span class="pronoun">j'</span> <span class="verb-form">aur<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">aur<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">aur<strong>ait</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">aur<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">aur<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">aur<strong>aient</strong></span></div>
+                    </div>
+                    <div class="conjugation-table">
+                        <h4>ÊTRE</h4>
+                        <div class="verb-row"><span class="pronoun">je</span> <span class="verb-form">ser<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">tu</span> <span class="verb-form">ser<strong>ais</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">il/elle/on</span> <span class="verb-form">ser<strong>ait</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">nous</span> <span class="verb-form">ser<strong>ions</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">vous</span> <span class="verb-form">ser<strong>iez</strong></span></div>
+                        <div class="verb-row"><span class="pronoun">ils/elles</span> <span class="verb-form">ser<strong>aient</strong></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verbes irréguliers fréquents -->
+            <div class="expandable-card" id="irreguliers">
+                <div class="expandable-card-header" onclick="toggleCard('irreguliers')">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Verbes irréguliers fréquents</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-card-content">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 2px solid var(--primary);">
+                            <th style="text-align: left; padding: 8px;">Verbe</th>
+                            <th style="text-align: left; padding: 8px;">Radical du conditionnel</th>
+                            <th style="text-align: left; padding: 8px;">Exemple (je)</th>
+                        </tr>
+                        <tr><td><strong>aller</strong></td><td>ir-</td><td>j'irais</td></tr>
+                        <tr><td><strong>faire</strong></td><td>fer-</td><td>je ferais</td></tr>
+                        <tr><td><strong>venir</strong></td><td>viendr-</td><td>je viendrais</td></tr>
+                        <tr><td><strong>voir</strong></td><td>verr-</td><td>je verrais (2 r)</td></tr>
+                        <tr><td><strong>pouvoir</strong></td><td>pourr-</td><td>je pourrais (2 r)</td></tr>
+                        <tr><td><strong>vouloir</strong></td><td>voudr-</td><td>je voudrais</td></tr>
+                        <tr><td><strong>devoir</strong></td><td>devr-</td><td>je devrais</td></tr>
+                        <tr><td><strong>savoir</strong></td><td>saur-</td><td>je saurais</td></tr>
+                        <tr><td><strong>courir</strong></td><td>courr-</td><td>je courrais (2 r)</td></tr>
+                        <tr><td><strong>mourir</strong></td><td>mourr-</td><td>je mourrais (2 r)</td></tr>
+                        <tr><td><strong>envoyer</strong></td><td>enverr-</td><td>j'enverrais (2 r)</td></tr>
+                        <tr><td><strong>recevoir</strong></td><td>recevr-</td><td>je recevrais</td></tr>
+                    </table>
+                    <p><strong>Exemple :</strong> Si je pouvais, je <u>viendrais</u> te voir et je <u>pourrais</u> t'aider.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION VALEURS -->
+        <section id="valeurs" class="content-section">
+            <h1><i class="fas fa-clock"></i> Les valeurs du conditionnel présent</h1>
+            
+            <div class="info-box" style="background-color: #f0f8ff; border-left-color: var(--primary);">
+                <h4><i class="fas fa-info-circle"></i> Comprendre simplement</h4>
+                <p>Le conditionnel a deux grandes familles d'emplois :</p>
+                <p><strong>🔵 EMPLOIS MODAUX</strong> (les plus fréquents) : ils expriment l'attitude du locuteur (souhait, hypothèse, politesse, incertitude)</p>
+                <p><strong>🟡 EMPLOI TEMPOREL</strong> (plus rare) : il exprime le futur dans le passé (dans les récits au passé)</p>
+            </div>
+
+            <h2 style="margin-top: 20px;"><i class="fas fa-rainbow" style="color: var(--accent);"></i> Emplois modaux (les plus courants)</h2>
+            
+            <div class="values-grid">
+                <div class="value-card modale">
+                    <h3><i class="fas fa-question-circle"></i> Hypothèse / Condition</h3>
+                    <p>Dans une phrase avec <strong>"si" + imparfait</strong>, la proposition principale est au conditionnel.</p>
+                    <div class="example-box">
+                        <p>Si j'avais de l'argent, j'<span class="highlight">achèterais</span> une maison.</p>
+                        <p>Si tu venais, nous <span class="highlight">serions</span> contents.</p>
+                        <p>S'il faisait beau, on <span class="highlight">irait</span> à la plage.</p>
+                    </div>
+                </div>
+                <div class="value-card modale">
+                    <h3><i class="fas fa-heart"></i> Désir / Souhait</h3>
+                    <p>Pour exprimer un rêve, un souhait, ce que l'on aimerait.</p>
+                    <div class="example-box">
+                        <p>Je <span class="highlight">voudrais</span> voyager autour du monde.</p>
+                        <p>J'<span class="highlight">aimerais</span> tant te revoir !</p>
+                        <p>Nous <span class="highlight">souhaiterions</span> vous inviter.</p>
+                    </div>
+                </div>
+                <div class="value-card modale">
+                    <h3><i class="fas fa-hand-sparkles"></i> Atténuation / Politesse</h3>
+                    <p>Pour adoucir une demande, un conseil, une suggestion.</p>
+                    <div class="example-box">
+                        <p><span class="highlight">Pourriez</span>-vous m'aider, s'il vous plaît ?</p>
+                        <p>Je <span class="highlight">voudrais</span> un café, s'il vous plaît.</p>
+                        <p>Tu <span class="highlight">devrais</span> te reposer.</p>
+                    </div>
+                </div>
+                <div class="value-card modale">
+                    <h3><i class="fas fa-newspaper"></i> Information incertaine / Supposition</h3>
+                    <p>Pour rapporter une information non confirmée, une rumeur.</p>
+                    <div class="example-box">
+                        <p>Le président <span class="highlight">serait</span> malade.</p>
+                        <p>Selon la rumeur, ils <span class="highlight">se seraient</span> séparés.</p>
+                        <p>Les prix <span class="highlight">augmenteraient</span> bientôt.</p>
+                    </div>
+                </div>
+                <div class="value-card modale">
+                    <h3><i class="fas fa-gamepad"></i> Imaginaire / Fiction</h3>
+                    <p>Dans les jeux, les histoires, pour créer un monde imaginaire.</p>
+                    <div class="example-box">
+                        <p>Moi, je <span class="highlight">serais</span> un magicien et toi, tu <span class="highlight">serais</span> un pirate.</p>
+                        <p>Et si on <span class="highlight">jouait</span> aux chevaliers ?</p>
+                        <p>Dans ce monde, tout <span class="highlight">serait</span> possible.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 20px;"><i class="fas fa-history" style="color: var(--warning);"></i> Emploi temporel (futur dans le passé)</h2>
+            
+            <div class="value-card temporelle" style="grid-column: span 3;">
+                <h3><i class="fas fa-forward"></i> Futur dans le passé</h3>
+                <p>Dans un récit au passé, le conditionnel présent exprime une action qui était future au moment des faits racontés.</p>
+                <div class="example-box">
+                    <p>Il a annoncé qu'il <span class="highlight">viendrait</span> demain. ( = il a annoncé : "je viendrai demain")</p>
+                    <p>Elle savait qu'elle <span class="highlight">réussirait</span>. ( = elle savait : "je réussirai")</p>
+                    <p>Ils pensaient qu'ils <span class="highlight">gagneraient</span> le match. ( = ils pensaient : "nous gagnerons")</p>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px; background-color: #e6f7e6; border-left-color: var(--success);">
+                <h4><i class="fas fa-lightbulb"></i> Résumé simple</h4>
+                <p><strong>🔵 EMPLOIS MODAUX</strong> = le conditionnel exprime un "mode" (souhait, hypothèse, politesse, incertitude)</p>
+                <p><strong>🟡 EMPLOI TEMPOREL</strong> = le conditionnel est le "futur" quand on raconte au passé</p>
+            </div>
+        </section>
+
+        <!-- SECTION PIÈGES -->
+        <section id="pieges" class="content-section">
+            <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+            
+            <div class="exceptions-grid">
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Conditionnel ≠ Futur simple</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Futur simple :</strong> je manger<u>ai</u> (action certaine dans l'avenir)</p>
+                        <p><strong>Conditionnel présent :</strong> je manger<u>ais</u> (action hypothétique, soumise à condition)</p>
+                        <p><em>Exemples :</em></p>
+                        <p>✅ Demain, je <u>mangerai</u> au restaurant. (futur certain)</p>
+                        <p>✅ Si j'avais faim, je <u>mangerais</u> bien. (conditionnel, hypothèse)</p>
+                        <p><strong>Astuce :</strong> le conditionnel a toujours un -s à la 1re personne du singulier.</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Le doublement du R</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Attention à ces verbes qui doublent le R !</strong></p>
+                        <p>courir → je <u>courrais</u> (2 r)</p>
+                        <p>mourir → je <u>mourrais</u> (2 r)</p>
+                        <p>envoyer → j'<u>enverrais</u> (2 r)</p>
+                        <p>voir → je <u>verrais</u> (2 r)</p>
+                        <p>pouvoir → je <u>pourrais</u> (2 r)</p>
+                        <p>falloir → il <u>faudrait</u> (1 r)</p>
+                        <p>pleuvoir → il <u>pleuvrait</u> (1 r)</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Venir et Tenir</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Ne dis pas "je venirais" ou "je tenirais" !</strong></p>
+                        <p>✅ <strong>Venir :</strong> je <u>viendrais</u>, tu <u>viendrais</u>, il <u>viendrait</u>, nous <u>viendrions</u>, vous <u>viendriez</u>, ils <u>viendraient</u></p>
+                        <p>✅ <strong>Tenir :</strong> je <u>tiendrais</u>, tu <u>tiendrais</u>, il <u>tiendrait</u>, nous <u>tiendrions</u>, vous <u>tiendriez</u>, ils <u>tiendraient</u></p>
+                        <p><em>Dérivés :</em> revenir → je reviendrais, devenir → je deviendrais, maintenir → je maintiendrais</p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> L'accent circonflexe</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Ne pas oublier l'accent circonflexe à nous et vous !</strong></p>
+                        <p>✅ nous finir<strong>î</strong>mes (passé simple) ≠ nous finir<strong>i</strong>ons (conditionnel)</p>
+                        <p>✅ vous finir<strong>î</strong>tes (passé simple) ≠ vous finir<strong>i</strong>ez (conditionnel)</p>
+                        <p><em>Au conditionnel, pas d'accent circonflexe !</em></p>
+                        <p>nous finir<strong>ions</strong>, vous finir<strong>iez</strong></p>
+                    </div>
+                </div>
+
+                <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                    <div class="exception-card-header">
+                        <h3><i class="fas fa-times-circle"></i> Ne pas confondre avec l'imparfait</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="exception-card-content">
+                        <p><strong>Mêmes terminaisons mais radical différent !</strong></p>
+                        <p><strong>Imparfait :</strong> radical du présent + terminaisons</p>
+                        <p>Ex: je chant<u>ais</u> (radical : nous chantons → chant-)</p>
+                        <p><strong>Conditionnel :</strong> radical du futur + terminaisons</p>
+                        <p>Ex: je chanter<u>ais</u> (radical : futur je chanterai → chanter-)</p>
+                        <p><em>Attention aux verbes comme "être" :</em></p>
+                        <p>Imparfait : j'ét<u>ais</u> / Conditionnel : je ser<u>ais</u></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CARTE MENTALE -->
+        <section id="carte" class="content-section">
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+            
+            <div class="mindmap-grid">
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 1 - Formation</h3>
+                    <img src="assets/img/conditionnel-présent.jpg" alt="Carte mentale conditionnel présent" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/conditionnel-présent.jpg', 'conditionnel-carte1.jpg')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 2 - Conjugaison</h3>
+                    <img src="assets/img/Conjugaison-Carte-mentale-du-conditionnel.png" alt="Carte mentale conjugaison" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/Conjugaison-Carte-mentale-du-conditionnel.png', 'conditionnel-carte2.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+                <div class="mindmap-card">
+                    <h3><i class="fas fa-sitemap"></i> Carte 3 - Valeurs</h3>
+                    <img src="assets/img/valeurs-du-conditionnel-pr-sent_orig.png" alt="Carte mentale valeurs" onclick="openModal(this.src)">
+                    <button class="btn" onclick="downloadImage('assets/img/valeurs-du-conditionnel-pr-sent_orig.png', 'conditionnel-carte3.png')">
+                        <i class="fas fa-download"></i> Télécharger
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION FICHE DE RÉVISION -->
+        <section id="fiche" class="content-section">
+            <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+            
+            <div class="customize-section">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">
+                    <i class="fas fa-sliders-h"></i> Personnalise ta fiche
+                </h2>
+                
+                <div class="customize-grid">
+                    <div class="customize-option">
+                        <h3><i class="fas fa-puzzle-piece"></i> Construction</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-regle" checked>
+                            <span>Règle générale (futur + terminaisons imparfait)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-groupe1" checked>
+                            <span>1er groupe (entrer)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-groupe2" checked>
+                            <span>2ème groupe (finir)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-groupe3" checked>
+                            <span>3ème groupe (prendre, dire)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-auxiliaires" checked>
+                            <span>Auxiliaires (être, avoir)</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Irréguliers</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-irreguliers" checked>
+                            <span>Liste des 12 verbes irréguliers</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-double-r" checked>
+                            <span>Doublement du R (courir, mourir, voir...)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-venir" checked>
+                            <span>Venir et Tenir (viendrais, tiendrais)</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-rainbow"></i> Valeurs modales</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-hypothese" checked>
+                            <span>Hypothèse (si + imparfait)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-souhait" checked>
+                            <span>Désir / Souhait</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-politesse" checked>
+                            <span>Atténuation / Politesse</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-incertaine" checked>
+                            <span>Information incertaine</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-imaginaire" checked>
+                            <span>Imaginaire / Fiction</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-history"></i> Valeur temporelle</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-futur-passe" checked>
+                            <span>Futur dans le passé</span>
+                        </label>
+                    </div>
+                    
+                    <div class="customize-option">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Pièges</h3>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege1" checked>
+                            <span>≠ Futur simple</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege2" checked>
+                            <span>Doublement du R</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege3" checked>
+                            <span>Venir/Tenir (viendrais)</span>
+                        </label>
+                        <label class="checkbox-simple">
+                            <input type="checkbox" id="check-piege4" checked>
+                            <span>≠ Imparfait</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-accent" onclick="generatePreview()">
+                        <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportPDF()">
+                        <i class="fas fa-file-pdf"></i> Télécharger en PDF
+                    </button>
+                </div>
+            </div>
+            
+            <div id="fichePreview" class="fiche-preview">
+                <h2>📝 Le conditionnel présent - Fiche de révision</h2>
+                <div id="preview-content"></div>
+            </div>
+        </section>
+
+        <!-- SECTION RESSOURCES -->
+        <section id="ressources" class="content-section">
+            <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+            
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-video"></i> Vidéos</h3>
+                    <a href="https://www.dailymotion.com/video/x82l1gy" class="ressource-link" target="_blank">Le conditionnel présent (Dailymotion)</a>
+                    <a href="https://www.bescherelle.com/video/quand-faut-il-utiliser-le-conditionnel-present/" class="ressource-link" target="_blank">Bescherelle - Utilisation</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-pencil-alt"></i> Exercices</h3>
+                    <a href="https://francais.lingolia.com/fr/grammaire/les-verbes/conditionnel/exercices" class="ressource-link" target="_blank">Lingolia</a>
+                    <a href="https://www.ortholud.com/exercices_au_present_du_conditionnel.html" class="ressource-link" target="_blank">Ortholud</a>
+                    <a href="https://www.francaisfacile.com/exercices/exercice-francais-2/exercice-francais-17134.php" class="ressource-link" target="_blank">Français Facile</a>
+                    <a href="https://www.jeuxpedago.com/jeux-francais-cm1-5eme-le-conditionnel-present-_pageid1206.html" class="ressource-link" target="_blank">JeuxPedago</a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-gamepad"></i> Jeux</h3>
+                    <a href="https://wordwall.net/fr/resource/2955696/conditionnel-pr%c3%a9sent" class="ressource-link" target="_blank">Wordwall - Frapper-une-taupe</a>
+                    <a href="https://wordwall.net/fr/resource/13903953/le-conditionnel-pr%c3%a9sent" class="ressource-link" target="_blank">Wordwall - Classement</a>
+                    <a href="https://wordwall.net/fr/resource/92678367/le-conditionnel-pr%c3%a9sent" class="ressource-link" target="_blank">Wordwall - Labyrinthe</a>
+                    <a href="https://scalpa.info/francais/conjugaison/conditionnel_present/snakes_and_ladders.html" class="ressource-link" target="_blank">Scalpa - Serpents et échelles</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(event)">&times;</button>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        let audioPlaying = false;
+
+        // Mode Dys
+        document.getElementById('dysToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dys-mode');
+            this.innerHTML = document.body.classList.contains('dys-mode') ? 
+                '<i class="fas fa-eye-slash"></i> Mode Standard' : 
+                '<i class="fas fa-eye"></i> Mode Dys';
+        });
+
+        // Audio
+        function toggleAudio() {
+            if (audioPlaying) {
+                window.speechSynthesis.cancel();
+                audioPlaying = false;
+                document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            } else {
+                let text = document.querySelector('.content-section.active')?.innerText || "Leçon sur le conditionnel présent.";
+                let utterance = new SpeechSynthesisUtterance(text.substring(0, 1000));
+                utterance.lang = 'fr-FR';
+                utterance.onend = () => {
+                    audioPlaying = false;
+                    document.getElementById('audioIcon').className = 'fas fa-volume-up';
+                };
+                window.speechSynthesis.speak(utterance);
+                audioPlaying = true;
+                document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+            }
+        }
+
+        // Onglets
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Cartes dépliables
+        function toggleCard(cardId) {
+            document.getElementById(cardId).classList.toggle('expanded');
+        }
+
+        // Modal image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+                document.getElementById('imageModal').classList.remove('active');
+            }
+        }
+
+        // Télécharger image
+        function downloadImage(src, filename) {
+            const link = document.createElement('a');
+            link.href = src;
+            link.download = filename;
+            link.click();
+        }
+
+        // Générer l'aperçu de la fiche
+        function generatePreview() {
+            const preview = document.getElementById('fichePreview');
+            const content = document.getElementById('preview-content');
+            let html = '';
+
+            if (document.getElementById('check-regle')?.checked) {
+                html += `<div class="section"><h3>Règle générale</h3>
+                <p>Radical du futur + terminaisons de l'imparfait : -ais, -ais, -ait, -ions, -iez, -aient</p>
+                <p>Ex: entrer → j'entrerais, finir → je finirais, prendre → je prendrais</p></div>`;
+            }
+
+            if (document.getElementById('check-groupe1')?.checked) {
+                html += `<div class="section"><h3>1er groupe (entrer)</h3>
+                <p>j'entrerais, tu entrerais, il entrerait, nous entrerions, vous entreriez, ils entreraient</p>
+                <p>Ex: Si j'avais le temps, j'entrerais au musée.</p></div>`;
+            }
+
+            if (document.getElementById('check-groupe2')?.checked) {
+                html += `<div class="section"><h3>2ème groupe (finir)</h3>
+                <p>je finirais, tu finirais, il finirait, nous finirions, vous finiriez, ils finiraient</p>
+                <p>Ex: Si nous travaillions, nous finirions plus tôt.</p></div>`;
+            }
+
+            if (document.getElementById('check-groupe3')?.checked) {
+                html += `<div class="section"><h3>3ème groupe</h3>
+                <p><strong>Prendre :</strong> je prendrais, tu prendrais...</p>
+                <p><strong>Dire :</strong> je dirais, tu dirais...</p></div>`;
+            }
+
+            if (document.getElementById('check-auxiliaires')?.checked) {
+                html += `<div class="section"><h3>Auxiliaires</h3>
+                <p><strong>Avoir :</strong> j'aurais, tu aurais, il aurait, nous aurions, vous auriez, ils auraient</p>
+                <p><strong>Être :</strong> je serais, tu serais, il serait, nous serions, vous seriez, ils seraient</p></div>`;
+            }
+
+            if (document.getElementById('check-irreguliers')?.checked) {
+                html += `<div class="section"><h3>Irréguliers fréquents</h3>
+                <p><strong>aller :</strong> j'irais - <strong>faire :</strong> je ferais - <strong>venir :</strong> je viendrais</p>
+                <p><strong>voir :</strong> je verrais - <strong>pouvoir :</strong> je pourrais - <strong>vouloir :</strong> je voudrais</p>
+                <p><strong>devoir :</strong> je devrais - <strong>savoir :</strong> je saurais - <strong>courir :</strong> je courrais</p>
+                <p><strong>mourir :</strong> je mourrais - <strong>envoyer :</strong> j'enverrais - <strong>recevoir :</strong> je recevrais</p></div>`;
+            }
+
+            if (document.getElementById('check-double-r')?.checked) {
+                html += `<div class="section"><h3>Doublement du R</h3>
+                <p>courir → je courrais, mourir → je mourrais, voir → je verrais, pouvoir → je pourrais, envoyer → j'enverrais</p></div>`;
+            }
+
+            if (document.getElementById('check-venir')?.checked) {
+                html += `<div class="section"><h3>Venir et Tenir</h3>
+                <p><strong>Venir :</strong> je viendrais, tu viendrais, il viendrait, nous viendrions, vous viendriez, ils viendraient</p>
+                <p><strong>Tenir :</strong> je tiendrais, tu tiendrais...</p></div>`;
+            }
+
+            if (document.getElementById('check-hypothese')?.checked || document.getElementById('check-souhait')?.checked || document.getElementById('check-politesse')?.checked || document.getElementById('check-incertaine')?.checked || document.getElementById('check-imaginaire')?.checked || document.getElementById('check-futur-passe')?.checked) {
+                html += `<div class="section"><h3>Valeurs</h3>`;
+                if (document.getElementById('check-hypothese')?.checked) html += `<p><strong>🔵 Hypothèse :</strong> Si j'avais de l'argent, j'achèterais une maison.</p>`;
+                if (document.getElementById('check-souhait')?.checked) html += `<p><strong>🔵 Souhait :</strong> Je voudrais voyager.</p>`;
+                if (document.getElementById('check-politesse')?.checked) html += `<p><strong>🔵 Politesse :</strong> Pourriez-vous m'aider ?</p>`;
+                if (document.getElementById('check-incertaine')?.checked) html += `<p><strong>🔵 Information incertaine :</strong> Le président serait malade.</p>`;
+                if (document.getElementById('check-imaginaire')?.checked) html += `<p><strong>🔵 Imaginaire :</strong> Moi, je serais un magicien.</p>`;
+                if (document.getElementById('check-futur-passe')?.checked) html += `<p><strong>🟡 Futur dans le passé :</strong> Il a annoncé qu'il viendrait.</p>`;
+                html += `</div>`;
+            }
+
+            if (document.getElementById('check-piege1')?.checked || document.getElementById('check-piege2')?.checked || document.getElementById('check-piege3')?.checked || document.getElementById('check-piege4')?.checked) {
+                html += `<div class="section" style="border-left-color: var(--danger);"><h3>Pièges</h3>`;
+                if (document.getElementById('check-piege1')?.checked) html += `<p><strong>≠ Futur simple :</strong> je mangerai (futur) ≠ je mangerais (conditionnel)</p>`;
+                if (document.getElementById('check-piege2')?.checked) html += `<p><strong>Doublement du R :</strong> je courrais, je mourrais, je verrais, je pourrais</p>`;
+                if (document.getElementById('check-piege3')?.checked) html += `<p><strong>Venir/Tenir :</strong> je viendrais (pas "je venirais")</p>`;
+                if (document.getElementById('check-piege4')?.checked) html += `<p><strong>≠ Imparfait :</strong> imparfait = radical présent ; conditionnel = radical futur</p>`;
+                html += `</div>`;
+            }
+
+            content.innerHTML = html || '<p style="text-align: center;">Sélectionne des éléments</p>';
+            preview.classList.add('active');
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Exporter PDF
+        function exportPDF() {
+            generatePreview();
+            setTimeout(() => window.print(), 500);
+        }
+
+        // Chargement sidebar
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Fichier non trouvé');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('sidebar').innerHTML = data;
+                    
+                    document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                        strong.addEventListener('click', e => {
+                            e.preventDefault();
+                            strong.parentElement.classList.toggle('active');
+                        });
+                    });
+                    
+                    const currentPage = 'conditionnel-present.html';
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        if (link.getAttribute('href') === currentPage) {
+                            link.classList.add('active');
+                            let parent = link.closest('li');
+                            if (parent) parent.closest('li')?.classList.add('active');
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    document.getElementById('sidebar').innerHTML = `
+                        <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                        <p>Français - 3ème</p>
+                        <ul>
+                            <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                        </ul>
+                    `;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSidebar);
+    </script>
+</body>
+</html>
