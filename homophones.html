@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les homophones - Révisions Brevet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === VARIABLES - ORANGE POUR L'ORTHOGRAPHE === */
+        :root {
+            --primary: #ea580c;
+            --primary-light: #f97316;
+            --secondary: #c2410c;
+            --accent: #fb923c;
+            --light: #f8f9fa;
+            --light-gray: #e9ecef;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffb703;
+            --danger: #ef476f;
+
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-heading: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            --font-dys: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+
+            --border-radius: 12px;
+            --shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .sidebar h2 { font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .sidebar h2 i { color: var(--warning); }
+        .sidebar p { font-size: 0.9rem; opacity: 0.9; margin-bottom: 30px; }
+        .sidebar ul { list-style: none; }
+        .sidebar > ul > li { margin-bottom: 25px; }
+        .sidebar li strong { display: flex; align-items: center; justify-content: space-between; font-size: 1.1rem; padding: 12px 15px; background: rgba(255,255,255,0.1); border-radius: var(--border-radius); cursor: pointer; transition: all 0.3s; }
+        .sidebar li strong:hover { background: rgba(255,255,255,0.2); transform: translateX(5px); }
+        .sidebar li strong i { transition: transform 0.3s; }
+        .sidebar li.active strong i { transform: rotate(90deg); }
+        .submenu { padding-left: 20px; margin-top: 10px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .sidebar li.active .submenu { max-height: 300px; }
+        .submenu li { list-style: none; margin: 8px 0; }
+        .submenu li a { display: block; padding: 8px 15px; background: rgba(255,255,255,0.05); border-radius: 10px; color: white; text-decoration: none; transition: all 0.2s; }
+        .submenu li a:hover, .submenu li a.active { background: var(--accent); transform: translateX(5px); }
+
+        /* ===== MAIN ===== */
+        .main-content { margin-left: 280px; flex: 1; padding: 40px; max-width: 1400px; }
+
+        /* ===== HEADER ===== */
+        .header-controls { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid var(--light-gray); }
+        .btn-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .btn { padding: 12px 24px; border: none; border-radius: var(--border-radius); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--secondary); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .btn-secondary { background: var(--light-gray); color: var(--dark); }
+        .btn-secondary:hover { background: #d8d8d8; transform: translateY(-3px); }
+        .btn-accent { background: var(--accent); color: white; }
+        .btn-accent:hover { background: #ea7317; transform: translateY(-3px); }
+        .btn-success { background: #4cc9f0; color: white; }
+        .btn-success:hover { background: #3ab4d9; transform: translateY(-3px); }
+
+        /* ===== ONGLETS ===== */
+        .lesson-tabs { display: flex; margin-bottom: 25px; border-bottom: 2px solid var(--light-gray); flex-wrap: wrap; }
+        .tab { padding: 15px 20px; background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--dark); cursor: pointer; position: relative; transition: all 0.3s; display: flex; align-items: center; gap: 8px; flex: 1; min-width: 130px; justify-content: center; }
+        .tab:hover { color: var(--primary); }
+        .tab.active { color: var(--primary); }
+        .tab.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; background: var(--primary); border-radius: 3px 3px 0 0; }
+
+        /* ===== SECTIONS ===== */
+        .content-section { background: white; border-radius: var(--border-radius); padding: 35px; box-shadow: var(--shadow); margin-bottom: 40px; animation: fadeIn 0.5s ease; display: none; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+        .content-section h1 { font-family: var(--font-heading); color: var(--primary); font-size: 2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
+        .content-section h2 { color: var(--secondary); font-size: 1.3rem; margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--light-gray); }
+
+        /* ===== BOÎTES ===== */
+        .info-box { background: #fff7ed; border-left: 5px solid var(--primary); padding: 20px; border-radius: var(--border-radius); margin: 20px 0; }
+        .info-box h4 { color: var(--primary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; }
+        .warning-box { background: #fffbeb; border-left: 5px solid var(--warning); padding: 20px; border-radius: var(--border-radius); margin: 20px 0; }
+        .warning-box h4 { color: #92400e; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+
+        /* ===== CATÉGORIES (grands blocs) ===== */
+        .categorie-block { margin-bottom: 35px; }
+        .categorie-header {
+            display: flex; align-items: center; gap: 12px;
+            padding: 14px 20px; border-radius: var(--border-radius);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; margin-bottom: 16px;
+        }
+        .categorie-header i { font-size: 1.3rem; }
+        .categorie-header h3 { font-size: 1.2rem; font-family: var(--font-heading); }
+
+        /* ===== ACCORDÉONS (dépliants fermés) ===== */
+        .expandable-cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
+        .expandable-card { background: var(--light-gray); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--shadow); }
+        .expandable-card-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #ffedd5; transition: background 0.2s; }
+        .expandable-card-header:hover { background: #fed7aa; }
+        .expandable-card-header h3 { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--secondary); font-size: 1.08rem; }
+        .expandable-card-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.3s ease; background: white; }
+        .expandable-card.expanded .expandable-card-content { max-height: 3000px; padding: 20px; }
+        .expand-icon { transition: transform 0.3s; color: var(--secondary); }
+        .expandable-card.expanded .expand-icon { transform: rotate(180deg); }
+
+        /* ===== BLOC HOMOPHONE INDIVIDUEL ===== */
+        .homophone-item { margin: 16px 0; padding: 14px 16px; background: #fafafa; border-left: 4px solid var(--accent); border-radius: 8px; }
+        .homophone-item:first-child { margin-top: 0; }
+        .homophone-mot {
+            display: inline-block; font-weight: 700; font-size: 1.1rem; color: var(--primary);
+            background: #fff7ed; border: 1px solid #fed7aa; padding: 3px 12px; border-radius: 20px; margin-bottom: 8px;
+        }
+        .homophone-item .nature { font-size: 0.85rem; color: #6b7280; font-style: italic; margin-bottom: 4px; }
+        .homophone-item .astuce { background: #fff3cd; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; margin: 8px 0; }
+        .homophone-item .astuce strong { color: #92400e; }
+        .homophone-item .exemples { margin-top: 6px; }
+        .homophone-item .exemples p { margin: 3px 0; font-size: 0.95rem; }
+        .highlight { font-weight: bold; color: var(--secondary); background: #fef3c7; padding: 1px 5px; border-radius: 4px; }
+
+        /* ===== TABLEAU RÉCAP RAPIDE ===== */
+        .mini-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9rem; }
+        .mini-table th { background: var(--primary); color: white; padding: 8px 10px; text-align: left; }
+        .mini-table td { padding: 7px 10px; border-bottom: 1px solid var(--light-gray); }
+        .mini-table tr:hover { background: #fff7ed; }
+
+        /* ===== GRILLE EXCEPTIONS / PIÈGES ===== */
+        .exceptions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+        .exception-card { background: var(--light-gray); border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--shadow); }
+        .exception-card-header { padding: 15px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #fff9f9; border-left: 5px solid var(--danger); }
+        .exception-card-header:hover { background: #ffe9e9; }
+        .exception-card-header h3 { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--danger); font-size: 1.05rem; }
+        .exception-card-content { padding: 0 15px; max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.3s ease; }
+        .exception-card.expanded .exception-card-content { max-height: 1500px; padding: 15px; }
+
+        /* ===== CARTES MENTALES ===== */
+        .mindmap-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+        .mindmap-card { background: white; padding: 15px; border-radius: var(--border-radius); box-shadow: var(--shadow); }
+        .mindmap-card h3 { color: var(--primary); margin-bottom: 10px; }
+        .mindmap-card img { width: 100%; height: auto; max-height: 900px; object-fit: contain; border-radius: 8px; cursor: pointer; }
+        .btn-download { width: 100%; padding: 10px; margin-top: 10px; background: var(--light-gray); border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .btn-download:hover { background: var(--primary); color: white; }
+
+        /* ===== RESSOURCES ===== */
+        .ressources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; margin-top: 20px; }
+        .ressource-card { background: white; border-radius: var(--border-radius); padding: 18px; box-shadow: var(--shadow); }
+        .ressource-card h3 { color: var(--primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .ressource-link { display: inline-block; margin: 4px 4px 4px 0; padding: 6px 13px; background: #fff7ed; border-radius: 20px; color: var(--primary); text-decoration: none; font-size: 0.86rem; transition: all 0.3s; border: 1px solid #fed7aa; }
+        .ressource-link:hover { background: var(--primary); color: white; transform: translateX(3px); }
+        .jeu-card { background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 2px solid var(--accent); }
+        .jeu-card .ressource-link { background: var(--accent); color: white; border: none; font-weight: 700; }
+        .jeu-card .ressource-link:hover { background: var(--primary); }
+
+        /* ===== FICHE DE RÉVISION ===== */
+        .customize-section { background: white; border-radius: var(--border-radius); padding: 30px; box-shadow: var(--shadow); margin-bottom: 30px; }
+        .customize-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin-top: 18px; }
+        .customize-option { background: #f8f9fa; border-radius: var(--border-radius); padding: 14px; border: 2px solid #e9ecef; }
+        .customize-option h3 { color: var(--primary); margin-bottom: 8px; font-size: 0.95rem; }
+        .checkbox-simple { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 0.88rem; cursor: pointer; }
+        .checkbox-simple input { width: 15px; height: 15px; accent-color: var(--primary); cursor: pointer; }
+        .fiche-compacte { background: white; padding: 20px; font-size: 0.87rem; line-height: 1.45; max-width: 210mm; margin: 20px auto; box-shadow: var(--shadow); border-radius: var(--border-radius); }
+        .fiche-compacte h2 { color: var(--primary); text-align: center; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--primary); font-size: 1.25rem; }
+        .fiche-compacte h3 { color: var(--secondary); font-size: 0.95rem; margin: 13px 0 4px; }
+        .fiche-compacte p { margin: 3px 0; }
+        .fiche-compacte .section { margin-bottom: 12px; padding: 9px; background: #fff7ed; border-radius: 6px; border-left: 3px solid var(--accent); }
+        .badge { display: inline-block; background: var(--primary); color: white; padding: 2px 7px; border-radius: 4px; font-size: 0.72rem; margin-right: 3px; font-weight: 700; }
+
+        /* ===== MODAL ===== */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 9999; justify-content: center; align-items: center; padding: 40px; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { position: relative; max-width: 92vw; max-height: 90vh; }
+        .modal-content img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+        .modal-close { position: absolute; top: -42px; right: 0; background: none; border: none; color: white; font-size: 2.2rem; cursor: pointer; }
+        .modal-close:hover { transform: scale(1.2); color: var(--danger); }
+        .modal-download { position: absolute; bottom: -42px; right: 0; background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .modal-download:hover { background: var(--secondary); }
+
+        /* ===== PRINT ===== */
+        @media print {
+            .sidebar, .lesson-tabs, .btn-group, .customize-section, .modal-overlay, .header-controls { display: none !important; }
+            .main-content { margin-left: 0; padding: 0; }
+            .fiche-compacte { display: block !important; box-shadow: none; padding: 15mm; margin: 0; }
+            .content-section { box-shadow: none; padding: 0; }
+            .mindmap-grid { display: none; }
+        }
+
+        /* ===== DYS ===== */
+        .dys-mode { font-family: var(--font-dys) !important; font-size: 1.2rem !important; background: #fef7e0 !important; }
+        .dys-mode .content-section { background: #fef9e8 !important; border: 2px solid #ffecb3 !important; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; padding: 20px; }
+            .lesson-tabs { flex-direction: column; }
+            .tab { min-width: 100%; }
+            .exceptions-grid { grid-template-columns: 1fr; }
+            .header-controls { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="main-content">
+
+    <header class="header-controls">
+        <div class="btn-group">
+            <button class="btn btn-accent" id="dysToggle"><i class="fas fa-eye"></i> Mode Dys</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="toggleAudio()"><i class="fas fa-volume-up" id="audioIcon"></i> Audio</button>
+        </div>
+    </header>
+
+    <h1 style="color:var(--primary); margin-bottom:10px; font-family:var(--font-heading); font-size:2rem;">
+        <i class="fas fa-spell-check" style="color:var(--accent);"></i> Les homophones
+    </h1>
+
+    <div class="lesson-tabs">
+        <button class="tab active" data-target="lecon"><i class="fas fa-book-open"></i> Leçon</button>
+        <button class="tab" data-target="pieges"><i class="fas fa-exclamation-triangle"></i> Pièges</button>
+        <button class="tab" data-target="carte"><i class="fas fa-project-diagram"></i> Carte mentale</button>
+        <button class="tab" data-target="fiche"><i class="fas fa-file-alt"></i> Fiche de révision</button>
+        <button class="tab" data-target="ressources"><i class="fas fa-external-link-alt"></i> Aller plus loin</button>
+    </div>
+
+    <!-- ======================== LEÇON ======================== -->
+    <section id="lecon" class="content-section active">
+        <h1><i class="fas fa-book-open"></i> Bien distinguer les homophones</h1>
+
+        <div class="info-box">
+            <h4><i class="fas fa-lightbulb"></i> Qu'est-ce qu'un homophone ?</h4>
+            <p>Des <strong>homophones</strong> sont des mots qui se <strong>prononcent de la même façon</strong> mais qui <strong>s'écrivent différemment</strong> et n'ont <strong>pas le même sens</strong> ni la même nature grammaticale (<em>a / à</em>, <em>ces / ses</em>, <em>on / ont</em>...). Ce sont une source d'erreurs très fréquente au brevet, en dictée comme en rédaction.</p>
+            <p style="margin-top:8px;"><strong>La méthode universelle :</strong> pour chaque homophone, on applique un <strong>test de remplacement</strong>. Si on peut remplacer le mot par un autre mot test (souvent en le mettant à un autre temps, à un autre genre ou en le développant), on sait quelle orthographe utiliser.</p>
+        </div>
+
+        <!-- ==================== CATÉGORIE 1 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-star"></i>
+                <h3>1. Les indispensables</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <!-- A / À -->
+                <div class="expandable-card" id="cat1-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat1-1')">
+                        <h3><i class="fas fa-chevron-right"></i> A / À</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">A</span>
+                            <p class="nature">Verbe AVOIR conjugué (3e pers. du sing., présent de l'indicatif)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>avait</em> (imparfait). Si ça marche, on écrit <strong>a</strong>.</div>
+                            <div class="exemples">
+                                <p>Il <span class="highlight">a</span> mangé une pomme. → Il <em>avait</em> mangé une pomme. ✅</p>
+                            </div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">À</span>
+                            <p class="nature">Préposition invariable</p>
+                            <div class="astuce"><strong>Test :</strong> si on ne peut pas remplacer par <em>avait</em>, c'est la préposition <strong>à</strong> (avec accent).</div>
+                            <div class="exemples">
+                                <p>Je vais <span class="highlight">à</span> Paris. → Je vais <em>avait</em> Paris. ❌ → on garde <strong>à</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ET / EST / AI / AIE / ES -->
+                <div class="expandable-card" id="cat1-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat1-2')">
+                        <h3><i class="fas fa-chevron-right"></i> ET / EST / AI / AIE(S), AIT / ES</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">ET</span>
+                            <p class="nature">Conjonction de coordination</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>et puis</em>. Relie deux mots ou groupes.</div>
+                            <div class="exemples"><p>Paul <span class="highlight">et</span> Marie jouent. → Paul <em>et puis</em> Marie. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">EST</span>
+                            <p class="nature">Verbe ÊTRE conjugué (3e pers. du sing., présent)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>était</em> (imparfait).</div>
+                            <div class="exemples"><p>Il <span class="highlight">est</span> content. → Il <em>était</em> content. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">AI</span>
+                            <p class="nature">Verbe AVOIR conjugué (1re pers. du sing., présent)</p>
+                            <div class="astuce"><strong>Test :</strong> "je" devant + remplacer par <em>avais</em>.</div>
+                            <div class="exemples"><p>J'<span class="highlight">ai</span> faim. → J'<em>avais</em> faim. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">AIE / AIES / AIT</span>
+                            <p class="nature">Verbe AVOIR au subjonctif présent, ou impératif (aie)</p>
+                            <div class="astuce"><strong>Test :</strong> on peut souvent remplacer par <em>eusse</em> (subjonctif imparfait, plus soutenu) ou on trouve "que" juste avant.</div>
+                            <div class="exemples"><p>Il faut que j'<span class="highlight">aie</span> confiance. / <span class="highlight">Aie</span> confiance ! (impératif)</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">ES</span>
+                            <p class="nature">Verbe ÊTRE conjugué (2e pers. du sing., présent)</p>
+                            <div class="astuce"><strong>Test :</strong> "tu" devant + remplacer par <em>étais</em>.</div>
+                            <div class="exemples"><p>Tu <span class="highlight">es</span> gentil. → Tu <em>étais</em> gentil. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ON / ONT -->
+                <div class="expandable-card" id="cat1-3">
+                    <div class="expandable-card-header" onclick="toggleCard('cat1-3')">
+                        <h3><i class="fas fa-chevron-right"></i> ON / ONT</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">ON</span>
+                            <p class="nature">Pronom personnel sujet (= il, elle, quelqu'un, nous)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>il</em> ou un prénom (ex : Gabriel).</div>
+                            <div class="exemples"><p><span class="highlight">On</span> a gagné ! → <em>Gabriel</em> a gagné ! ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">ONT</span>
+                            <p class="nature">Verbe AVOIR conjugué (3e pers. du pluriel, présent)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>avaient</em> (imparfait).</div>
+                            <div class="exemples"><p>Ils <span class="highlight">ont</span> adopté un chat. → Ils <em>avaient</em> adopté un chat. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SON / SONT -->
+                <div class="expandable-card" id="cat1-4">
+                    <div class="expandable-card-header" onclick="toggleCard('cat1-4')">
+                        <h3><i class="fas fa-chevron-right"></i> SON / SONT</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SON</span>
+                            <p class="nature">Déterminant possessif (masc. singulier) — s'accorde avec le nom qui suit</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ses + nom pluriel</em>.</div>
+                            <div class="exemples"><p>Luc a oublié <span class="highlight">son</span> sac. → Luc a oublié <em>ses</em> sacs. ✅ <span style="color:var(--danger);">⚠️ il s'accorde avec le nom, pas avec le possesseur !</span></p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SONT</span>
+                            <p class="nature">Verbe ÊTRE conjugué (3e pers. du pluriel, présent)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>étaient</em> (imparfait).</div>
+                            <div class="exemples"><p>Mes parents <span class="highlight">sont</span> venus. → Mes parents <em>étaient</em> venus. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 2 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-layer-group"></i>
+                <h3>2. CE / SE, CES / SES, C'EST / S'EST, SAIS / SAIT</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <div class="expandable-card" id="cat2-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat2-1')">
+                        <h3><i class="fas fa-chevron-right"></i> CE / SE</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">CE</span>
+                            <p class="nature">Déterminant démonstratif (devant un nom) ou pronom démonstratif (ce qui, ce que)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ce...-là</em> ou par <em>cela</em>.</div>
+                            <div class="exemples"><p><span class="highlight">Ce</span> livre est passionnant. → <em>Ce livre-là</em> est passionnant. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SE</span>
+                            <p class="nature">Pronom réfléchi (devant un verbe pronominal)</p>
+                            <div class="astuce"><strong>Test :</strong> conjuguer à la 1re personne : <em>se</em> devient <em>me</em>.</div>
+                            <div class="exemples"><p>Il <span class="highlight">se</span> lave. → Je <em>me</em> lave. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat2-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat2-2')">
+                        <h3><i class="fas fa-chevron-right"></i> CES / SES</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">CES</span>
+                            <p class="nature">Déterminant démonstratif pluriel (= ce, cette au pluriel)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ce/cette</em> au singulier, sans idée de possession.</div>
+                            <div class="exemples"><p><span class="highlight">Ces</span> enfants sont sages. → <em>Cet</em> enfant est sage. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SES</span>
+                            <p class="nature">Déterminant possessif pluriel (= son/sa au pluriel)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>son/sa</em> au singulier, avec idée de possession.</div>
+                            <div class="exemples"><p>Il aime <span class="highlight">ses</span> parents. → Il aime <em>son</em> père. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat2-3">
+                    <div class="expandable-card-header" onclick="toggleCard('cat2-3')">
+                        <h3><i class="fas fa-chevron-right"></i> C'EST / S'EST</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">C'EST</span>
+                            <p class="nature">CE (pronom démonstratif) + EST (verbe être)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>cela est</em>.</div>
+                            <div class="exemples"><p><span class="highlight">C'est</span> magnifique. → <em>Cela est</em> magnifique. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">S'EST</span>
+                            <p class="nature">SE (pronom réfléchi) + EST (verbe être, auxiliaire d'un verbe pronominal au passé composé)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>je me suis</em> (1re personne).</div>
+                            <div class="exemples"><p>Il <span class="highlight">s'est</span> levé tôt. → Je <em>me suis</em> levé tôt. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat2-4">
+                    <div class="expandable-card-header" onclick="toggleCard('cat2-4')">
+                        <h3><i class="fas fa-chevron-right"></i> SAIS / SAIT / SES / C'EST — le groupe SAVOIR</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SAIS / SAIT</span>
+                            <p class="nature">Verbe SAVOIR conjugué au présent (je/tu sais, il/elle sait)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>savais/savait</em> (imparfait). Si le sens de "connaître, avoir la connaissance de" fonctionne, c'est le verbe savoir.</div>
+                            <div class="exemples"><p>Je <span class="highlight">sais</span> la réponse. → Je <em>savais</em> la réponse. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">CENSÉ(E)(S)</span>
+                            <p class="nature">Adjectif : "supposé faire quelque chose"</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>supposé</em>.</div>
+                            <div class="exemples"><p>Elle est <span class="highlight">censée</span> arriver demain. → Elle est <em>supposée</em> arriver demain. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SENSÉ(E)(S)</span>
+                            <p class="nature">Adjectif : "raisonnable, qui a du sens"</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>raisonnable</em>.</div>
+                            <div class="exemples"><p>Il a pris une décision <span class="highlight">sensée</span>. → Il a pris une décision <em>raisonnable</em>. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 3 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>3. LA / L'A(S) / LÀ  —  ÇA / SA / ÇÀ</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <div class="expandable-card" id="cat3-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat3-1')">
+                        <h3><i class="fas fa-chevron-right"></i> LA / L'A(S) / LÀ</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">LA</span>
+                            <p class="nature">Article défini (devant un nom) ou pronom personnel COD (devant un verbe)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>une</em> (article) ou par <em>le</em> (pronom masculin).</div>
+                            <div class="exemples"><p>Je vois <span class="highlight">la</span> maison. → Je vois <em>une</em> maison. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">L'A / L'AS</span>
+                            <p class="nature">Pronom L' + verbe AVOIR (l'a = il a ; l'as = tu as)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>l'avait / l'avais</em>.</div>
+                            <div class="exemples"><p>Il <span class="highlight">l'a</span> vu. → Il <em>l'avait</em> vu. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">LÀ</span>
+                            <p class="nature">Adverbe de lieu</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ici</em>.</div>
+                            <div class="exemples"><p>Pose-le <span class="highlight">là</span>. → Pose-le <em>ici</em>. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat3-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat3-2')">
+                        <h3><i class="fas fa-chevron-right"></i> ÇA / SA / ÇÀ</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">ÇA</span>
+                            <p class="nature">Pronom démonstratif (= cela)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>cela</em>.</div>
+                            <div class="exemples"><p><span class="highlight">Ça</span> me plaît. → <em>Cela</em> me plaît. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SA</span>
+                            <p class="nature">Déterminant possessif féminin singulier</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ma</em> ou <em>ses + nom pluriel</em>.</div>
+                            <div class="exemples"><p>Il aime <span class="highlight">sa</span> sœur. → Il aime <em>ses</em> sœurs. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">ÇÀ</span>
+                            <p class="nature">Adverbe, très rare, uniquement dans l'expression « çà et là »</p>
+                            <div class="astuce"><strong>Astuce :</strong> le seul cas où « çà » (accent grave) existe est dans « çà et là ». Partout ailleurs, c'est « ça ».</div>
+                            <div class="exemples"><p>Des feuilles volaient <span class="highlight">çà</span> et là.</p></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 4 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-users"></i>
+                <h3>4. LEUR / LEURS  —  QUEL(S) / QUELLE(S) / QU'ELLE(S)</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <div class="expandable-card" id="cat4-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat4-1')">
+                        <h3><i class="fas fa-chevron-right"></i> LEUR / LEURS</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">LEUR</span>
+                            <p class="nature">Pronom personnel invariable (devant un verbe, = "à eux/elles") OU déterminant possessif singulier</p>
+                            <div class="astuce"><strong>Test pronom :</strong> remplacer par <em>lui</em>. Jamais de -s dans ce cas !<br><strong>Test déterminant :</strong> remplacer par <em>ma/mon</em> (un seul possesseur, un seul objet).</div>
+                            <div class="exemples">
+                                <p>Je <span class="highlight">leur</span> ai menti. → Je <em>lui</em> ai menti. ✅ (pronom, invariable)</p>
+                                <p>Ils aiment <span class="highlight">leur</span> maison. → Ils aiment <em>leurs</em> maisons. ✅ (déterminant, ici singulier car une seule maison)</p>
+                            </div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">LEURS</span>
+                            <p class="nature">Déterminant possessif pluriel (plusieurs objets possédés)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>mes</em> (plusieurs objets).</div>
+                            <div class="exemples"><p>Ils s'aiment de tout <span class="highlight">leur</span> cœur (un seul cœur chacun → singulier) / Ils ont apporté <span class="highlight">leurs</span> affaires. → <em>mes</em> affaires ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat4-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat4-2')">
+                        <h3><i class="fas fa-chevron-right"></i> QUEL(S) / QUELLE(S) / QU'ELLE(S)</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">QUEL / QUELS / QUELLE / QUELLES</span>
+                            <p class="nature">Déterminant interrogatif ou exclamatif (devant un nom, s'accorde avec lui)</p>
+                            <div class="astuce"><strong>Test :</strong> il est directement suivi d'un nom, jamais de "elle(s)".</div>
+                            <div class="exemples"><p><span class="highlight">Quelle</span> heure est-il ? / <span class="highlight">Quel</span> beau temps !</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">QU'ELLE / QU'ELLES</span>
+                            <p class="nature">Conjonction QUE + pronom ELLE(S)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer "elle(s)" par "il(s)" : ça doit rester grammatical → "qu'il(s)".</div>
+                            <div class="exemples"><p>Je pense <span class="highlight">qu'elle</span> viendra. → Je pense <em>qu'il</em> viendra. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 5 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-utensils"></i>
+                <h3>5. MES / MAIS / MET(S) / M'EST  —  CEUX / CE / SE</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <div class="expandable-card" id="cat5-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat5-1')">
+                        <h3><i class="fas fa-chevron-right"></i> MES / MAIS / MET(S) / M'EST</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">MES</span>
+                            <p class="nature">Déterminant possessif pluriel</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ses</em> ou <em>ces</em>.</div>
+                            <div class="exemples"><p>J'ai perdu <span class="highlight">mes</span> clés. → <em>ses</em> clés ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">MAIS</span>
+                            <p class="nature">Conjonction de coordination (opposition)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>cependant, pourtant</em>.</div>
+                            <div class="exemples"><p>Il pleut, <span class="highlight">mais</span> je sors. → Il pleut, <em>cependant</em> je sors. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">MET / METS</span>
+                            <p class="nature">Verbe METTRE conjugué (je mets, tu mets, il met)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>mettais/mettait</em> (imparfait).</div>
+                            <div class="exemples"><p>Il <span class="highlight">met</span> la table. → Il <em>mettait</em> la table. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">M'EST</span>
+                            <p class="nature">Pronom M' + verbe ÊTRE</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>m'était</em>.</div>
+                            <div class="exemples"><p>Cela <span class="highlight">m'est</span> égal. → Cela <em>m'était</em> égal. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat5-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat5-2')">
+                        <h3><i class="fas fa-chevron-right"></i> CEUX / CE / SE</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">CEUX</span>
+                            <p class="nature">Pronom démonstratif pluriel masculin (= "ceux-là", "ces personnes/choses")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>celui</em> (singulier).</div>
+                            <div class="exemples"><p><span class="highlight">Ceux</span> qui veulent venir lèvent la main. → <em>Celui</em> qui veut venir. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">CE</span>
+                            <p class="nature">Déterminant ou pronom démonstratif (voir catégorie 2)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>ce...-là / cela</em>.</div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SE</span>
+                            <p class="nature">Pronom réfléchi (voir catégorie 2)</p>
+                            <div class="astuce"><strong>Test :</strong> conjuguer à la 1re personne → devient "me".</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 6 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-coins"></i>
+                <h3>6. DANS / D'EN  —  C'EN / S'EN / SANS / CENT</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <div class="expandable-card" id="cat6-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat6-1')">
+                        <h3><i class="fas fa-chevron-right"></i> DANS / D'EN</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">DANS</span>
+                            <p class="nature">Préposition de lieu (= "à l'intérieur de")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>à l'intérieur de</em>.</div>
+                            <div class="exemples"><p>Il est <span class="highlight">dans</span> la maison. → Il est <em>à l'intérieur de</em> la maison. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">D'EN</span>
+                            <p class="nature">Préposition DE + pronom EN (devant un verbe)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>de + verbe + cela</em>.</div>
+                            <div class="exemples"><p>Il vient <span class="highlight">d'en</span> parler. → Il vient <em>de parler de cela</em>. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat6-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat6-2')">
+                        <h3><i class="fas fa-chevron-right"></i> C'EN / S'EN / SANS / CENT</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">C'EN</span>
+                            <p class="nature">CE + EN (= "cela, de cela")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>cela en</em> ou <em>c'est de cela</em>.</div>
+                            <div class="exemples"><p><span class="highlight">C'en</span> est trop ! → <em>Cela</em> en est trop ! ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">S'EN</span>
+                            <p class="nature">Pronom réfléchi SE + EN (devant un verbe pronominal)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>se + verbe + de cela</em>.</div>
+                            <div class="exemples"><p>Il <span class="highlight">s'en</span> souvient. → Il se souvient <em>de cela</em>. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">SANS</span>
+                            <p class="nature">Préposition (= absence, contraire de "avec")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>en l'absence de</em>.</div>
+                            <div class="exemples"><p>Il part <span class="highlight">sans</span> moi. → Il part <em>en l'absence de</em> moi. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">CENT</span>
+                            <p class="nature">Adjectif numéral (= le nombre 100)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par un autre nombre (ex : deux cents).</div>
+                            <div class="exemples"><p>Il a <span class="highlight">cent</span> euros. → Il a <em>deux cents</em> euros. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 7 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-clock"></i>
+                <h3>7. QUAND / QU'EN / QUANT / QU'ON  —  TEMPS / TEND / T'EN / TANT</h3>
+            </div>
+            <div class="expandable-cards">
+
+                <div class="expandable-card" id="cat7-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat7-1')">
+                        <h3><i class="fas fa-chevron-right"></i> QUAND / QU'EN / QUANT (À) / QU'ON</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">QUAND</span>
+                            <p class="nature">Adverbe ou conjonction de temps (= "lorsque")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>lorsque</em>.</div>
+                            <div class="exemples"><p><span class="highlight">Quand</span> tu arrives, préviens-moi. → <em>Lorsque</em> tu arrives... ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">QU'EN</span>
+                            <p class="nature">Conjonction QUE + pronom EN</p>
+                            <div class="astuce"><strong>Test :</strong> décomposer en "que" + "en" (= de cela).</div>
+                            <div class="exemples"><p>Je crois <span class="highlight">qu'en</span> hiver il fait froid. → Je crois <em>que</em>, <em>en</em> hiver...</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">QUANT (à)</span>
+                            <p class="nature">Locution figée "quant à" (= "en ce qui concerne")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>en ce qui concerne</em>. Toujours suivi de "à".</div>
+                            <div class="exemples"><p><span class="highlight">Quant à</span> moi, je reste. → <em>En ce qui concerne</em> moi, je reste. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">QU'ON</span>
+                            <p class="nature">Conjonction QUE + pronom ON</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer "on" par "il" : ça doit fonctionner.</div>
+                            <div class="exemples"><p>Il faut <span class="highlight">qu'on</span> parte. → Il faut <em>qu'il</em> parte. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expandable-card" id="cat7-2">
+                    <div class="expandable-card-header" onclick="toggleCard('cat7-2')">
+                        <h3><i class="fas fa-chevron-right"></i> TEMPS / TEND / T'EN / TANT</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">TEMPS</span>
+                            <p class="nature">Nom masculin (durée, météo)</p>
+                            <div class="astuce"><strong>Test :</strong> on peut mettre "le/un" devant, et le mettre au pluriel "des temps".</div>
+                            <div class="exemples"><p>Je n'ai pas le <span class="highlight">temps</span>.</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">TEND</span>
+                            <p class="nature">Verbe TENDRE conjugué (il/elle tend)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>tendait</em> (imparfait) ou par un autre verbe du 3e groupe comme "tire".</div>
+                            <div class="exemples"><p>Il <span class="highlight">tend</span> la main. → Il <em>tendait</em> la main. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">T'EN</span>
+                            <p class="nature">Pronom T' (te) + pronom EN</p>
+                            <div class="astuce"><strong>Test :</strong> "tu" devant, remplacer par "t'en" = "te + de cela".</div>
+                            <div class="exemples"><p>Tu <span class="highlight">t'en</span> souviens ? → Tu te souviens <em>de cela</em> ? ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">TANT</span>
+                            <p class="nature">Adverbe de quantité (= "tellement")</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>tellement</em>.</div>
+                            <div class="exemples"><p>Il a <span class="highlight">tant</span> travaillé ! → Il a <em>tellement</em> travaillé ! ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==================== CATÉGORIE 8 ==================== -->
+        <div class="categorie-block">
+            <div class="categorie-header">
+                <i class="fas fa-eye"></i>
+                <h3>8. VOIS / VOIE / VOIX / VOIT</h3>
+            </div>
+            <div class="expandable-cards">
+                <div class="expandable-card" id="cat8-1">
+                    <div class="expandable-card-header" onclick="toggleCard('cat8-1')">
+                        <h3><i class="fas fa-chevron-right"></i> VOIS / VOIE / VOIX / VOIT</h3>
+                        <i class="fas fa-chevron-down expand-icon"></i>
+                    </div>
+                    <div class="expandable-card-content">
+                        <div class="homophone-item">
+                            <span class="homophone-mot">VOIS</span>
+                            <p class="nature">Verbe VOIR conjugué (je vois, tu vois)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>voyais</em> (imparfait).</div>
+                            <div class="exemples"><p>Je <span class="highlight">vois</span> la mer. → Je <em>voyais</em> la mer. ✅</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">VOIE</span>
+                            <p class="nature">Nom féminin (= chemin, route) OU verbe VOIR au subjonctif</p>
+                            <div class="astuce"><strong>Test nom :</strong> on peut mettre "une/la" devant.<br><strong>Test verbe :</strong> il y a "que" devant, remplacer par "que je voyais" au sens large.</div>
+                            <div class="exemples"><p>Il roule sur la <span class="highlight">voie</span> rapide. (nom) / Il faut qu'il <span class="highlight">voie</span> un médecin. (verbe)</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">VOIX</span>
+                            <p class="nature">Nom féminin (= la parole, le son émis)</p>
+                            <div class="astuce"><strong>Test :</strong> on peut mettre "une/la" devant, lié à la parole ou au vote.</div>
+                            <div class="exemples"><p>Elle a une belle <span class="highlight">voix</span>.</p></div>
+                        </div>
+                        <div class="homophone-item">
+                            <span class="homophone-mot">VOIT</span>
+                            <p class="nature">Verbe VOIR conjugué (il/elle voit)</p>
+                            <div class="astuce"><strong>Test :</strong> remplacer par <em>voyait</em> (imparfait).</div>
+                            <div class="exemples"><p>Il <span class="highlight">voit</span> loin. → Il <em>voyait</em> loin. ✅</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box" style="margin-top:10px;">
+            <h4><i class="fas fa-graduation-cap"></i> La méthode à retenir pour tous les homophones</h4>
+            <p>1) J'identifie les mots qui se prononcent pareil dans la phrase.</p>
+            <p>2) Je me demande <strong>quelle est la nature</strong> de chaque candidat (verbe ? nom ? déterminant ? pronom ?).</p>
+            <p>3) J'applique le <strong>test de remplacement</strong> propre à cet homophone (changer de temps, de personne, remplacer par un synonyme...).</p>
+            <p>4) Si le remplacement fonctionne dans la phrase, j'ai trouvé la bonne orthographe !</p>
+        </div>
+    </section>
+
+    <!-- ======================== PIÈGES ======================== -->
+    <section id="pieges" class="content-section">
+        <h1><i class="fas fa-exclamation-triangle"></i> Pièges à éviter</h1>
+
+        <div class="warning-box">
+            <h4><i class="fas fa-lightbulb"></i> Les erreurs les plus fréquentes au brevet</h4>
+            <p>Ces pièges reviennent très souvent en dictée et en rédaction. Vérifie-les systématiquement lors de ta relecture !</p>
+        </div>
+
+        <div class="exceptions-grid">
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> SON accordé avec le possesseur au lieu du nom</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>❌ Erreur : penser que "son" varie selon si le possesseur est un homme ou une femme.</p>
+                    <p>✅ "Son" et "sa" s'accordent avec le <strong>nom qui suit</strong>, pas avec le genre du possesseur.</p>
+                    <p>Marie a perdu <span class="highlight">son</span> stylo. (stylo = masculin → son, même si Marie est une femme)</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> LEUR avec un -s alors qu'il est pronom</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>❌ "Je leurs ai dit" est une faute très fréquente.</p>
+                    <p>✅ Quand "leur" est <strong>pronom</strong> (placé devant un verbe, remplaçable par "lui"), il est <strong>toujours invariable</strong> : jamais de -s !</p>
+                    <p>Je <span class="highlight">leur</span> ai dit. (= je lui ai dit) → pas de -s</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Confondre CES et SES</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p><strong>CES</strong> = pas d'idée de possession, on montre du doigt (= ce/cette au pluriel).</p>
+                    <p><strong>SES</strong> = idée de possession (= son/sa au pluriel).</p>
+                    <p><span class="highlight">Ces</span> chaussures sont neuves (je les montre) / Il a mis <span class="highlight">ses</span> chaussures (les siennes).</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Oublier l'apostrophe dans QU'ELLE / QU'EN / C'EST...</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>Beaucoup d'homophones sont en réalité <strong>deux mots</strong> réunis par une apostrophe (élision du "e" de "que", "ce", "se"...). Pense à toujours décomposer : qu'elle = que + elle ; c'est = ce + est ; s'en = se + en.</p>
+                    <p>Cette décomposition est la clé du test de remplacement.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> A / À : le piège du verbe avoir muet</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p>À l'oral, on ne fait pas la différence, donc on l'oublie facilement à l'écrit.</p>
+                    <p><strong>Réflexe systématique :</strong> à chaque "a" rencontré, teste mentalement "avait". Si ça marche → pas d'accent. Si ça ne marche pas → accent grave.</p>
+                </div>
+            </div>
+
+            <div class="exception-card" onclick="this.classList.toggle('expanded')">
+                <div class="exception-card-header">
+                    <h3><i class="fas fa-times-circle"></i> Confondre CENSÉ et SENSÉ</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="exception-card-content">
+                    <p><strong>Censé</strong> (avec un C) = supposé faire quelque chose.</p>
+                    <p><strong>Sensé</strong> (avec un S) = qui a du sens, raisonnable.</p>
+                    <p>Nul n'est <span class="highlight">censé</span> ignorer la loi. / C'est une remarque <span class="highlight">sensée</span>.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================== CARTE MENTALE ======================== -->
+    <section id="carte" class="content-section">
+        <h1><i class="fas fa-project-diagram"></i> Carte mentale</h1>
+        <p style="margin-bottom:20px;">Clique sur l'image pour l'agrandir. Cette carte résume la quasi-totalité des homophones vus dans la leçon.</p>
+
+        <div class="mindmap-grid">
+            <div class="mindmap-card">
+                <h3><i class="fas fa-lightbulb"></i> Super carte mentale des homophones</h3>
+                <img src="assets/img/carte-mentale-homophones.jpg" alt="Carte mentale des homophones" onclick="openModal(this.src)">
+                <button class="btn-download" onclick="downloadImage('assets/img/carte-mentale-homophones.jpg', 'carte-mentale-homophones.jpg')">
+                    <i class="fas fa-download"></i> Télécharger
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================== FICHE DE RÉVISION ======================== -->
+    <section id="fiche" class="content-section">
+        <h1><i class="fas fa-file-alt"></i> Créer ma fiche de révision</h1>
+
+        <div class="customize-section">
+            <h2 style="color:var(--primary); margin-bottom:20px; border:none;"><i class="fas fa-sliders-h"></i> Personnalise ta fiche</h2>
+
+            <div class="customize-grid">
+                <div class="customize-option">
+                    <h3><i class="fas fa-star"></i> Les indispensables</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-a-a" checked> A / À</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-et-est" checked> Et / est / ai / aie / es</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-on-ont" checked> On / ont</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-son-sont" checked> Son / sont</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-layer-group"></i> CE / SE / SAVOIR</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-ce-se" checked> Ce / se</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-ces-ses" checked> Ces / ses</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-cest-sest" checked> C'est / s'est</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-sais-sait" checked> Sais / sait / censé / sensé</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-map-marker-alt"></i> LA / ÇA</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-la-la" checked> La / l'a(s) / là</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-ca-sa" checked> Ça / sa / çà</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-users"></i> LEUR / QUEL</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-leur" checked> Leur / leurs</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-quel" checked> Quel(s) / quelle(s) / qu'elle(s)</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-utensils"></i> MES / CEUX</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-mes" checked> Mes / mais / met(s) / m'est</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-ceux" checked> Ceux / ce / se</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-coins"></i> DANS / SANS</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-dans" checked> Dans / d'en</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-sans" checked> C'en / s'en / sans / cent</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-clock"></i> QUAND / TEMPS</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-quand" checked> Quand / qu'en / quant / qu'on</label>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-temps" checked> Temps / tend / t'en / tant</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-eye"></i> VOIR</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-vois" checked> Vois / voie / voix / voit</label>
+                </div>
+
+                <div class="customize-option">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Pièges</h3>
+                    <label class="checkbox-simple"><input type="checkbox" id="check-pieges" checked> Les 6 pièges principaux</label>
+                </div>
+            </div>
+
+            <div class="btn-group" style="margin-top:25px; justify-content:center;">
+                <button class="btn btn-accent" onclick="generatePreview()"><i class="fas fa-eye"></i> Aperçu</button>
+                <button class="btn btn-success" onclick="exportPDF()"><i class="fas fa-file-pdf"></i> Télécharger en PDF</button>
+            </div>
+        </div>
+
+        <div id="fichePreview" class="fiche-compacte" style="display:none;"></div>
+    </section>
+
+    <!-- ======================== RESSOURCES ======================== -->
+    <section id="ressources" class="content-section">
+        <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+
+        <div class="ressources-grid">
+
+            <div class="ressource-card">
+                <h3><i class="fab fa-youtube" style="color:#ff0000;"></i> Vidéos</h3>
+                <a href="https://www.youtube.com/results?search_query=fran%C3%A7ais+les+homophones" class="ressource-link" target="_blank">Recherche YouTube : les homophones</a>
+                <a href="https://www.youtube.com/watch?v=N8K2aHWjRTM" class="ressource-link" target="_blank">Maîtrisez les homophones ! (3/4)</a>
+                <a href="https://www.youtube.com/watch?v=utv1opXVZsI" class="ressource-link" target="_blank">10 astuces pour améliorer son écrit</a>
+            </div>
+
+            <div class="ressource-card">
+                <h3><i class="fas fa-pencil-alt"></i> Exercices</h3>
+                <a href="https://www.ortholud.com/exercices_de_grammaire_3.html" class="ressource-link" target="_blank">Ortholud — Homonymes et homophones</a>
+                <a href="https://www.francaisfacile.com/cours_francais/exercices-homophone" class="ressource-link" target="_blank">Français Facile — Exercices</a>
+                <a href="https://ameliofrancais.ccdmd.qc.ca/collections/39/homophones" class="ressource-link" target="_blank">Amélioration du français — Collection Homophones</a>
+                <a href="https://francais.lingolia.com/fr/vocabulaire/mots-a-ne-pas-confondre/homophones-grammaticaux/exercices" class="ressource-link" target="_blank">Lingolia — Homophones grammaticaux</a>
+            </div>
+
+            <div class="ressource-card">
+                <h3><i class="fas fa-gamepad"></i> Jeux et quiz</h3>
+                <a href="https://www.lumni.fr/jeu/les-homophones-ses-ces-s-est-c-est-sait" class="ressource-link" target="_blank">Lumni — Ses/ces/s'est/c'est/sait/sais</a>
+                <a href="https://www.logicieleducatif.fr/jeu/orthographe-et-est" class="ressource-link" target="_blank">LogicielEducatif — Et / est</a>
+                <a href="https://jeux.ieducatif.fr/jeu-educatif/jeux-cm1/homophones-et-est-son-sont-189/" class="ressource-link" target="_blank">Et/est, son/sont — jeu</a>
+            </div>
+
+            <div class="ressource-card jeu-card">
+                <h3><i class="fas fa-rocket"></i> Grand jeu</h3>
+                <p style="margin-bottom:10px; color:#555;">Un jeu complet pour t'entraîner sur tous les homophones en t'amusant !</p>
+                <a href="https://godzilla-maitre-des-homophones.netlify.app/" class="ressource-link" target="_blank">
+                    <i class="fas fa-dragon"></i> Godzilla : Protocole Titan
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal(event)">&times;</button>
+        <img id="modalImage" src="" alt="">
+        <a id="modalDownloadLink" href="#" download class="modal-download"><i class="fas fa-download"></i> Télécharger</a>
+    </div>
+</div>
+
+<script>
+    let audioPlaying = false;
+
+    // ===== ONGLETS =====
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.tab');
+        const ids = ['lecon','pieges','carte','fiche','ressources'];
+        const sections = {};
+        ids.forEach(id => { sections[id] = document.getElementById(id); });
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                tabs.forEach(t => t.classList.remove('active'));
+                Object.values(sections).forEach(s => { if (s) s.classList.remove('active'); });
+                this.classList.add('active');
+                const t = this.getAttribute('data-target');
+                if (sections[t]) sections[t].classList.add('active');
+            });
+        });
+        if (sections.lecon) sections.lecon.classList.add('active');
+    });
+
+    // ===== ACCORDÉONS =====
+    function toggleCard(id) {
+        const c = document.getElementById(id);
+        if (c) c.classList.toggle('expanded');
+    }
+
+    // ===== DYS =====
+    let dysActive = false;
+    document.getElementById('dysToggle').addEventListener('click', function(e) {
+        e.preventDefault();
+        dysActive = !dysActive;
+        document.body.classList.toggle('dys-mode', dysActive);
+        this.innerHTML = dysActive ? '<i class="fas fa-eye-slash"></i> Mode Standard' : '<i class="fas fa-eye"></i> Mode Dys';
+    });
+
+    // ===== AUDIO =====
+    function toggleAudio() {
+        if (audioPlaying) {
+            window.speechSynthesis.cancel();
+            audioPlaying = false;
+            document.getElementById('audioIcon').className = 'fas fa-volume-up';
+            return;
+        }
+        const section = document.querySelector('.content-section.active');
+        let text = section ? (section.querySelector('h1')?.textContent || '') + '. ' : '';
+        section?.querySelectorAll('p, h3').forEach(el => { text += el.textContent + '. '; });
+        const u = new SpeechSynthesisUtterance(text.substring(0, 3000));
+        u.lang = 'fr-FR'; u.rate = 0.9;
+        u.onend = () => { audioPlaying = false; document.getElementById('audioIcon').className = 'fas fa-volume-up'; };
+        u.onerror = () => { audioPlaying = false; document.getElementById('audioIcon').className = 'fas fa-volume-up'; };
+        window.speechSynthesis.speak(u);
+        audioPlaying = true;
+        document.getElementById('audioIcon').className = 'fas fa-volume-mute';
+    }
+
+    // ===== MODAL =====
+    function openModal(src) {
+        document.getElementById('modalImage').src = src;
+        const dl = document.getElementById('modalDownloadLink');
+        dl.href = src; dl.download = src.split('/').pop();
+        document.getElementById('imageModal').classList.add('active');
+    }
+    function closeModal(event) {
+        if (event.target === document.getElementById('imageModal') || event.target.classList.contains('modal-close')) {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('imageModal').classList.remove('active'); });
+    function downloadImage(src, filename) {
+        const a = document.createElement('a'); a.href = src; a.download = filename;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+    // ===== FICHE DE RÉVISION =====
+    function generatePreview() {
+        let html = '<h2>📝 Les homophones — Fiche de révision</h2>';
+
+        if (document.getElementById('check-a-a')?.checked) {
+            html += `<div class="section"><h3>A / À</h3><p><strong>A</strong> = avait (verbe avoir) | <strong>À</strong> = préposition (pas de remplacement possible par "avait")</p></div>`;
+        }
+        if (document.getElementById('check-et-est')?.checked) {
+            html += `<div class="section"><h3>Et / Est / Ai / Aie / Es</h3><p><strong>Et</strong> = et puis | <strong>Est</strong> = était | <strong>Ai</strong> = avais (je) | <strong>Aie/Aies/Ait</strong> = subjonctif avoir | <strong>Es</strong> = étais (tu)</p></div>`;
+        }
+        if (document.getElementById('check-on-ont')?.checked) {
+            html += `<div class="section"><h3>On / Ont</h3><p><strong>On</strong> = il / un prénom | <strong>Ont</strong> = avaient (verbe avoir)</p></div>`;
+        }
+        if (document.getElementById('check-son-sont')?.checked) {
+            html += `<div class="section"><h3>Son / Sont</h3><p><strong>Son</strong> = déterminant possessif (s'accorde avec le nom, ex: ses au pluriel) | <strong>Sont</strong> = étaient (verbe être)</p></div>`;
+        }
+        if (document.getElementById('check-ce-se')?.checked) {
+            html += `<div class="section"><h3>Ce / Se</h3><p><strong>Ce</strong> = ce...-là / cela (démonstratif) | <strong>Se</strong> = me (pronom réfléchi, verbe pronominal)</p></div>`;
+        }
+        if (document.getElementById('check-ces-ses')?.checked) {
+            html += `<div class="section"><h3>Ces / Ses</h3><p><strong>Ces</strong> = ce/cette au pluriel, sans possession | <strong>Ses</strong> = son/sa au pluriel, avec possession</p></div>`;
+        }
+        if (document.getElementById('check-cest-sest')?.checked) {
+            html += `<div class="section"><h3>C'est / S'est</h3><p><strong>C'est</strong> = cela est | <strong>S'est</strong> = je me suis (verbe pronominal au passé composé)</p></div>`;
+        }
+        if (document.getElementById('check-sais-sait')?.checked) {
+            html += `<div class="section"><h3>Sais / Sait / Censé / Sensé</h3><p><strong>Sais/Sait</strong> = savais/savait (verbe savoir) | <strong>Censé</strong> = supposé | <strong>Sensé</strong> = raisonnable</p></div>`;
+        }
+        if (document.getElementById('check-la-la')?.checked) {
+            html += `<div class="section"><h3>La / L'a(s) / Là</h3><p><strong>La</strong> = une (article) / le (pronom) | <strong>L'a/L'as</strong> = l'avait/l'avais | <strong>Là</strong> = ici (lieu)</p></div>`;
+        }
+        if (document.getElementById('check-ca-sa')?.checked) {
+            html += `<div class="section"><h3>Ça / Sa / Çà</h3><p><strong>Ça</strong> = cela | <strong>Sa</strong> = ma / ses (possessif féminin) | <strong>Çà</strong> = uniquement dans "çà et là"</p></div>`;
+        }
+        if (document.getElementById('check-leur')?.checked) {
+            html += `<div class="section"><h3>Leur / Leurs</h3><p><strong>Leur</strong> (pronom) = lui, invariable, jamais de -s | <strong>Leur/Leurs</strong> (déterminant) = mon/mes selon le nombre d'objets possédés</p></div>`;
+        }
+        if (document.getElementById('check-quel')?.checked) {
+            html += `<div class="section"><h3>Quel(s) / Quelle(s) / Qu'elle(s)</h3><p><strong>Quel(s)/Quelle(s)</strong> = déterminant devant un nom, s'accorde | <strong>Qu'elle(s)</strong> = que + elle(s), remplaçable par "qu'il(s)"</p></div>`;
+        }
+        if (document.getElementById('check-mes')?.checked) {
+            html += `<div class="section"><h3>Mes / Mais / Met(s) / M'est</h3><p><strong>Mes</strong> = ses/ces | <strong>Mais</strong> = cependant | <strong>Met/Mets</strong> = mettais (verbe mettre) | <strong>M'est</strong> = m'était</p></div>`;
+        }
+        if (document.getElementById('check-ceux')?.checked) {
+            html += `<div class="section"><h3>Ceux / Ce / Se</h3><p><strong>Ceux</strong> = celui (pluriel) | <strong>Ce</strong> = démonstratif | <strong>Se</strong> = me (réfléchi)</p></div>`;
+        }
+        if (document.getElementById('check-dans')?.checked) {
+            html += `<div class="section"><h3>Dans / D'en</h3><p><strong>Dans</strong> = à l'intérieur de | <strong>D'en</strong> = de + en (de cela)</p></div>`;
+        }
+        if (document.getElementById('check-sans')?.checked) {
+            html += `<div class="section"><h3>C'en / S'en / Sans / Cent</h3><p><strong>C'en</strong> = cela en | <strong>S'en</strong> = se + de cela | <strong>Sans</strong> = en l'absence de | <strong>Cent</strong> = 100</p></div>`;
+        }
+        if (document.getElementById('check-quand')?.checked) {
+            html += `<div class="section"><h3>Quand / Qu'en / Quant (à) / Qu'on</h3><p><strong>Quand</strong> = lorsque | <strong>Qu'en</strong> = que + en | <strong>Quant à</strong> = en ce qui concerne | <strong>Qu'on</strong> = qu'il</p></div>`;
+        }
+        if (document.getElementById('check-temps')?.checked) {
+            html += `<div class="section"><h3>Temps / Tend / T'en / Tant</h3><p><strong>Temps</strong> = nom (durée, météo) | <strong>Tend</strong> = tendait (verbe tendre) | <strong>T'en</strong> = te + de cela | <strong>Tant</strong> = tellement</p></div>`;
+        }
+        if (document.getElementById('check-vois')?.checked) {
+            html += `<div class="section"><h3>Vois / Voie / Voix / Voit</h3><p><strong>Vois/Voit</strong> = voyais/voyait (verbe voir) | <strong>Voie</strong> = nom (chemin) ou subjonctif de voir | <strong>Voix</strong> = nom (parole, vote)</p></div>`;
+        }
+        if (document.getElementById('check-pieges')?.checked) {
+            html += `<div class="section" style="border-left-color: var(--danger); background:#fff5f5;"><h3>⚠️ Pièges</h3>
+            <p>Son/sa s'accordent avec le nom, pas avec le possesseur</p>
+            <p>Leur (pronom) est toujours invariable, jamais de -s</p>
+            <p>Ces (montrer) ≠ Ses (posséder)</p>
+            <p>Décomposer les mots avec apostrophe : qu'elle = que + elle</p>
+            <p>Toujours tester "avait" pour a/à</p>
+            <p>Censé (supposé) ≠ Sensé (raisonnable)</p>
+            </div>`;
+        }
+
+        const preview = document.getElementById('fichePreview');
+        preview.innerHTML = html || '<p style="text-align:center;">Sélectionne des éléments</p>';
+        preview.style.display = 'block';
+        preview.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function exportPDF() {
+        if (!document.getElementById('fichePreview').innerHTML) generatePreview();
+        generatePreview();
+        setTimeout(() => window.print(), 300);
+    }
+
+    // ===== SIDEBAR =====
+    function loadSidebar() {
+        fetch('sidebar.html')
+            .then(r => r.text())
+            .then(data => {
+                document.querySelector('.sidebar').innerHTML = data;
+                document.querySelectorAll('.sidebar li strong').forEach(strong => {
+                    strong.addEventListener('click', e => {
+                        e.preventDefault();
+                        strong.parentElement.classList.toggle('active');
+                    });
+                });
+                const currentPage = 'homophones.html';
+                document.querySelectorAll('.sidebar a').forEach(link => {
+                    if (link.getAttribute('href') === currentPage) {
+                        link.classList.add('active');
+                        let parent = link.closest('li');
+                        if (parent) parent.closest('li')?.classList.add('active');
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                document.getElementById('sidebar').innerHTML = `
+                    <h2><i class="fas fa-graduation-cap"></i> Révisions Brevet</h2>
+                    <p>Français - 3ème</p>
+                    <ul>
+                        <li><a href="menu.html" class="back-link">Retour au menu</a></li>
+                    </ul>
+                `;
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSidebar);
+</script>
+</body>
+</html>
