@@ -882,6 +882,9 @@
             <button class="tab" data-tab="fiche">
                 <i class="fas fa-file-alt"></i> Fiche de révision
             </button>
+            <button class="tab" data-tab="entrainement">
+                <i class="fas fa-dumbbell"></i> Exercices &amp; Jeux
+            </button>
             <button class="tab" data-tab="ressources">
                 <i class="fas fa-external-link-alt"></i> Aller plus loin
             </button>
@@ -1067,9 +1070,9 @@
             <h1><i class="fas fa-project-diagram"></i> Carte mentale</h1>
             <div class="mindmap-container">
                 <div class="mindmap-placeholder">
-                    <img src="assets/img/Carte mentale Classes Grammaticales.png" alt="Carte mentale">
+                    <img src="assets/img/carte-mentale-classes-grammaticales.png" alt="Carte mentale : Les 10 classes grammaticales">
                 </div>
-                <button class="btn btn-primary" onclick="downloadImage('assets/img/Carte mentale Classes Grammaticales.png', 'carte-mentale.png')">
+                <button class="btn btn-primary" onclick="downloadImage('assets/img/carte-mentale-classes-grammaticales.png', 'carte-mentale-classes-grammaticales.png')">
                     <i class="fas fa-download"></i> Télécharger
                 </button>
             </div>
@@ -1117,9 +1120,81 @@
             </div>
         </section>
         
+        <!-- Section EXERCICES & JEUX -->
+        <section id="entrainement" class="content-section">
+            <h1><i class="fas fa-dumbbell"></i> Exercices &amp; Jeux</h1>
+
+            <h2><i class="fas fa-pencil-alt"></i> Exercices</h2>
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-tasks"></i> Catégories de mots</h3>
+                    <p>Identifie la classe grammaticale de chaque mot dans des phrases.</p>
+                    <a href="https://www.salle34.net/categories-de-mots-exercice/" target="_blank" class="ressource-link">
+                        <i class="fas fa-arrow-right"></i> Faire l'exercice
+                    </a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-crosshairs"></i> Repérage grammatical</h3>
+                    <p>Une série d'exercices interactifs de repérage des classes de mots.</p>
+                    <a href="https://reperage.ccdmd.qc.ca/" target="_blank" class="ressource-link">
+                        <i class="fas fa-arrow-right"></i> Faire l'exercice
+                    </a>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 40px;"><i class="fas fa-gamepad"></i> Jeux</h2>
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-dice"></i> Les classes grammaticales</h3>
+                    <p>Un jeu-exercice pour t'entraîner en t'amusant.</p>
+                    <a href="https://www.salle34.net/les-classes-grammaticales-exercice-jeu-2/" target="_blank" class="ressource-link">
+                        <i class="fas fa-play"></i> Jouer
+                    </a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-brain"></i> Mémo grammaire</h3>
+                    <p>Jeu de mémorisation adapté (site conçu pour les élèves DYS).</p>
+                    <a href="https://superdys.neocities.org/jeux_entrainement/memo-grammaire" target="_blank" class="ressource-link">
+                        <i class="fas fa-play"></i> Jouer
+                    </a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-shapes"></i> Nature des mots</h3>
+                    <p>Un autre jeu d'entraînement, également pensé pour les élèves DYS.</p>
+                    <a href="https://superdys.neocities.org/jeux_entrainement/natures" target="_blank" class="ressource-link">
+                        <i class="fas fa-play"></i> Jouer
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Section ALLER PLUS LOIN -->
         <section id="ressources" class="content-section">
             <h1><i class="fas fa-external-link-alt"></i> Aller plus loin</h1>
+
+            <h2><i class="fas fa-video"></i> Vidéos</h2>
+            <div class="ressources-grid">
+                <div class="ressource-card">
+                    <h3><i class="fas fa-video"></i> Les classes grammaticales</h3>
+                    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--border-radius);margin-bottom:15px;">
+                        <iframe src="https://www.youtube.com/embed/MDwT7SS2rTg" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" title="Vidéo - Les classes grammaticales" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=MDwT7SS2rTg" target="_blank" class="ressource-link">
+                        <i class="fab fa-youtube"></i> Voir sur YouTube
+                    </a>
+                </div>
+                <div class="ressource-card">
+                    <h3><i class="fas fa-video"></i> Nature et fonction des mots</h3>
+                    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--border-radius);margin-bottom:15px;">
+                        <iframe src="https://www.youtube.com/embed/_X8h2PxJEnU" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" title="Vidéo - Nature et fonction des mots" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=_X8h2PxJEnU" target="_blank" class="ressource-link">
+                        <i class="fab fa-youtube"></i> Voir sur YouTube
+                    </a>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 40px;"><i class="fas fa-link"></i> Autres ressources</h2>
             <div class="ressources-grid">
                 <div class="ressource-card">
                     <h3><i class="fas fa-video"></i> Vidéos</h3>
