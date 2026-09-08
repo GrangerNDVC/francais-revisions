@@ -877,7 +877,7 @@
                 <i class="fas fa-exclamation-triangle"></i> Pièges
             </button>
             <button class="tab" data-tab="carte">
-                <i class="fas fa-project-diagram"></i> Carte mentale
+                <i class="fas fa-project-diagram"></i> Cartes mentales
             </button>
             <button class="tab" data-tab="fiche">
                 <i class="fas fa-file-alt"></i> Fiche de révision
@@ -1067,12 +1067,34 @@
         
         <!-- Section CARTE MENTALE -->
         <section id="carte" class="content-section">
-            <h1><i class="fas fa-project-diagram"></i> Carte mentale</h1>
+            <h1><i class="fas fa-project-diagram"></i> Cartes mentales</h1>
+
+            <h2><i class="fas fa-sitemap"></i> Vue d'ensemble des 10 classes</h2>
             <div class="mindmap-container">
                 <div class="mindmap-placeholder">
                     <img src="assets/img/carte-mentale-classes-grammaticales.png" alt="Carte mentale : Les 10 classes grammaticales">
                 </div>
                 <button class="btn btn-primary" onclick="downloadImage('assets/img/carte-mentale-classes-grammaticales.png', 'carte-mentale-classes-grammaticales.png')">
+                    <i class="fas fa-download"></i> Télécharger
+                </button>
+            </div>
+
+            <h2 style="margin-top: 40px;"><i class="fas fa-project-diagram"></i> Arborescence détaillée</h2>
+            <div class="mindmap-container">
+                <div class="mindmap-placeholder">
+                    <img src="assets/img/carte-mentale-arbre-classes.png" alt="Arborescence détaillée des 10 classes grammaticales">
+                </div>
+                <button class="btn btn-primary" onclick="downloadImage('assets/img/carte-mentale-arbre-classes.png', 'carte-mentale-arbre-classes.png')">
+                    <i class="fas fa-download"></i> Télécharger
+                </button>
+            </div>
+
+            <h2 style="margin-top: 40px;"><i class="fas fa-question-circle"></i> Comment identifier une classe grammaticale ?</h2>
+            <div class="mindmap-container">
+                <div class="mindmap-placeholder">
+                    <img src="assets/img/carte-mentale-identifier-classe.png" alt="Comment identifier la classe grammaticale d'un mot">
+                </div>
+                <button class="btn btn-primary" onclick="downloadImage('assets/img/carte-mentale-identifier-classe.png', 'carte-mentale-identifier-classe.png')">
                     <i class="fas fa-download"></i> Télécharger
                 </button>
             </div>
